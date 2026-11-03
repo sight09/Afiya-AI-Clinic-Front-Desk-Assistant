@@ -221,6 +221,7 @@ export type PatientProfileData = {
   insurancePolicyNumber?: string;
   medicalHistory?: string;
   profileId?: string;
+  updatedAt?: string;
 };
 
 export type AppNotification = {
@@ -245,6 +246,37 @@ export type ProviderProfile = {
   contactEmail: string;
   workingHours: string;
   openSlotsCount: number;
+};
+
+const PATIENT_TAB_INFO: Record<string, { title: string; subtitle: string }> = {
+  appointments: {
+    title: "Appointments & Schedule Status",
+    subtitle: "Upcoming consultations, clinical booking history, and provider assignments.",
+  },
+  records: {
+    title: "Clinical History & Records",
+    subtitle: "Past consultation summaries, physician diagnoses, vitals, and electronic prescriptions.",
+  },
+  billing: {
+    title: "Billing, Invoices & Receipts",
+    subtitle: "Healthcare invoices, consultation fees, payment receipts, and balance status.",
+  },
+  profile: {
+    title: "Digital Health Card & Profile",
+    subtitle: "Official patient medical pass, emergency contacts, insurance, and clinical demographics.",
+  },
+  clinic: {
+    title: "Certified Physicians Directory",
+    subtitle: "Browse specialist doctors, consultation suites, practice hours, and booking fees.",
+  },
+  notifications: {
+    title: "Notification Inbox",
+    subtitle: "Appointment confirmations, clinical reminders, and administrative updates.",
+  },
+  safety: {
+    title: "Clinical AI Guardrails",
+    subtitle: "Active medical safety protocols, AI boundaries, and patient privacy guarantees.",
+  },
 };
 
 const QUICK_PROMPTS = [
@@ -422,10 +454,7 @@ export function PatientPortal({
     }
   }
 
-  // Profile edit state
-  const [editProfile, setEditProfile] = useState<Partial<PatientProfileData>>({});
-  const [profileSaving, setProfileSaving] = useState(false);
-  const [profileSavedMsg, setProfileSavedMsg] = useState(false);
+  // Profile is read-only in patient mode. Edits are handled by clinic reception.
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -450,7 +479,6 @@ export function PatientPortal({
       setInvoicesList(billRes.invoices ?? []);
       if (profRes.patient) {
         setProfile(profRes.patient);
-        setEditProfile(profRes.patient);
       }
       setNotificationsList(notifRes.notifications ?? []);
       setUnreadNotifications(notifRes.unreadCount ?? 0);
@@ -729,59 +757,7 @@ export function PatientPortal({
     }
   }
 
-  async function handleProfileSave(e: React.FormEvent) {
-    e.preventDefault();
-    setProfileSaving(true);
-    try {
-      const payload = {
-        name: editProfile.name || undefined,
-        phone: editProfile.phone || "",
-        dateOfBirth: editProfile.dateOfBirth || "",
-        gender: editProfile.gender || "unspecified",
-        address: editProfile.address || "",
-        bloodGroup: editProfile.bloodGroup || "",
-        allergies: editProfile.allergies || "",
-        emergencyContactName: editProfile.emergencyContactName || "",
-        emergencyContactPhone: editProfile.emergencyContactPhone || "",
-        insuranceProvider: editProfile.insuranceProvider || "",
-        insurancePolicyNumber: editProfile.insurancePolicyNumber || "",
-        medicalHistory: editProfile.medicalHistory || "",
-      };
 
-      const res = await fetch("/api/patient/profile", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        // Immediately reflect changes on Digital Health Card and across the portal
-        setProfile((prev) => ({
-          ...(prev || {}),
-          ...payload,
-          id: prev?.id || "AF-001",
-          email: prev?.email || currentUser?.email || "patient@afiya.clinic",
-          role: prev?.role || "patient",
-          profileId: prev?.profileId || "PID-1",
-        } as PatientProfileData));
-
-        if (payload.name && currentUser) {
-          currentUser.name = payload.name;
-        }
-
-        setProfileSavedMsg(true);
-        setTimeout(() => setProfileSavedMsg(false), 4000);
-        await refreshAllData();
-      } else {
-        const errData = await res.json().catch(() => null);
-        alert(errData?.error?.message || "Failed to save profile. Please check all fields.");
-      }
-    } catch {
-      alert("An error occurred while saving profile. Please try again.");
-    } finally {
-      setProfileSaving(false);
-    }
-  }
 
   async function markAllNotificationsRead() {
     try {
@@ -985,9 +961,6 @@ export function PatientPortal({
                   <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#3fb484]" : "text-white/50"}`} />
                   <span>AI Front-Desk</span>
                 </div>
-                <span className="text-[11px] px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-400/20">
-                  Live
-                </span>
               </button>
             ) : (
               <button
@@ -1000,7 +973,6 @@ export function PatientPortal({
                 title="AI Front-Desk"
               >
                 <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#3fb484]" : "text-white/60"}`} />
-                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-emerald-400" />
               </button>
             )}
 
@@ -1342,35 +1314,47 @@ export function PatientPortal({
       <main className="flex-1 flex flex-col h-full min-w-0 bg-[#ffffff] relative overflow-hidden">
         {/* TOP COMMAND BAR (Hidden in chat view for clean, full-height chat canvas) */}
         {activeTab !== "chat" && (
-          <header className="h-14 shrink-0 border-b border-[#e8eee6] px-4 sm:px-6 flex items-center justify-between gap-4 bg-[#fcfdfa]/90 backdrop-blur-md z-10">
-            <div className="flex items-center gap-3">
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="font-sans text-[18px] font-semibold text-[#122621] capitalize leading-none">
-                    {activeTab === "appointments" && "Appointments & Schedule Status"}
-                    {activeTab === "records" && "Clinical History & Records"}
-                    {activeTab === "billing" && "Billing, Invoices & Receipts"}
-                    {activeTab === "profile" && "Digital Health Card"}
-                    {activeTab === "clinic" && "Certified Physicians Directory"}
-                    {activeTab === "notifications" && "Notification Inbox"}
-                    {activeTab === "safety" && "Clinical AI Guardrails"}
-                  </h2>
+          <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2ece5] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+            <div className="flex items-center gap-3.5 min-w-0">
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(true)}
+                className="lg:hidden p-2 rounded-xl border border-[#d6e2d4] bg-white text-[#11382b] hover:bg-[#edf5ec] shadow-2xs cursor-pointer"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                    Patient Health Portal
+                  </span>
+                  <span className="text-[12px] text-[#8ba395]">/</span>
+                  <span className="text-[12px] font-medium text-[#527065] truncate">
+                    {PATIENT_TAB_INFO[activeTab]?.title || activeTab}
+                  </span>
                 </div>
+                <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#11382b] tracking-tight leading-tight">
+                  {PATIENT_TAB_INFO[activeTab]?.title || activeTab}
+                </h1>
+                <p className="text-[13px] text-[#527065] mt-0.5 font-normal line-clamp-1">
+                  {PATIENT_TAB_INFO[activeTab]?.subtitle || "Afiya Patient Health Portal"}
+                </p>
               </div>
             </div>
 
             {/* Right Action Cluster */}
-            <div className="flex items-center gap-2 sm:gap-2.5">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto sm:ml-0">
               {/* Search input in non-chat views */}
               {activeTab !== "safety" && activeTab !== "profile" && (
-                <div className="relative w-36 sm:w-52">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
+                <div className="relative w-36 sm:w-56">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={`Filter ${activeTab}…`}
-                    className="w-full h-8 rounded-full border border-[#d2e0d1] bg-[#f8faf6] pl-8 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#11382b] focus:bg-white focus:outline-none transition-all"
+                    className="w-full h-9 rounded-xl border border-[#d2e0d1] bg-[#f8faf6] pl-9 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-all shadow-2xs"
                   />
                 </div>
               )}
@@ -1379,7 +1363,7 @@ export function PatientPortal({
               {!signedIn && (
                 <a
                   href="/login"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#0e615c] px-4 py-1.5 text-[14px] font-medium text-white hover:bg-[#0a4c48] shadow-xs transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] shadow-2xs transition-colors cursor-pointer"
                 >
                   <LogIn className="h-3.5 w-3.5 text-[#3fb484]" />
                   <span>Sign In</span>
@@ -2437,187 +2421,201 @@ export function PatientPortal({
               </div>
             </div>
 
-            {/* Profile Edit Form */}
+            {/* Action Bar for Card */}
+            <div className="w-full max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-3 px-1">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Official Health Card · Active
+                </span>
+                <span className="text-xs text-[#527060] hidden sm:inline">
+                  Member ID: <span className="font-mono font-bold text-[#11382b]">{profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC"}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => copyMemberId(profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC")}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
+                >
+                  {copiedId ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-[#527060]" />}
+                  <span>{copiedId ? "ID Copied" : "Copy Member ID"}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
+                >
+                  <Printer className="h-3.5 w-3.5 text-[#527060]" />
+                  <span>Print Card</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Read-Only Patient Medical Profile Record */}
             <div className="w-full max-w-2xl mx-auto rounded-3xl border border-[#d6e3d5] bg-white p-6 sm:p-7 shadow-xs space-y-6">
-              <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#11382b]">
-                    Update Personal &amp; Medical Details
-                  </h3>
-                  <p className="text-xs text-[#527060] mt-0.5">
-                    Changes here immediately update your digital health card and clinic front desk records.
+              {/* Header Banner explaining reception-managed profile */}
+              <div className="rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50/80 to-[#f3f8f2] p-4 flex items-start gap-3.5">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300">
+                  <ShieldCheck className="h-5 w-5" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h4 className="text-sm font-bold text-[#11382b]">
+                      Verified Patient Health Record · Read-Only Mode
+                    </h4>
+                    <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-emerald-800 border border-emerald-200">
+                      View Only
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#3b5949] mt-1 leading-relaxed">
+                    For patient safety and medical record compliance, your Digital Health Card and clinical EHR details are verified and managed exclusively by clinic reception. Patients cannot edit their card. To request changes to your phone number, address, blood group, allergies, or insurance, please speak with the clinic reception desk.
                   </p>
                 </div>
-                {profileSavedMsg && (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full shadow-2xs">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Card Updated!
-                  </span>
-                )}
               </div>
 
-              <form onSubmit={handleProfileSave} className="space-y-4">
-                {/* Full Name field */}
+              {/* Patient Profile Read-Only Summary */}
+              <div className="space-y-6">
+                {/* 1. Demographics & Identification */}
                 <div>
-                  <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                    Patient Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={editProfile.name ?? profile?.name ?? currentUser?.name ?? ""}
-                    onChange={(e) => setEditProfile({ ...editProfile, name: e.target.value })}
-                    placeholder="e.g. Maya Chen"
-                    className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                  />
-                </div>
+                  <h4 className="text-xs font-bold text-[#11382b] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <User className="h-4 w-4 text-[#0e615c]" />
+                    <span>Personal Identity &amp; Contact</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Full Legal Name
+                      </span>
+                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                        {profile?.name || currentUser?.name || "Maya Chen"}
+                      </p>
+                    </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={editProfile.phone ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, phone: e.target.value })}
-                      placeholder="+1 (555) 000-0000"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Clinic Member ID
+                      </span>
+                      <p className="font-mono text-sm font-bold text-[#0e615c] mt-0.5">
+                        {profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC"}
+                      </p>
+                    </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Date of Birth
-                    </label>
-                    <input
-                      type="date"
-                      value={editProfile.dateOfBirth ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, dateOfBirth: e.target.value })}
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Date of Birth &amp; Gender
+                      </span>
+                      <p className="text-sm font-semibold text-[#11382b] mt-0.5 capitalize">
+                        {profile?.dateOfBirth || "Nov 14, 1993"} • {profile?.gender || "Female"}
+                      </p>
+                    </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Blood Group
-                    </label>
-                    <input
-                      type="text"
-                      value={editProfile.bloodGroup ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, bloodGroup: e.target.value })}
-                      placeholder="e.g. O+, A+, B-"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
-                </div>
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Registered Phone
+                      </span>
+                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                        {profile?.phone || "+1 (555) 234-8901"}
+                      </p>
+                    </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Known Drug &amp; Food Allergies
-                    </label>
-                    <input
-                      type="text"
-                      value={editProfile.allergies ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, allergies: e.target.value })}
-                      placeholder="e.g. Penicillin, Peanuts, None reported"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Residential Address
-                    </label>
-                    <input
-                      type="text"
-                      value={editProfile.address ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, address: e.target.value })}
-                      placeholder="Street, City, State"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5 sm:col-span-2">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Residential Address
+                      </span>
+                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                        {profile?.address || "452 Medical Center Blvd, Suite 300"}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Emergency Contact Name
-                    </label>
-                    <input
-                      type="text"
-                      value={editProfile.emergencyContactName ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, emergencyContactName: e.target.value })}
-                      placeholder="Contact Full Name"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Emergency Contact Phone
-                    </label>
-                    <input
-                      type="tel"
-                      value={editProfile.emergencyContactPhone ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, emergencyContactPhone: e.target.value })}
-                      placeholder="+1 (555) 000-0000"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Insurance Provider
-                    </label>
-                    <input
-                      type="text"
-                      value={editProfile.insuranceProvider ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, insuranceProvider: e.target.value })}
-                      placeholder="e.g. Blue Cross Blue Shield"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                      Insurance Policy Number
-                    </label>
-                    <input
-                      type="text"
-                      value={editProfile.insurancePolicyNumber ?? ""}
-                      onChange={(e) => setEditProfile({ ...editProfile, insurancePolicyNumber: e.target.value })}
-                      placeholder="e.g. POL-99210-BC"
-                      className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                    />
-                  </div>
-                </div>
-
+                {/* 2. Clinical Indicators & Safety */}
                 <div>
-                  <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
-                    Past Medical History &amp; Chronic Conditions
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={editProfile.medicalHistory ?? ""}
-                    onChange={(e) => setEditProfile({ ...editProfile, medicalHistory: e.target.value })}
-                    placeholder="e.g. Mild seasonal allergies, routine annual vaccinations up to date"
-                    className="w-full rounded-xl border border-[#c8d8c6] bg-white p-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
-                  />
+                  <h4 className="text-xs font-bold text-[#11382b] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <Heart className="h-4 w-4 text-[#d49b35]" />
+                    <span>Clinical Profile &amp; Emergency Alerts</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block mb-1">
+                        Blood Group
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-xl bg-rose-50 border border-rose-200 px-3 py-1 text-xs font-bold text-rose-800">
+                        🩸 {profile?.bloodGroup || "O+ (Positive)"}
+                      </span>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block mb-1">
+                        Documented Allergies
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-bold text-amber-800">
+                        ⚠ {profile?.allergies || "None reported"}
+                      </span>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5 sm:col-span-2">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Emergency Contact
+                      </span>
+                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                        {profile?.emergencyContactName || "Jordan Chen"}{" "}
+                        <span className="text-[#527060] font-normal">
+                          ({profile?.emergencyContactPhone || "+1 (555) 0199"})
+                        </span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="pt-2 flex justify-end">
-                  <button
-                    type="submit"
-                    disabled={profileSaving}
-                    className="inline-flex items-center gap-2 rounded-xl bg-[#11382b] px-6 py-3 text-sm font-bold text-white hover:bg-[#1a4a3a] disabled:opacity-50 shadow-sm transition-colors cursor-pointer"
-                  >
-                    {profileSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
-                    Save Profile Changes
-                  </button>
+                {/* 3. Insurance & Medical History */}
+                <div>
+                  <h4 className="text-xs font-bold text-[#11382b] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#0e615c]" />
+                    <span>Insurance &amp; Medical History</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Insurance Provider
+                      </span>
+                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                        {profile?.insuranceProvider || "Blue Shield Platinum"}
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Policy / Member Number
+                      </span>
+                      <p className="font-mono text-sm font-semibold text-[#11382b] mt-0.5">
+                        {profile?.insurancePolicyNumber || "BSP-8819"}
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5 sm:col-span-2">
+                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                        Past Medical History &amp; Chronic Conditions
+                      </span>
+                      <p className="text-sm text-[#11382b] mt-1 leading-relaxed">
+                        {profile?.medicalHistory || "Mild seasonal allergies, routine annual vaccinations up to date."}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </form>
+
+                {/* Footer notes */}
+                <div className="pt-2 border-t border-[#e7ede5] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#527060]">
+                  <span className="flex items-center gap-1.5">
+                    <Lock className="h-3.5 w-3.5 text-emerald-700" />
+                    <span>Managed by Reception Desk · Verified EHR</span>
+                  </span>
+                  <span>
+                    Last updated: {profile?.updatedAt ? new Date(profile.updatedAt).toLocaleDateString() : "Active"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -115,6 +115,27 @@ export type StaffUser = {
   createdAt: string;
 };
 
+export type PatientProfile = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  profileId?: string;
+  dateOfBirth?: string;
+  gender?: string;
+  phone?: string;
+  address?: string;
+  bloodGroup?: string;
+  allergies?: string;
+  emergencyContactName?: string;
+  emergencyContactPhone?: string;
+  insuranceProvider?: string;
+  insurancePolicyNumber?: string;
+  medicalHistory?: string;
+  updatedAt?: string;
+  createdAt?: string;
+};
+
 export type NotificationItem = {
   id: string;
   title: string;

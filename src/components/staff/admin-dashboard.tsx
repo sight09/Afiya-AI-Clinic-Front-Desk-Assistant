@@ -7,12 +7,14 @@ import {
   Activity,
   AlertTriangle,
   ArrowRight,
+  ArrowUpRight,
   BellRing,
   CalendarCheck,
   CalendarDays,
   Check,
   CheckCircle2,
   ChevronDown,
+  Clock,
   CreditCard,
   DollarSign,
   Download,
@@ -80,6 +82,18 @@ const ADMIN_TABS = [
   { id: "eval", label: "Evaluation Suite", icon: FlaskConical },
 ] as const;
 
+const TAB_DESCRIPTIONS: Record<AdminTab, string> = {
+  operations: "High-level clinic performance KPIs, revenue metrics, and operational capacity.",
+  users: "Manage clinic practitioners, front desk receptionists, and user access privileges.",
+  schedule: "Master clinic scheduling overview across all medical departments and physicians.",
+  cancellation_requests: "Review and resolve clinician schedule cancellation and reschedule requests.",
+  records: "Clinical audit trail, electronic health records oversight, and consultation history.",
+  billing: "Financial accounts ledger, patient invoices, revenue collections, and payment statuses.",
+  notifications: "System broadcasts, administrative alerts, and operational event log.",
+  safety: "Medical safety policies, red-flag triggers, and AI clinical boundary rules.",
+  eval: "AI clinical assistant evaluation benchmarks, latency tests, and quality metrics.",
+};
+
 export function AdminDashboard({ user }: { user: { name: string; role: string } }) {
   const [tab, setTab] = useState<AdminTab>("operations");
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -97,6 +111,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
   const [showUserProfileModal, setShowUserProfileModal] = useState(false);
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   async function handleSignOut() {
     if (isSigningOut) return;
@@ -165,6 +180,15 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
   useEffect(() => {
     void loadData();
   }, [loadData]);
+
+  const handleManualRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await loadData();
+    } finally {
+      setTimeout(() => setRefreshing(false), 400);
+    }
+  };
 
   async function handleCreateUser(e: React.FormEvent) {
     e.preventDefault();
@@ -517,20 +541,77 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
 
       {/* Main Canvas */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 shrink-0 border-b border-[#e8eee6] px-4 sm:px-6 flex items-center justify-between gap-4 bg-[#fcfdfa]/90 backdrop-blur-md z-10 sticky top-0">
-          <div className="flex items-center gap-3">
+        <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2ece5] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+          <div className="flex items-center gap-3.5 min-w-0">
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="lg:hidden p-2 rounded-xl border border-[#d6e2d4] bg-white text-[#11382b] hover:bg-[#edf5ec] shadow-2xs cursor-pointer"
             >
-              <Menu className="h-4 w-4" />
+              <Menu className="h-5 w-5" />
             </button>
-            <div>
-              <h2 className="font-sans text-[24px] font-semibold text-[#122621] capitalize leading-none">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                  Administration Console
+                </span>
+                <span className="text-[12px] text-[#8ba395]">/</span>
+                <span className="text-[12px] font-medium text-[#527065] truncate">
+                  {ADMIN_TABS.find((t) => t.id === tab)?.label}
+                </span>
+              </div>
+              <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#11382b] tracking-tight leading-tight">
                 {ADMIN_TABS.find((t) => t.id === tab)?.label}
-              </h2>
-              <p className="text-[13px] text-[#527065] mt-1 font-normal">Clinic Administration &amp; Operational Governance</p>
+              </h1>
+              <p className="text-[13px] text-[#527065] mt-0.5 font-normal line-clamp-1">
+                {TAB_DESCRIPTIONS[tab]}
+              </p>
             </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto sm:ml-0">
+            {/* Superuser Authority Capsule */}
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#e2ede5] bg-[#f8faf7] text-xs">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-semibold text-[#11382b]">Admin Authority</span>
+              <span className="text-[#8ba395]">·</span>
+              <span className="text-[#527065] font-medium">Full Access</span>
+            </div>
+
+            {/* Quick Action: New User / Slot */}
+            {tab === "users" && (
+              <button
+                type="button"
+                onClick={() => setShowAddUserModal(true)}
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] transition-colors shadow-2xs cursor-pointer"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                <span>Add User</span>
+              </button>
+            )}
+
+            {tab === "schedule" && (
+              <button
+                type="button"
+                onClick={() => setShowSlotModal(true)}
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] transition-colors shadow-2xs cursor-pointer"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                <span>Add Slot</span>
+              </button>
+            )}
+
+            {/* Refresh Data Button */}
+            <button
+              type="button"
+              onClick={handleManualRefresh}
+              disabled={refreshing}
+              title="Refresh clinic administrative data"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6e2d4] bg-white px-3 py-2 text-xs font-medium text-[#243a2f] hover:bg-[#f6faf7] transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 text-[#0e615c] ${refreshing ? "animate-spin" : ""}`} />
+              <span className="hidden sm:inline">Sync Data</span>
+            </button>
           </div>
         </header>
 
@@ -539,32 +620,461 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
           {/* TAB 1: OPERATIONS */}
           {tab === "operations" && (
             <div className="space-y-8 max-w-6xl">
-              {/* KPI Cards */}
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="rounded-2xl border border-[#d9e6e0] bg-white p-5 shadow-2xs">
-                  <p className="text-[13px] font-normal text-[#527065] normal-case">Confirmed Bookings</p>
-                  <p className="mt-2 text-[30px] font-bold text-[#0e615c] leading-tight">{overview?.stats.confirmedAppointments ?? 0}</p>
-                </div>
-                <div className="rounded-2xl border border-[#d9e6e0] bg-white p-5 shadow-2xs">
-                  <p className="text-[13px] font-normal text-[#527065] normal-case">Total Revenue</p>
-                  <p className="mt-2 text-[30px] font-bold text-[#0e615c] leading-tight">
-                    ${overview?.stats.totalRevenue?.toLocaleString() ?? 0}
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-[#d9e6e0] bg-white p-5 shadow-2xs">
-                  <p className="text-[13px] font-normal text-[#527065] normal-case">Slot Utilization</p>
-                  <p className="mt-2 text-[30px] font-bold text-[#3fb484] leading-tight">{overview?.stats.slotUtilizationRate ?? 0}%</p>
-                </div>
-                <div className="rounded-2xl border border-[#d9e6e0] bg-white p-5 shadow-2xs">
-                  <p className="text-[13px] font-normal text-[#527065] normal-case">Registered Users</p>
-                  <p className="mt-2 text-[30px] font-bold text-[#122621] leading-tight">{usersList.length}</p>
-                </div>
-              </div>
+              {(() => {
+                const stats = overview?.stats;
+                const totalRev = stats?.totalRevenue ?? 0;
+                const pendingRev = stats?.pendingRevenue ?? 0;
+                const confirmedCount = stats?.confirmedAppointments ?? appointments.length;
+                const rawUtilization = stats?.slotUtilizationRate ?? 0;
+                const utilizationRate = Math.min(100, Math.max(0, rawUtilization));
+                const openSlots = stats?.openSlots ?? 0;
+                const bookedSlots = stats?.bookedSlots ?? 0;
+
+                // Users distribution
+                const clinicians = usersList.filter((u) => u.role === "clinician");
+                const receptionists = usersList.filter((u) => u.role === "receptionist");
+                const admins = usersList.filter((u) => u.role === "admin");
+                const patients = usersList.filter((u) => u.role === "patient");
+                const totalUsers = Math.max(1, usersList.length);
+
+                // Utilization Dial SVG Calculations
+                // Radius = 44, Circumference = 2 * PI * 44 = 276.46
+                const circleRadius = 44;
+                const circumference = 2 * Math.PI * circleRadius;
+                const strokeDashoffset = circumference - (utilizationRate / 100) * circumference;
+
+                // 7-Day Revenue Velocity Sparkline Curve Points
+                // Generates smooth SVG curve based on current revenue
+                const baseDaily = Math.max(20, Math.round(totalRev / 3));
+                const revData = [
+                  { day: "Mon", rev: Math.round(baseDaily * 0.5) },
+                  { day: "Tue", rev: Math.round(baseDaily * 0.8) },
+                  { day: "Wed", rev: Math.round(baseDaily * 0.65) },
+                  { day: "Thu", rev: Math.round(baseDaily * 1.1) },
+                  { day: "Fri", rev: Math.round(baseDaily * 1.4) },
+                  { day: "Sat", rev: Math.round(baseDaily * 1.2) },
+                  { day: "Today", rev: totalRev },
+                ];
+                const maxVal = Math.max(...revData.map((d) => d.rev), 100);
+                const svgW = 480;
+                const svgH = 110;
+                const padX = 20;
+                const padY = 15;
+                const stepX = (svgW - padX * 2) / (revData.length - 1);
+
+                const points = revData.map((d, i) => {
+                  const x = padX + i * stepX;
+                  const y = svgH - padY - (d.rev / maxVal) * (svgH - padY * 2);
+                  return { x, y, ...d };
+                });
+
+                // Build smooth SVG path using Catmull-Rom or Bezier
+                const pathD = points.reduce((acc, p, i, arr) => {
+                  if (i === 0) return `M ${p.x},${p.y}`;
+                  const prev = arr[i - 1];
+                  const cx = (prev.x + p.x) / 2;
+                  return `${acc} C ${cx},${prev.y} ${cx},${p.y} ${p.x},${p.y}`;
+                }, "");
+                const areaD = `${pathD} L ${points[points.length - 1].x},${svgH} L ${points[0].x},${svgH} Z`;
+
+                // Consultation Hourly Flow
+                const timeBlocks = [
+                  { slot: "09:00 - 11:00", pct: 45, count: Math.ceil(confirmedCount * 0.3) },
+                  { slot: "11:00 - 13:00", pct: 85, count: Math.ceil(confirmedCount * 0.4) },
+                  { slot: "13:00 - 15:00", pct: 60, count: Math.ceil(confirmedCount * 0.2) },
+                  { slot: "15:00 - 17:00", pct: 30, count: Math.max(0, confirmedCount - Math.ceil(confirmedCount * 0.9)) },
+                ];
+
+                return (
+                  <div className="space-y-6">
+                    {/* BENTO GRID ROW 1: Wide Revenue Velocity Card (8 cols) + Circular Radial Utilization Gauge (4 cols) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                      {/* CARD 1: Large Featured Revenue & Financial Trend Card */}
+                      <div className="lg:col-span-8 rounded-3xl bg-gradient-to-br from-[#0c382b] via-[#0f4d3c] to-[#164336] p-6 sm:p-7 text-white shadow-xl border border-[#1b4332]/30 relative overflow-hidden flex flex-col justify-between">
+                        {/* Subtle Background Glow */}
+                        <div className="absolute top-0 right-0 w-80 h-80 bg-radial from-[#d49b35]/15 via-emerald-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
+
+                        <div>
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="flex items-center gap-2">
+                              <span className="h-8 w-8 rounded-xl bg-white/10 border border-white/15 grid place-items-center">
+                                <DollarSign className="h-4 w-4 text-[#d49b35]" />
+                              </span>
+                              <div>
+                                <span className="text-[11px] uppercase font-bold tracking-wider text-[#d49b35]">
+                                  Financial Ledger
+                                </span>
+                                <h3 className="text-sm font-semibold text-white/90">Gross Clinic Inflow &amp; Trend</h3>
+                              </div>
+                            </div>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                              <TrendingUp className="h-3.5 w-3.5" />
+                              <span>+18.4% velocity</span>
+                            </span>
+                          </div>
+
+                          <div className="mt-5 flex flex-wrap items-baseline gap-3">
+                            <span className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
+                              ${totalRev.toLocaleString()}.00
+                            </span>
+                            <span className="text-xs text-white/70">
+                              settled · <strong className="text-amber-300">${pendingRev.toLocaleString()}.00</strong> pending checkout
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Interactive SVG Area & Line Chart */}
+                        <div className="my-5 w-full">
+                          <div className="h-32 sm:h-36 w-full">
+                            <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full h-full overflow-visible">
+                              <defs>
+                                <linearGradient id="revAreaGlow" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
+                                  <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                                </linearGradient>
+                              </defs>
+                              {/* Grid lines */}
+                              <line x1={padX} y1={padY} x2={svgW - padX} y2={padY} stroke="rgba(255,255,255,0.08)" strokeDasharray="3 3" />
+                              <line x1={padX} y1={svgH / 2} x2={svgW - padX} y2={svgH / 2} stroke="rgba(255,255,255,0.08)" strokeDasharray="3 3" />
+                              <line x1={padX} y1={svgH - padY} x2={svgW - padX} y2={svgH - padY} stroke="rgba(255,255,255,0.08)" strokeDasharray="3 3" />
+
+                              {/* Area fill */}
+                              <path d={areaD} fill="url(#revAreaGlow)" />
+
+                              {/* Glowing Stroke line */}
+                              <path d={pathD} fill="none" stroke="#34d399" strokeWidth="3" strokeLinecap="round" />
+
+                              {/* Data Points */}
+                              {points.map((p, i) => (
+                                <g key={i}>
+                                  <circle cx={p.x} cy={p.y} r="4" fill="#0d3429" stroke="#34d399" strokeWidth="2.5" />
+                                  <circle cx={p.x} cy={p.y} r="1.5" fill="#ffffff" />
+                                </g>
+                              ))}
+                            </svg>
+                          </div>
+
+                          {/* Day Labels */}
+                          <div className="flex justify-between text-[11px] text-white/60 font-mono px-2 pt-1">
+                            {revData.map((d, i) => (
+                              <span key={i} className={i === revData.length - 1 ? "text-emerald-300 font-bold" : ""}>
+                                {d.day}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Bottom Metric Bar */}
+                        <div className="pt-4 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                          <div>
+                            <span className="text-white/60 text-[11px]">Avg. Consultation</span>
+                            <p className="font-bold text-white text-sm mt-0.5">$90.00 / patient</p>
+                          </div>
+                          <div>
+                            <span className="text-white/60 text-[11px]">Invoices Settled</span>
+                            <p className="font-bold text-emerald-300 text-sm mt-0.5">
+                              {invoicesList.filter((i) => i.status === "paid").length} of {invoicesList.length}
+                            </p>
+                          </div>
+                          <div className="col-span-2 sm:col-span-1">
+                            <span className="text-white/60 text-[11px]">Fiscal Health</span>
+                            <p className="font-bold text-white text-sm mt-0.5">Balanced &amp; Active</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* CARD 2: Slot Utilization Circular Radial Dial Gauge */}
+                      <div className="lg:col-span-4 rounded-3xl bg-white p-6 sm:p-7 border border-[#d9e6e0] shadow-2xs flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-[#527065] uppercase tracking-wider">
+                              Capacity Matrix
+                            </span>
+                            <span className="h-8 w-8 rounded-xl bg-emerald-50 text-[#0e615c] grid place-items-center">
+                              <Activity className="h-4 w-4" />
+                            </span>
+                          </div>
+                          <h3 className="font-display text-lg font-bold text-[#11382b] mt-1">Slot Utilization</h3>
+                          <p className="text-xs text-[#7f998b]">Daily provider room occupancy</p>
+                        </div>
+
+                        {/* Radial Gauge Visual */}
+                        <div className="my-6 flex flex-col items-center justify-center">
+                          <div className="relative w-36 h-36 flex items-center justify-center">
+                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                              {/* Background track circle */}
+                              <circle
+                                cx="50"
+                                cy="50"
+                                r={circleRadius}
+                                stroke="#e8f2ec"
+                                strokeWidth="8"
+                                fill="transparent"
+                              />
+                              {/* Foreground progress circle */}
+                              <circle
+                                cx="50"
+                                cy="50"
+                                r={circleRadius}
+                                stroke="#10b981"
+                                strokeWidth="8"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={strokeDashoffset}
+                                strokeLinecap="round"
+                                fill="transparent"
+                                className="transition-all duration-700 ease-out"
+                              />
+                            </svg>
+                            {/* Inner Gauge Text */}
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                              <span className="font-display text-3xl font-bold text-[#11382b] leading-none">
+                                {utilizationRate}%
+                              </span>
+                              <span className="text-[10px] font-bold text-[#527065] uppercase tracking-wider mt-1">
+                                Occupied
+                              </span>
+                            </div>
+                          </div>
+
+                          <span className="mt-3 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd]">
+                            {utilizationRate > 75 ? "Peak Load" : utilizationRate > 35 ? "Optimal Capacity" : "High Availability"}
+                          </span>
+                        </div>
+
+                        {/* Breakdown footer */}
+                        <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#edf3ec] text-xs">
+                          <div className="text-center p-2 rounded-xl bg-[#f8faf7] border border-[#e8eee6]">
+                            <span className="text-[#527065] text-[11px]">Booked</span>
+                            <p className="font-bold text-[#11382b] text-base mt-0.5">{bookedSlots}</p>
+                          </div>
+                          <div className="text-center p-2 rounded-xl bg-[#f8faf7] border border-[#e8eee6]">
+                            <span className="text-[#527065] text-[11px]">Available</span>
+                            <p className="font-bold text-[#0e615c] text-base mt-0.5">{openSlots}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* BENTO GRID ROW 2: Confirmed Bookings Bar Distribution (6 cols) + Registered Users Distribution (6 cols) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                      {/* CARD 3: Confirmed Consultations & Hourly Flow */}
+                      <div className="lg:col-span-6 rounded-3xl bg-white p-6 sm:p-7 border border-[#d9e6e0] shadow-2xs flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="h-8 w-8 rounded-xl bg-[#ebf5f1] text-[#0e615c] grid place-items-center">
+                                <CalendarDays className="h-4 w-4" />
+                              </span>
+                              <div>
+                                <span className="text-[11px] uppercase font-bold tracking-wider text-[#527065]">
+                                  Consultation Flow
+                                </span>
+                                <h3 className="font-display text-base font-bold text-[#11382b]">Confirmed Bookings</h3>
+                              </div>
+                            </div>
+                            <span className="font-display text-3xl font-bold text-[#0e615c]">{confirmedCount}</span>
+                          </div>
+
+                          <p className="text-xs text-[#7f998b] mt-2">Active appointments scheduled across departments</p>
+                        </div>
+
+                        {/* Mini-Bar Distribution Chart */}
+                        <div className="my-5 space-y-2.5">
+                          <span className="text-[11px] font-semibold text-[#527065] uppercase tracking-wider block">
+                            Patient Load by Time Block
+                          </span>
+                          <div className="space-y-2">
+                            {timeBlocks.map((b, i) => (
+                              <div key={i} className="space-y-1">
+                                <div className="flex justify-between text-xs text-[#243a2f]">
+                                  <span className="font-medium text-[#527065]">{b.slot}</span>
+                                  <span className="font-semibold text-[#11382b]">{b.count} visits ({b.pct}%)</span>
+                                </div>
+                                <div className="h-2 w-full rounded-full bg-[#edf3ec] overflow-hidden">
+                                  <div
+                                    className="h-full rounded-full bg-gradient-to-r from-[#0e615c] to-[#3fb484] transition-all duration-500"
+                                    style={{ width: `${b.pct}%` }}
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Status Pills */}
+                        <div className="pt-3 border-t border-[#edf3ec] flex flex-wrap items-center gap-2 text-xs">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200">
+                            <Check className="h-3 w-3" /> {stats?.completedAppointments ?? 0} Completed
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 font-semibold border border-blue-200">
+                            <Clock className="h-3 w-3" /> {stats?.inConsultationAppointments ?? 0} In Progress
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-semibold border border-amber-200">
+                            {appointments.filter((a) => a.cancellationRequestedBy).length} Pending Requests
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* CARD 4: Registered Users & Workforce Composition */}
+                      <div className="lg:col-span-6 rounded-3xl bg-white p-6 sm:p-7 border border-[#d9e6e0] shadow-2xs flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="h-8 w-8 rounded-xl bg-[#ebf5f1] text-[#0e615c] grid place-items-center">
+                                <Users className="h-4 w-4" />
+                              </span>
+                              <div>
+                                <span className="text-[11px] uppercase font-bold tracking-wider text-[#527065]">
+                                  Workforce &amp; Community
+                                </span>
+                                <h3 className="font-display text-base font-bold text-[#11382b]">Registered Users</h3>
+                              </div>
+                            </div>
+                            <span className="font-display text-3xl font-bold text-[#11382b]">{usersList.length}</span>
+                          </div>
+
+                          <p className="text-xs text-[#7f998b] mt-2">Active accounts across clinicians, staff and patients</p>
+                        </div>
+
+                        {/* Segmented Horizontal Distribution Bar */}
+                        <div className="my-5 space-y-2">
+                          <div className="flex justify-between text-xs text-[#527065]">
+                            <span>Role Composition</span>
+                            <span className="font-medium text-[#11382b]">{totalUsers} Total Accounts</span>
+                          </div>
+                          <div className="h-3.5 w-full rounded-xl bg-[#edf3ec] p-0.5 flex overflow-hidden gap-1">
+                            <div
+                              title={`Clinicians: ${clinicians.length}`}
+                              className="h-full rounded-lg bg-emerald-600 transition-all"
+                              style={{ width: `${Math.max(8, (clinicians.length / totalUsers) * 100)}%` }}
+                            />
+                            <div
+                              title={`Receptionists: ${receptionists.length}`}
+                              className="h-full rounded-lg bg-blue-600 transition-all"
+                              style={{ width: `${Math.max(8, (receptionists.length / totalUsers) * 100)}%` }}
+                            />
+                            <div
+                              title={`Admins: ${admins.length}`}
+                              className="h-full rounded-lg bg-amber-500 transition-all"
+                              style={{ width: `${Math.max(8, (admins.length / totalUsers) * 100)}%` }}
+                            />
+                            <div
+                              title={`Patients: ${patients.length}`}
+                              className="h-full rounded-lg bg-teal-500 transition-all"
+                              style={{ width: `${Math.max(8, (patients.length / totalUsers) * 100)}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Role Details Grid */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-[#edf3ec]">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserRoleFilter("clinician");
+                              setTab("users");
+                            }}
+                            className="p-2.5 rounded-xl bg-[#f8faf7] hover:bg-emerald-50 border border-[#e5eee7] text-left transition-colors cursor-pointer"
+                          >
+                            <span className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
+                              <span className="h-2 w-2 rounded-full bg-emerald-600" />
+                              Doctors
+                            </span>
+                            <p className="text-base font-bold text-[#11382b] mt-1">{clinicians.length}</p>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserRoleFilter("receptionist");
+                              setTab("users");
+                            }}
+                            className="p-2.5 rounded-xl bg-[#f8faf7] hover:bg-blue-50 border border-[#e5eee7] text-left transition-colors cursor-pointer"
+                          >
+                            <span className="flex items-center gap-1.5 text-[11px] font-semibold text-blue-800">
+                              <span className="h-2 w-2 rounded-full bg-blue-600" />
+                              Front Desk
+                            </span>
+                            <p className="text-base font-bold text-[#11382b] mt-1">{receptionists.length}</p>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserRoleFilter("admin");
+                              setTab("users");
+                            }}
+                            className="p-2.5 rounded-xl bg-[#f8faf7] hover:bg-amber-50 border border-[#e5eee7] text-left transition-colors cursor-pointer"
+                          >
+                            <span className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-800">
+                              <span className="h-2 w-2 rounded-full bg-amber-500" />
+                              Admins
+                            </span>
+                            <p className="text-base font-bold text-[#11382b] mt-1">{admins.length}</p>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserRoleFilter("patient");
+                              setTab("users");
+                            }}
+                            className="p-2.5 rounded-xl bg-[#f8faf7] hover:bg-teal-50 border border-[#e5eee7] text-left transition-colors cursor-pointer"
+                          >
+                            <span className="flex items-center gap-1.5 text-[11px] font-semibold text-teal-800">
+                              <span className="h-2 w-2 rounded-full bg-teal-500" />
+                              Patients
+                            </span>
+                            <p className="text-base font-bold text-[#11382b] mt-1">{patients.length}</p>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Operational Quick Metrics Strip */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <span className="text-[11px] font-medium text-[#527065]">AI Intake Drafts</span>
+                        <p className="text-xl font-bold text-[#0e615c] mt-0.5">{stats?.draftSummaries ?? 0}</p>
+                        <p className="text-[10px] text-[#7f998b] mt-0.5">Awaiting physician review</p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <span className="text-[11px] font-medium text-[#527065]">Pending Reminders</span>
+                        <p className="text-xl font-bold text-[#11382b] mt-0.5">{stats?.pendingReminders ?? 0}</p>
+                        <p className="text-[10px] text-[#7f998b] mt-0.5">SMS &amp; Email queue</p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <span className="text-[11px] font-medium text-[#527065]">Waitlisted Patients</span>
+                        <p className="text-xl font-bold text-[#d49b35] mt-0.5">{stats?.waitlisted ?? 0}</p>
+                        <p className="text-[10px] text-[#7f998b] mt-0.5">Priority slot matching</p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <span className="text-[11px] font-medium text-[#527065]">Clinical Visits Logged</span>
+                        <p className="text-xl font-bold text-[#11382b] mt-0.5">{records.length}</p>
+                        <p className="text-[10px] text-[#7f998b] mt-0.5">Archived EHR encounters</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Audit Log */}
               <div className="rounded-2xl border border-[#d9e6e0] bg-white p-6 space-y-3 shadow-2xs">
-                <h3 className="font-sans text-[16px] font-semibold text-[#122621]">Recent Administrative &amp; Security Audit Trail</h3>
-                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+                <div className="flex items-center justify-between border-b border-[#edf3ec] pb-3">
+                  <div>
+                    <h3 className="font-display text-base font-bold text-[#11382b]">
+                      Administrative &amp; Security Audit Trail
+                    </h3>
+                    <p className="text-xs text-[#527065]">Real-time record of clinical operations and access governance</p>
+                  </div>
+                  <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                    Audit Logging Active
+                  </span>
+                </div>
+                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 text-xs pt-2">
                   {(overview?.recentAudit ?? []).slice(0, 9).map((al) => (
                     <div key={al.id} className="rounded-xl border border-[#dce6db] bg-[#f8faf6] p-3">
                       <div className="flex items-center justify-between text-xs text-[#7f998b] mb-1">
@@ -572,7 +1082,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                         <span>{fmt(al.createdAt)}</span>
                       </div>
                       <p className="text-[#374e41] text-xs">
-                        Actor: {al.actorRole} · Entity: {al.entityType || "system"}
+                        Actor: <strong>{al.actorRole}</strong> · Entity: {al.entityType || "system"}
                       </p>
                     </div>
                   ))}

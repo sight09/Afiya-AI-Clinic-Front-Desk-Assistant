@@ -13,11 +13,17 @@ import {
   CalendarPlus,
   Check,
   CheckCircle2,
+  Clock,
+  Copy,
   CreditCard,
   DollarSign,
+  Edit3,
+  FileText,
+  Heart,
   HeartPulse,
   LayoutDashboard,
   Loader2,
+  Lock,
   LogOut,
   Mail,
   Menu,
@@ -26,7 +32,10 @@ import {
   Phone,
   Plus,
   Printer,
+  QrCode,
   RefreshCw,
+  Save,
+  Search,
   ShieldCheck,
   Sparkles,
   Stethoscope,
@@ -36,21 +45,32 @@ import {
   Users,
   X,
 } from "lucide-react";
+import { BotanicalCorner, ClinicLogoIcon } from "@/components/ui/botanical-art";
 import {
   Appointment,
   fmt,
   fmtDate,
   Invoice,
   NotificationItem,
+  PatientProfile,
   Provider,
 } from "./types";
 
-type ReceptionistTab = "schedule" | "cancellation_requests" | "automation" | "notifications" | "book_patient" | "providers" | "billing";
+type ReceptionistTab =
+  | "schedule"
+  | "patient_profiles"
+  | "cancellation_requests"
+  | "automation"
+  | "notifications"
+  | "book_patient"
+  | "providers"
+  | "billing";
 
 const RECEPTIONIST_TABS = [
   { id: "schedule", label: "Front-Desk Check-In", icon: CalendarDays },
+  { id: "patient_profiles", label: "Patient Cards & Profiles", icon: QrCode },
   { id: "cancellation_requests", label: "Cancellation Requests", icon: CalendarCheck },
-  { id: "automation", label: "Automated Reminders", icon: BellRing },
+  { id: "automation", label: "Automated Reminders", icon: Clock },
   { id: "notifications", label: "Notifications & Inquiries", icon: BellRing },
   { id: "book_patient", label: "Book for Patient", icon: CalendarPlus },
   { id: "providers", label: "Doctor Availability & Rooms", icon: Stethoscope },
@@ -122,14 +142,102 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
   const [payingInvoice, setPayingInvoice] = useState<Invoice | null>(null);
   const [paymentMethod, setPaymentMethod] = useState("Cash");
   const [payBusy, setPayBusy] = useState(false);
+  const [billingSearch, setBillingSearch] = useState("");
+  const [billingFilter, setBillingFilter] = useState<"all" | "pending" | "paid">("all");
+  const [scheduleSearch, setScheduleSearch] = useState("");
+  const [scheduleStatusFilter, setScheduleStatusFilter] = useState<string>("all");
+
+  // Patient Cards & Profiles Registry State
+  const [patientsList, setPatientsList] = useState<PatientProfile[]>([]);
+  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
+  const [patientSearch, setPatientSearch] = useState("");
+  const [patientFilingMode, setPatientFilingMode] = useState<"view_edit" | "file_new">("view_edit");
+  const [copiedMemberId, setCopiedMemberId] = useState(false);
+
+  // Edit Patient Profile State
+  const [editName, setEditName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editPhone, setEditPhone] = useState("");
+  const [editDob, setEditDob] = useState("");
+  const [editGender, setEditGender] = useState("unspecified");
+  const [editAddress, setEditAddress] = useState("");
+  const [editBloodGroup, setEditBloodGroup] = useState("");
+  const [editAllergies, setEditAllergies] = useState("");
+  const [editEmergencyName, setEditEmergencyName] = useState("");
+  const [editEmergencyPhone, setEditEmergencyPhone] = useState("");
+  const [editInsuranceProvider, setEditInsuranceProvider] = useState("");
+  const [editInsurancePolicy, setEditInsurancePolicy] = useState("");
+  const [editMedicalHistory, setEditMedicalHistory] = useState("");
+  const [editSaving, setEditSaving] = useState(false);
+  const [editSuccessMsg, setEditSuccessMsg] = useState(false);
+
+  // File New Patient State
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [newDob, setNewDob] = useState("");
+  const [newGender, setNewGender] = useState("unspecified");
+  const [newAddress, setNewAddress] = useState("");
+  const [newBloodGroup, setNewBloodGroup] = useState("O+");
+  const [newAllergies, setNewAllergies] = useState("None reported");
+  const [newEmergencyName, setNewEmergencyName] = useState("");
+  const [newEmergencyPhone, setNewEmergencyPhone] = useState("");
+  const [newInsuranceProvider, setNewInsuranceProvider] = useState("Self-Pay / Cash");
+  const [newInsurancePolicy, setNewInsurancePolicy] = useState("");
+  const [newMedicalHistory, setNewMedicalHistory] = useState("");
+  const [filingSaving, setFilingSaving] = useState(false);
+  const [filingSuccessMsg, setFilingSuccessMsg] = useState(false);
+
+  const selectPatient = useCallback((pat: PatientProfile) => {
+    setSelectedPatientId(pat.id);
+    setPatientFilingMode("view_edit");
+    setEditName(pat.name || "");
+    setEditEmail(pat.email || "");
+    setEditPhone(pat.phone || "");
+    setEditDob(pat.dateOfBirth || "");
+    setEditGender(pat.gender || "unspecified");
+    setEditAddress(pat.address || "");
+    setEditBloodGroup(pat.bloodGroup || "");
+    setEditAllergies(pat.allergies || "");
+    setEditEmergencyName(pat.emergencyContactName || "");
+    setEditEmergencyPhone(pat.emergencyContactPhone || "");
+    setEditInsuranceProvider(pat.insuranceProvider || "");
+    setEditInsurancePolicy(pat.insurancePolicyNumber || "");
+    setEditMedicalHistory(pat.medicalHistory || "");
+    setEditSuccessMsg(false);
+  }, []);
+
+  const openPatientProfile = useCallback((patientId: string) => {
+    setTab("patient_profiles");
+    const target = patientsList.find((p) => p.id === patientId);
+    if (target) {
+      selectPatient(target);
+    } else {
+      setSelectedPatientId(patientId);
+      setPatientFilingMode("view_edit");
+      fetch(`/api/patient/profile?patientId=${patientId}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (data?.patient) selectPatient(data.patient);
+        })
+        .catch(() => {});
+    }
+  }, [patientsList, selectPatient]);
+
+  function copyMemberId(id: string) {
+    void navigator.clipboard.writeText(id);
+    setCopiedMemberId(true);
+    setTimeout(() => setCopiedMemberId(false), 2000);
+  }
 
   const loadData = useCallback(async () => {
-    const [a, b, p, n, av] = await Promise.all([
+    const [a, b, p, n, av, pats] = await Promise.all([
       fetch("/api/appointments").then((res) => (res.ok ? res.json() : { appointments: [] })),
       fetch("/api/billing").then((res) => (res.ok ? res.json() : { invoices: [] })),
       fetch("/api/providers").then((res) => (res.ok ? res.json() : { providers: [] })),
       fetch("/api/notifications").then((res) => (res.ok ? res.json() : { notifications: [], unreadCount: 0 })),
       fetch("/api/availability").then((res) => (res.ok ? res.json() : { slots: [] })),
+      fetch("/api/patient/profile?list=true").then((res) => (res.ok ? res.json() : { patients: [] })),
     ]);
     setAppointments(a.appointments ?? []);
     setInvoicesList(b.invoices ?? []);
@@ -137,7 +245,119 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
     setNotificationsList(n.notifications ?? []);
     setUnreadNotifications(n.unreadCount ?? 0);
     setAvailableSlots(av.slots ?? []);
+    const pRows: PatientProfile[] = pats.patients ?? [];
+    setPatientsList(pRows);
   }, []);
+
+  useEffect(() => {
+    if (patientsList.length > 0 && !selectedPatientId) {
+      selectPatient(patientsList[0]);
+    }
+  }, [patientsList, selectedPatientId, selectPatient]);
+
+  async function handleUpdatePatient(e: React.FormEvent) {
+    e.preventDefault();
+    if (!selectedPatientId) return;
+    setEditSaving(true);
+    try {
+      const res = await fetch("/api/patient/profile", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          mode: "update",
+          patientId: selectedPatientId,
+          name: editName.trim() || undefined,
+          phone: editPhone.trim(),
+          dateOfBirth: editDob,
+          gender: editGender,
+          address: editAddress.trim(),
+          bloodGroup: editBloodGroup.trim(),
+          allergies: editAllergies.trim(),
+          emergencyContactName: editEmergencyName.trim(),
+          emergencyContactPhone: editEmergencyPhone.trim(),
+          insuranceProvider: editInsuranceProvider.trim(),
+          insurancePolicyNumber: editInsurancePolicy.trim(),
+          medicalHistory: editMedicalHistory.trim(),
+        }),
+      });
+
+      if (res.ok) {
+        setEditSuccessMsg(true);
+        setTimeout(() => setEditSuccessMsg(false), 4000);
+        await loadData();
+      } else {
+        const d = await res.json().catch(() => null);
+        alert(d?.error?.message || "Failed to update patient profile.");
+      }
+    } catch {
+      alert("Network error updating patient profile.");
+    } finally {
+      setEditSaving(false);
+    }
+  }
+
+  async function handleFileNewPatient(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newEmail.trim() || !newName.trim()) {
+      alert("Patient name and email are required to file a profile.");
+      return;
+    }
+    setFilingSaving(true);
+    try {
+      const res = await fetch("/api/patient/profile", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          mode: "create",
+          name: newName.trim(),
+          email: newEmail.trim().toLowerCase(),
+          phone: newPhone.trim(),
+          dateOfBirth: newDob,
+          gender: newGender,
+          address: newAddress.trim(),
+          bloodGroup: newBloodGroup.trim(),
+          allergies: newAllergies.trim() || "None reported",
+          emergencyContactName: newEmergencyName.trim(),
+          emergencyContactPhone: newEmergencyPhone.trim(),
+          insuranceProvider: newInsuranceProvider.trim() || "Self-Pay / Cash",
+          insurancePolicyNumber: newInsurancePolicy.trim(),
+          medicalHistory: newMedicalHistory.trim(),
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setFilingSuccessMsg(true);
+        setTimeout(() => setFilingSuccessMsg(false), 4000);
+        setNewName("");
+        setNewEmail("");
+        setNewPhone("");
+        setNewDob("");
+        setNewGender("unspecified");
+        setNewAddress("");
+        setNewBloodGroup("O+");
+        setNewAllergies("None reported");
+        setNewEmergencyName("");
+        setNewEmergencyPhone("");
+        setNewInsuranceProvider("Self-Pay / Cash");
+        setNewInsurancePolicy("");
+        setNewMedicalHistory("");
+
+        await loadData();
+        if (data.patientId) {
+          setSelectedPatientId(data.patientId);
+          setPatientFilingMode("view_edit");
+        }
+      } else {
+        const d = await res.json().catch(() => null);
+        alert(d?.error?.message || "Failed to file new patient profile.");
+      }
+    } catch {
+      alert("Network error filing patient profile.");
+    } finally {
+      setFilingSaving(false);
+    }
+  }
 
   useEffect(() => {
     void loadData();
@@ -206,6 +426,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
   const TAB_DESCRIPTIONS: Record<ReceptionistTab, string> = {
     schedule: "Real-time front-desk patient arrival tracking, check-ins, and doctor queue management.",
+    patient_profiles: "File, edit, and update patient digital health cards, personal demographics, and EHR profiles.",
     cancellation_requests: "Review, approve, or reassign cancellation and reschedule requests.",
     automation: "Scheduled SMS and email appointment reminders and dispatch telemetry.",
     notifications: "Live clinical notifications, waitlist offers, and triage alerts.",
@@ -213,6 +434,21 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
     providers: "Live clinic room allocations, physician rosters, and shift availability.",
     billing: "Patient checkout, copay collections, invoice settlement, and payment receipts.",
   };
+
+  const selectedPatient = patientsList.find((p) => p.id === selectedPatientId) ?? patientsList[0];
+
+  const filteredPatients = patientsList.filter((p) => {
+    const q = patientSearch.toLowerCase().trim();
+    if (!q) return true;
+    return (
+      p.name?.toLowerCase().includes(q) ||
+      p.email?.toLowerCase().includes(q) ||
+      p.phone?.toLowerCase().includes(q) ||
+      p.id?.toLowerCase().includes(q) ||
+      p.bloodGroup?.toLowerCase().includes(q) ||
+      p.insuranceProvider?.toLowerCase().includes(q)
+    );
+  });
 
   const knownPatients = Array.from(
     new Map(
@@ -441,7 +677,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               {RECEPTIONIST_TABS.map((t) => {
                 const Icon = t.icon;
                 const active = tab === t.id;
-                const count = t.id === "cancellation_requests" ? pendingRequests.length : t.id === "notifications" ? notificationsList.length : 0;
+                const count =
+                  t.id === "cancellation_requests"
+                    ? pendingRequests.length
+                    : t.id === "notifications"
+                    ? notificationsList.length
+                    : t.id === "patient_profiles"
+                    ? patientsList.length
+                    : 0;
                 return (
                   <button
                     key={t.id}
@@ -460,7 +703,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       <span>{t.label}</span>
                     </div>
                     {count > 0 && (
-                      <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[10px] font-bold text-white animate-pulse">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                          t.id === "patient_profiles"
+                            ? "bg-emerald-500/30 text-emerald-200 border border-emerald-400/30"
+                            : "bg-rose-500 text-white animate-pulse"
+                        }`}
+                      >
                         {count}
                       </span>
                     )}
@@ -524,7 +773,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 {RECEPTIONIST_TABS.map((t) => {
                   const Icon = t.icon;
                   const active = tab === t.id;
-                  const count = t.id === "cancellation_requests" ? pendingRequests.length : t.id === "notifications" ? notificationsList.length : 0;
+                  const count =
+                    t.id === "cancellation_requests"
+                      ? pendingRequests.length
+                      : t.id === "notifications"
+                      ? notificationsList.length
+                      : t.id === "patient_profiles"
+                      ? patientsList.length
+                      : 0;
                   return (
                     <button
                       key={t.id}
@@ -633,75 +889,1158 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
           {/* TAB 1: FRONT-DESK CHECK-IN */}
           {tab === "schedule" && (
             <div className="space-y-6 max-w-6xl">
-              <div className="overflow-hidden rounded-2xl border border-[#d9e6e0] bg-white shadow-2xs">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-[#f3f8f5] text-[12px] text-[#527065] font-medium normal-case border-b border-[#e5ede3]">
-                    <tr>
-                      <th className="px-5 py-3 font-medium">Scheduled time</th>
-                      <th className="px-5 py-3 font-medium">Patient</th>
-                      <th className="px-5 py-3 font-medium">Doctor</th>
-                      <th className="px-5 py-3 font-medium">Department</th>
-                      <th className="px-5 py-3 font-medium">Status</th>
-                      <th className="px-5 py-3 text-right font-medium">Front-desk actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#edf3ec]">
-                    {appointments.map((a) => (
-                      <tr key={a.id} className="hover:bg-[#f8fbf7] transition-colors">
-                        <td className="px-5 py-3.5 font-medium text-[#11382b]">{fmt(a.startAt)}</td>
-                        <td className="px-5 py-3.5">
-                          <p className="font-semibold text-[#11382b]">{a.patientName}</p>
-                          <p className="text-xs text-[#7f998b]">{a.patientEmail}</p>
-                        </td>
-                        <td className="px-5 py-3.5 text-[#243a2f] font-medium">{a.providerName}</td>
-                        <td className="px-5 py-3.5 text-[#567364]">{a.departmentName}</td>
-                        <td className="px-5 py-3.5">
-                          <span
-                            className={`rounded-full px-2.5 py-0.5 text-xs font-bold uppercase border ${
-                              a.status === "confirmed"
-                                ? "bg-emerald-100 text-emerald-800 border-emerald-200"
-                                : a.status === "checked_in"
-                                ? "bg-blue-100 text-blue-800 border-blue-200"
-                                : a.status === "in_consultation"
-                                ? "bg-purple-100 text-purple-800 border-purple-200"
-                                : a.status === "completed"
-                                ? "bg-emerald-100 text-emerald-900 border-emerald-300"
-                                : a.status === "cancellation_requested" || a.status === "reschedule_requested"
-                                ? "bg-amber-100 text-amber-800 border-amber-200"
-                                : "bg-rose-100 text-rose-800 border-rose-200"
-                            }`}
-                          >
-                            {a.status.replace("_", " ")}
-                          </span>
-                        </td>
-                        <td className="px-5 py-3.5 text-right">
-                          <div className="flex justify-end gap-1.5">
-                            {a.status === "confirmed" && (
-                              <button
-                                onClick={() => updateStatus(a.id, "checked_in")}
-                                className="rounded-full bg-blue-600 px-3 py-1 text-xs font-bold text-white hover:bg-blue-700 shadow-2xs cursor-pointer"
-                              >
-                                Check In
-                              </button>
+              {(() => {
+                const totalAppts = appointments.length;
+                const confirmedAppts = appointments.filter((a) => a.status === "confirmed");
+                const checkedInAppts = appointments.filter(
+                  (a) => a.status === "checked_in" || a.status === "in_consultation"
+                );
+                const completedAppts = appointments.filter((a) => a.status === "completed");
+
+                // Progress proportions
+                const awaitingPct = totalAppts > 0 ? (confirmedAppts.length / totalAppts) * 100 : 0;
+                const inClinicPct = totalAppts > 0 ? (checkedInAppts.length / totalAppts) * 100 : 0;
+                const completedPct = totalAppts > 0 ? (completedAppts.length / totalAppts) * 100 : 0;
+
+                const filteredAppointments = appointments.filter((a) => {
+                  const matchesFilter =
+                    scheduleStatusFilter === "all" ||
+                    (scheduleStatusFilter === "awaiting" && a.status === "confirmed") ||
+                    (scheduleStatusFilter === "in_clinic" &&
+                      (a.status === "checked_in" || a.status === "in_consultation")) ||
+                    (scheduleStatusFilter === "completed" && a.status === "completed") ||
+                    (scheduleStatusFilter === "requests" &&
+                      (a.status === "cancellation_requested" || a.status === "reschedule_requested"));
+                  const q = scheduleSearch.toLowerCase().trim();
+                  const matchesSearch =
+                    !q ||
+                    a.patientName?.toLowerCase().includes(q) ||
+                    a.patientEmail?.toLowerCase().includes(q) ||
+                    a.providerName?.toLowerCase().includes(q) ||
+                    a.departmentName?.toLowerCase().includes(q) ||
+                    a.reason?.toLowerCase().includes(q);
+                  return matchesFilter && matchesSearch;
+                });
+
+                return (
+                  <div className="space-y-5">
+                    {/* ASYMMETRICAL FRONT-DESK TRIAGE COMMAND BENTO */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
+                      {/* CARD 1: Large Featured Daily Intake Hero (5 cols on lg) */}
+                      <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#0c382b] via-[#0f4d3c] to-[#164336] p-5 text-white shadow-md border border-[#1b4332]/30 flex flex-col justify-between relative overflow-hidden">
+                        {/* Glow accent */}
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-radial from-[#d49b35]/15 via-emerald-400/5 to-transparent rounded-full blur-xl pointer-events-none" />
+
+                        <div className="relative z-10">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className="h-7 w-7 rounded-lg bg-white/10 border border-white/20 grid place-items-center">
+                                <CalendarDays className="h-3.5 w-3.5 text-[#d49b35]" />
+                              </span>
+                              <span className="text-[11px] uppercase font-bold tracking-wider text-[#d49b35]">
+                                Daily Clinical Intake
+                              </span>
+                            </div>
+                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              Live Station Queue
+                            </span>
+                          </div>
+
+                          <div className="mt-3.5 flex items-baseline gap-2.5">
+                            <span className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                              {totalAppts}
+                            </span>
+                            <span className="text-xs text-white/70">
+                              patient visits scheduled today
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Intake Stages Progress Bar */}
+                        <div className="mt-4 pt-3 border-t border-white/10 relative z-10 space-y-2">
+                          <div className="flex justify-between text-[11px] text-white/70">
+                            <span>Intake Completion</span>
+                            <span className="font-semibold text-white">
+                              {totalAppts > 0 ? Math.round(((checkedInAppts.length + completedAppts.length) / totalAppts) * 100) : 0}% processed
+                            </span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full bg-white/10 p-0.5 flex overflow-hidden gap-1">
+                            {awaitingPct > 0 && (
+                              <div
+                                title={`Awaiting: ${confirmedAppts.length}`}
+                                className="h-full rounded-full bg-blue-400 transition-all duration-500"
+                                style={{ width: `${awaitingPct}%` }}
+                              />
                             )}
-                            {a.status !== "cancelled" && a.status !== "completed" && (
-                              <button
-                                onClick={() => {
-                                  setDirectCancelAppt(a);
-                                  setDirectCancelReason("");
-                                }}
-                                className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 hover:bg-rose-100 cursor-pointer"
-                              >
-                                Cancel (Phone/Walk-in)
-                              </button>
+                            {inClinicPct > 0 && (
+                              <div
+                                title={`In Clinic: ${checkedInAppts.length}`}
+                                className="h-full rounded-full bg-emerald-400 transition-all duration-500"
+                                style={{ width: `${inClinicPct}%` }}
+                              />
+                            )}
+                            {completedPct > 0 && (
+                              <div
+                                title={`Completed: ${completedAppts.length}`}
+                                className="h-full rounded-full bg-teal-200 transition-all duration-500"
+                                style={{ width: `${completedPct}%` }}
+                              />
                             )}
                           </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                          <div className="flex items-center justify-between text-[10px] text-white/60 pt-0.5">
+                            <span className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                              {confirmedAppts.length} Awaiting
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                              {checkedInAppts.length} In Clinic
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-teal-200" />
+                              {completedAppts.length} Done
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* CARD 2: Awaiting Check-In High-Focus Card (4 cols on lg) */}
+                      <div className="lg:col-span-4 rounded-2xl bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40 p-5 border border-blue-200/80 shadow-2xs flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-blue-800 uppercase tracking-wider">
+                              Front-Desk Arrival
+                            </span>
+                            <span className="h-7 w-7 rounded-lg bg-blue-100 text-blue-700 grid place-items-center">
+                              <Clock className="h-4 w-4" />
+                            </span>
+                          </div>
+
+                          <div className="mt-3 flex items-baseline justify-between">
+                            <div>
+                              <p className="font-display text-3xl sm:text-4xl font-bold text-blue-900 leading-tight">
+                                {confirmedAppts.length}
+                              </p>
+                              <p className="text-xs text-blue-700/80 font-medium mt-0.5">Awaiting Arrival &amp; Check-In</p>
+                            </div>
+                            <span className="h-9 w-9 rounded-full bg-blue-100/80 border border-blue-200 flex items-center justify-center text-blue-700 font-bold text-xs">
+                              {totalAppts > 0 ? Math.round((confirmedAppts.length / totalAppts) * 100) : 0}%
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 pt-3 border-t border-blue-100 flex items-center justify-between gap-2">
+                          <span className="text-[11px] text-blue-700">Ready at reception counter</span>
+                          <button
+                            type="button"
+                            onClick={() => setScheduleStatusFilter(scheduleStatusFilter === "awaiting" ? "all" : "awaiting")}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                              scheduleStatusFilter === "awaiting"
+                                ? "bg-blue-600 text-white"
+                                : "bg-blue-100 text-blue-800 hover:bg-blue-200"
+                            }`}
+                          >
+                            {scheduleStatusFilter === "awaiting" ? "Clear Filter" : "Filter Awaiting"}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* CARD 3: Active Consultation & Discharge Card (3 cols on lg) */}
+                      <div className="lg:col-span-3 rounded-2xl bg-white p-5 border border-[#d9e6e0] shadow-2xs flex flex-col justify-between space-y-3">
+                        <div>
+                          <div className="flex items-center justify-between pb-2 border-b border-[#edf3ec]">
+                            <span className="text-[11px] font-bold text-[#527065] uppercase tracking-wider">
+                              Clinical Triage
+                            </span>
+                            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                          </div>
+
+                          <div className="mt-3 grid grid-cols-2 gap-2">
+                            {/* In Clinic Mini-Box */}
+                            <div className="p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-100 text-left">
+                              <div className="flex items-center gap-1.5 text-emerald-800 text-[11px] font-semibold">
+                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                                <span>In Clinic</span>
+                              </div>
+                              <p className="font-display text-2xl font-bold text-emerald-900 mt-1">
+                                {checkedInAppts.length}
+                              </p>
+                              <span className="text-[10px] text-emerald-700">With MD/Exam</span>
+                            </div>
+
+                            {/* Completed Mini-Box */}
+                            <div className="p-2.5 rounded-xl bg-[#f8faf7] border border-[#e5eee7] text-left">
+                              <div className="flex items-center gap-1.5 text-[#527065] text-[11px] font-semibold">
+                                <Check className="h-3.5 w-3.5 text-[#0e615c] shrink-0" />
+                                <span>Done</span>
+                              </div>
+                              <p className="font-display text-2xl font-bold text-[#11382b] mt-1">
+                                {completedAppts.length}
+                              </p>
+                              <span className="text-[10px] text-[#7f998b]">Discharged</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="pt-2 border-t border-[#edf3ec] flex items-center justify-between text-[11px] text-[#527065]">
+                          <span>Active Rooms:</span>
+                          <span className="font-semibold text-[#11382b]">Suites 101–104 Active</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Filter & Search Bar - Mobile Responsive Wrapping */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#dce6db] shadow-2xs">
+                      {/* Search Input */}
+                      <div className="relative flex-1 min-w-[200px]">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
+                        <input
+                          type="text"
+                          value={scheduleSearch}
+                          onChange={(e) => setScheduleSearch(e.target.value)}
+                          placeholder="Search patient, doctor, or reason…"
+                          className="w-full h-9 rounded-xl border border-[#d2e0d1] bg-[#f8faf6] pl-9 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-all shadow-2xs"
+                        />
+                      </div>
+
+                      {/* Filter Chips */}
+                      <div className="flex items-center gap-1.5 overflow-x-auto thin-scroll pb-1 sm:pb-0">
+                        <button
+                          type="button"
+                          onClick={() => setScheduleStatusFilter("all")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            scheduleStatusFilter === "all"
+                              ? "bg-[#0e615c] text-white shadow-2xs"
+                              : "bg-[#f2f7f4] text-[#527065] hover:bg-[#e4ede8]"
+                          }`}
+                        >
+                          All ({totalAppts})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setScheduleStatusFilter("awaiting")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            scheduleStatusFilter === "awaiting"
+                              ? "bg-blue-600 text-white shadow-2xs"
+                              : "bg-blue-50 text-blue-800 border border-blue-200/60 hover:bg-blue-100"
+                          }`}
+                        >
+                          Awaiting Check-In ({confirmedAppts.length})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setScheduleStatusFilter("in_clinic")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            scheduleStatusFilter === "in_clinic"
+                              ? "bg-emerald-600 text-white shadow-2xs"
+                              : "bg-emerald-50 text-emerald-800 border border-emerald-200/60 hover:bg-emerald-100"
+                          }`}
+                        >
+                          In Clinic ({checkedInAppts.length})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setScheduleStatusFilter("completed")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            scheduleStatusFilter === "completed"
+                              ? "bg-[#11382b] text-white shadow-2xs"
+                              : "bg-[#f2f7f4] text-[#527065] hover:bg-[#e4ede8]"
+                          }`}
+                        >
+                          Completed ({completedAppts.length})
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
+                    <div className="hidden md:block overflow-hidden rounded-2xl border border-[#d9e6e0] bg-white shadow-2xs">
+                      <div className="overflow-x-auto thin-scroll">
+                        <table className="w-full text-left text-sm">
+                          <thead className="bg-[#f3f8f5] text-[12px] text-[#527065] font-medium normal-case border-b border-[#e5ede3]">
+                            <tr>
+                              <th className="px-5 py-3 font-medium">Scheduled time</th>
+                              <th className="px-5 py-3 font-medium">Patient</th>
+                              <th className="px-5 py-3 font-medium">Doctor</th>
+                              <th className="px-5 py-3 font-medium">Department</th>
+                              <th className="px-5 py-3 font-medium">Status</th>
+                              <th className="px-5 py-3 text-right font-medium">Front-desk actions</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-[#edf3ec]">
+                            {filteredAppointments.length === 0 ? (
+                              <tr>
+                                <td colSpan={6} className="px-5 py-8 text-center text-[#7f998b]">
+                                  No appointments match the selected filter.
+                                </td>
+                              </tr>
+                            ) : (
+                              filteredAppointments.map((a) => (
+                                <tr key={a.id} className="hover:bg-[#f8fbf7] transition-colors">
+                                  <td className="px-5 py-3.5 font-medium text-[#11382b]">{fmt(a.startAt)}</td>
+                                  <td className="px-5 py-3.5">
+                                    <p className="font-semibold text-[#11382b]">{a.patientName}</p>
+                                    <p className="text-xs text-[#7f998b] font-mono">{a.patientEmail}</p>
+                                  </td>
+                                  <td className="px-5 py-3.5 text-[#243a2f] font-medium">{a.providerName}</td>
+                                  <td className="px-5 py-3.5 text-[#567364]">{a.departmentName}</td>
+                                  <td className="px-5 py-3.5">
+                                    <span
+                                      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold uppercase border ${
+                                        a.status === "confirmed"
+                                          ? "bg-blue-100 text-blue-800 border-blue-200"
+                                          : a.status === "checked_in"
+                                          ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                          : a.status === "in_consultation"
+                                          ? "bg-purple-100 text-purple-800 border-purple-200"
+                                          : a.status === "completed"
+                                          ? "bg-stone-100 text-stone-800 border-stone-200"
+                                          : a.status === "cancellation_requested" ||
+                                            a.status === "reschedule_requested"
+                                          ? "bg-amber-100 text-amber-800 border-amber-200"
+                                          : "bg-rose-100 text-rose-800 border-rose-200"
+                                      }`}
+                                    >
+                                      {a.status === "checked_in" && <Check className="h-3 w-3" />}
+                                      {a.status.replace("_", " ")}
+                                    </span>
+                                  </td>
+                                  <td className="px-5 py-3.5 text-right">
+                                    <div className="flex justify-end gap-1.5 items-center">
+                                      <button
+                                        type="button"
+                                        onClick={() => openPatientProfile(a.patientId)}
+                                        className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors cursor-pointer shadow-2xs"
+                                        title="View & Edit Patient Health Card"
+                                      >
+                                        <QrCode className="h-3 w-3 text-[#0e615c]" />
+                                        <span>Card / EHR</span>
+                                      </button>
+                                      {a.status === "confirmed" && (
+                                        <button
+                                          onClick={() => updateStatus(a.id, "checked_in")}
+                                          className="rounded-full bg-blue-600 px-3.5 py-1 text-xs font-bold text-white hover:bg-blue-700 shadow-2xs transition-colors cursor-pointer"
+                                        >
+                                          Check In
+                                        </button>
+                                      )}
+                                      {a.status !== "cancelled" && a.status !== "completed" && (
+                                        <button
+                                          onClick={() => {
+                                            setDirectCancelAppt(a);
+                                            setDirectCancelReason("");
+                                          }}
+                                          className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 hover:bg-rose-100 transition-colors cursor-pointer"
+                                        >
+                                          Cancel (Phone/Walk-in)
+                                        </button>
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* MOBILE CARD VIEW (visible on mobile only: block md:hidden) */}
+                    <div className="block md:hidden space-y-3.5">
+                      {filteredAppointments.length === 0 ? (
+                        <div className="rounded-2xl border border-dashed border-[#dce6db] bg-white p-8 text-center text-xs text-[#7f998b]">
+                          No appointments match the selected filter.
+                        </div>
+                      ) : (
+                        filteredAppointments.map((a) => (
+                          <div
+                            key={a.id}
+                            className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs space-y-3.5"
+                          >
+                            {/* Card Header: Scheduled Time & Status */}
+                            <div className="flex items-start justify-between gap-2 border-b border-[#edf3ec] pb-3">
+                              <div className="flex items-center gap-2">
+                                <span className="h-8 w-8 rounded-xl bg-blue-50 text-blue-700 grid place-items-center shrink-0">
+                                  <Clock className="h-4 w-4" />
+                                </span>
+                                <div>
+                                  <span className="text-xs font-bold text-[#11382b] block">
+                                    {fmt(a.startAt)}
+                                  </span>
+                                  <span className="text-[11px] text-[#527065]">{a.departmentName}</span>
+                                </div>
+                              </div>
+                              <span
+                                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border shrink-0 ${
+                                  a.status === "confirmed"
+                                    ? "bg-blue-100 text-blue-800 border-blue-200"
+                                    : a.status === "checked_in"
+                                    ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                    : a.status === "in_consultation"
+                                    ? "bg-purple-100 text-purple-800 border-purple-200"
+                                    : a.status === "completed"
+                                    ? "bg-stone-100 text-stone-800 border-stone-200"
+                                    : a.status === "cancellation_requested" ||
+                                      a.status === "reschedule_requested"
+                                    ? "bg-amber-100 text-amber-800 border-amber-200"
+                                    : "bg-rose-100 text-rose-800 border-rose-200"
+                                }`}
+                              >
+                                {a.status === "checked_in" && <Check className="h-3 w-3" />}
+                                {a.status.replace("_", " ")}
+                              </span>
+                            </div>
+
+                            {/* Patient & Doctor Details */}
+                            <div className="space-y-1.5 text-xs">
+                              <div>
+                                <span className="text-[#527065] text-[11px]">Patient:</span>
+                                <h4 className="text-sm font-bold text-[#11382b]">{a.patientName}</h4>
+                                {a.patientEmail && (
+                                  <p className="text-[11px] text-[#7f998b] font-mono">{a.patientEmail}</p>
+                                )}
+                              </div>
+                              <div className="pt-1 flex items-center justify-between text-xs text-[#243a2f]">
+                                <span className="text-[#527065]">Physician:</span>
+                                <span className="font-semibold text-[#11382b]">{a.providerName}</span>
+                              </div>
+                              {a.reason && (
+                                <div className="p-2.5 rounded-xl bg-[#f8faf6] border border-[#e5eee7] text-[11px] text-[#374e41] leading-relaxed">
+                                  <strong className="text-[#11382b]">Reason:</strong> {a.reason}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Mobile Actions Cluster */}
+                            <div className="pt-2 border-t border-[#edf3ec] space-y-2">
+                              {/* Primary Check-In Button (Large touch target) */}
+                              {a.status === "confirmed" && (
+                                <button
+                                  type="button"
+                                  onClick={() => updateStatus(a.id, "checked_in")}
+                                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 px-4 text-xs font-bold text-white hover:bg-blue-700 active:scale-[0.99] shadow-xs transition-all cursor-pointer"
+                                >
+                                  <Check className="h-4 w-4" />
+                                  <span>Check In Patient Now</span>
+                                </button>
+                              )}
+
+                              {a.status === "checked_in" && (
+                                <div className="w-full text-center py-2 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
+                                  ✓ Patient Checked In · Waiting in Lounge
+                                </div>
+                              )}
+
+                              {/* Secondary Actions (Card/EHR & Cancel) */}
+                              <div className="grid grid-cols-2 gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => openPatientProfile(a.patientId)}
+                                  className="flex items-center justify-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 py-2 px-3 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors cursor-pointer"
+                                >
+                                  <QrCode className="h-3.5 w-3.5 text-[#0e615c]" />
+                                  <span>Card / EHR</span>
+                                </button>
+                                {a.status !== "cancelled" && a.status !== "completed" && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setDirectCancelAppt(a);
+                                      setDirectCancelReason("");
+                                    }}
+                                    className="flex items-center justify-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 py-2 px-3 text-xs font-semibold text-rose-700 hover:bg-rose-100 transition-colors cursor-pointer"
+                                  >
+                                    <span>Cancel Visit</span>
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* TAB: PATIENT CARDS & PROFILES REGISTRY */}
+          {tab === "patient_profiles" && (
+            <div className="space-y-6 max-w-7xl mx-auto">
+              {/* Header Action Banner */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-[#d6e4db] bg-gradient-to-r from-[#0c241c] via-[#12382c] to-[#164333] p-5 sm:p-6 text-white shadow-xs">
+                <div className="flex items-start gap-3.5">
+                  <div className="p-2.5 rounded-xl bg-white/10 text-emerald-300 shrink-0 border border-white/15">
+                    <QrCode className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      Patient Profiles &amp; Digital Health Cards
+                    </h3>
+                    <p className="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-xl leading-relaxed">
+                      Front-desk EHR registry: File new patient profiles, update clinical demographics, manage documented allergies, and issue verified digital cards.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5 shrink-0">
+                  {patientFilingMode === "file_new" ? (
+                    <button
+                      type="button"
+                      onClick={() => setPatientFilingMode("view_edit")}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 hover:bg-white/20 text-white px-4 py-2.5 text-xs font-semibold transition-colors cursor-pointer border border-white/20 shadow-xs"
+                    >
+                      <ArrowRight className="h-4 w-4 rotate-180" />
+                      <span>Back to Patient Directory</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPatientFilingMode("file_new");
+                        setFilingSuccessMsg(false);
+                      }}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#11382b] px-4 py-2.5 text-xs font-bold transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02]"
+                    >
+                      <UserPlus className="h-4 w-4" />
+                      <span>+ File New Patient Card</span>
+                    </button>
+                  )}
+                </div>
               </div>
+
+              {/* MODE 1: FILE NEW PATIENT */}
+              {patientFilingMode === "file_new" ? (
+                <div className="rounded-2xl border border-[#d6e4db] bg-white p-6 sm:p-8 shadow-sm space-y-6">
+                  <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
+                    <div>
+                      <h4 className="font-display text-lg font-bold text-[#11382b] flex items-center gap-2">
+                        <UserPlus className="h-5 w-5 text-[#0e615c]" />
+                        <span>Front-Desk Patient Filing Form</span>
+                      </h4>
+                      <p className="text-xs text-[#527060] mt-0.5">
+                        Register a walk-in, phone patient, or emergency intake. This automatically creates their verified profile and digital health card.
+                      </p>
+                    </div>
+                    {filingSuccessMsg && (
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full shadow-2xs">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Patient Card Filed!
+                      </span>
+                    )}
+                  </div>
+
+                  <form onSubmit={handleFileNewPatient} className="space-y-6">
+                    {/* Section 1: Demographics */}
+                    <div className="space-y-4">
+                      <h5 className="text-xs font-bold text-[#11382b] uppercase tracking-wider flex items-center gap-2 border-b border-[#f0f4ef] pb-1.5">
+                        <User className="h-4 w-4 text-[#0e615c]" />
+                        <span>1. Primary Demographics &amp; Contact</span>
+                      </h5>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <div className="sm:col-span-2">
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Full Legal Name <span className="text-rose-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            placeholder="e.g. Maya Chen"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Email Address <span className="text-rose-500">*</span>
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={newEmail}
+                            onChange={(e) => setNewEmail(e.target.value)}
+                            placeholder="e.g. maya@example.com"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            value={newPhone}
+                            onChange={(e) => setNewPhone(e.target.value)}
+                            placeholder="+1 (555) 000-0000"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Date of Birth
+                          </label>
+                          <input
+                            type="date"
+                            value={newDob}
+                            onChange={(e) => setNewDob(e.target.value)}
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Gender
+                          </label>
+                          <select
+                            value={newGender}
+                            onChange={(e) => setNewGender(e.target.value)}
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          >
+                            <option value="unspecified">Unspecified</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="non-binary">Non-binary</option>
+                            <option value="other">Other</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          Residential Address
+                        </label>
+                        <input
+                          type="text"
+                          value={newAddress}
+                          onChange={(e) => setNewAddress(e.target.value)}
+                          placeholder="Street, City, State, ZIP"
+                          className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Section 2: Clinical Details */}
+                    <div className="space-y-4">
+                      <h5 className="text-xs font-bold text-[#11382b] uppercase tracking-wider flex items-center gap-2 border-b border-[#f0f4ef] pb-1.5">
+                        <Heart className="h-4 w-4 text-[#d49b35]" />
+                        <span>2. Clinical Safety &amp; Allergies</span>
+                      </h5>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Blood Group
+                          </label>
+                          <select
+                            value={newBloodGroup}
+                            onChange={(e) => setNewBloodGroup(e.target.value)}
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          >
+                            <option value="O+">O+ (Positive)</option>
+                            <option value="O-">O- (Negative)</option>
+                            <option value="A+">A+ (Positive)</option>
+                            <option value="A-">A- (Negative)</option>
+                            <option value="B+">B+ (Positive)</option>
+                            <option value="B-">B- (Negative)</option>
+                            <option value="AB+">AB+ (Positive)</option>
+                            <option value="AB-">AB- (Negative)</option>
+                            <option value="Unknown">Unknown / Pending Lab</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Known Drug &amp; Food Allergies
+                          </label>
+                          <input
+                            type="text"
+                            value={newAllergies}
+                            onChange={(e) => setNewAllergies(e.target.value)}
+                            placeholder="e.g. Penicillin, Peanuts, None reported"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Emergency Contact Name
+                          </label>
+                          <input
+                            type="text"
+                            value={newEmergencyName}
+                            onChange={(e) => setNewEmergencyName(e.target.value)}
+                            placeholder="Full name of emergency contact"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Emergency Contact Phone
+                          </label>
+                          <input
+                            type="tel"
+                            value={newEmergencyPhone}
+                            onChange={(e) => setNewEmergencyPhone(e.target.value)}
+                            placeholder="+1 (555) 000-0000"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Insurance Carrier
+                          </label>
+                          <input
+                            type="text"
+                            value={newInsuranceProvider}
+                            onChange={(e) => setNewInsuranceProvider(e.target.value)}
+                            placeholder="e.g. Blue Shield, Aetna, Self-Pay / Cash"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                            Insurance Policy / Member ID
+                          </label>
+                          <input
+                            type="text"
+                            value={newInsurancePolicy}
+                            onChange={(e) => setNewInsurancePolicy(e.target.value)}
+                            placeholder="e.g. POL-99210-BC"
+                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          Medical History &amp; Chronic Conditions
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={newMedicalHistory}
+                          onChange={(e) => setNewMedicalHistory(e.target.value)}
+                          placeholder="e.g. Mild seasonal asthma, routine vaccinations up to date"
+                          className="w-full rounded-xl border border-[#c8d8c6] bg-white p-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-[#e7ede5] flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setPatientFilingMode("view_edit")}
+                        className="rounded-xl border border-[#c8d8c6] bg-white px-5 py-2.5 text-xs font-semibold text-[#527060] hover:bg-gray-50 transition-colors cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={filingSaving}
+                        className="inline-flex items-center gap-2 rounded-xl bg-[#0e615c] px-6 py-3 text-sm font-bold text-white hover:bg-[#0a4c48] disabled:opacity-50 shadow-md transition-all cursor-pointer"
+                      >
+                        {filingSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
+                        <span>File Patient Profile &amp; Issue Health Card</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              ) : (
+                /* MODE 2: DIRECTORY + LIVE CARD VIEW + EDIT PROFILE */
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                  {/* Left Column: Patients List (4 cols) */}
+                  <div className="lg:col-span-4 space-y-4">
+                    <div className="rounded-2xl border border-[#d6e4db] bg-white p-4 shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#11382b]">
+                          Clinic Patients ({filteredPatients.length})
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPatientFilingMode("file_new");
+                            setFilingSuccessMsg(false);
+                          }}
+                          className="text-xs font-bold text-[#0e615c] hover:underline flex items-center gap-1 cursor-pointer"
+                        >
+                          <Plus className="h-3 w-3" /> File New
+                        </button>
+                      </div>
+
+                      {/* Search box */}
+                      <div className="relative">
+                        <Search className="absolute left-3 top-3 h-4 w-4 text-[#7f998b]" />
+                        <input
+                          type="text"
+                          value={patientSearch}
+                          onChange={(e) => setPatientSearch(e.target.value)}
+                          placeholder="Search by name, email, ID..."
+                          className="h-10 w-full rounded-xl border border-[#c8d8c6] bg-[#f9faf7] pl-9 pr-3 text-xs text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Patient Cards List */}
+                    <div className="space-y-2 max-h-[640px] overflow-y-auto pr-1">
+                      {filteredPatients.length === 0 ? (
+                        <div className="rounded-2xl border border-dashed border-[#c8d8c6] bg-[#f9faf7] p-8 text-center text-xs text-[#527060]">
+                          No patients found matching your search.
+                        </div>
+                      ) : (
+                        filteredPatients.map((pat) => {
+                          const isSelected = selectedPatient?.id === pat.id;
+                          return (
+                            <button
+                              key={pat.id}
+                              type="button"
+                              onClick={() => selectPatient(pat)}
+                              className={`w-full text-left rounded-2xl p-3.5 border transition-all cursor-pointer ${
+                                isSelected
+                                  ? "border-[#0e615c] bg-[#eef7f4] shadow-xs ring-1 ring-[#0e615c]"
+                                  : "border-[#dce6db] bg-white hover:bg-[#f6faf7] shadow-2xs"
+                              }`}
+                            >
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0">
+                                  <p className="font-semibold text-sm text-[#11382b] truncate">
+                                    {pat.name || "Unnamed Patient"}
+                                  </p>
+                                  <p className="text-xs text-[#527060] truncate">{pat.email}</p>
+                                </div>
+                                <span className="font-mono text-[11px] font-bold text-[#0e615c] bg-white px-2 py-0.5 rounded-lg border border-[#c8d8c6] shrink-0">
+                                  {`AF-${pat.id.slice(0, 6).toUpperCase()}`}
+                                </span>
+                              </div>
+
+                              <div className="mt-2.5 flex flex-wrap items-center gap-1.5 text-[11px]">
+                                {pat.bloodGroup && (
+                                  <span className="px-2 py-0.5 rounded-md bg-rose-50 text-rose-800 font-bold border border-rose-200">
+                                    🩸 {pat.bloodGroup}
+                                  </span>
+                                )}
+                                <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 font-medium border border-amber-200 truncate max-w-[140px]">
+                                  ⚠ {pat.allergies || "No allergies"}
+                                </span>
+                              </div>
+                            </button>
+                          );
+                        })
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right Column: Selected Patient Live Card & Profile Editor (8 cols) */}
+                  <div className="lg:col-span-8 space-y-6">
+                    {selectedPatient ? (
+                      <>
+                        {/* Live Digital Health Card (Receptionist View) */}
+                        <div className="w-full rounded-[26px] p-6 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#07241a] via-[#0e3a2b] to-[#174e3b] border-2 border-[#d49b35]/40">
+                          {/* Botanical Watermark */}
+                          <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
+                            <BotanicalCorner className="h-32 w-32" />
+                          </div>
+
+                          {/* Card Header */}
+                          <div className="flex items-center justify-between pb-4 border-b border-white/20">
+                            <div className="flex items-center gap-3">
+                              <ClinicLogoIcon className="h-8 w-8 bg-white/10" pulseColor="#d49b35" />
+                              <div>
+                                <p className="font-display text-sm font-bold tracking-wide text-white">Afiya Clinic</p>
+                                <p className="text-[11px] uppercase tracking-[0.16em] text-[#f2bf5e] font-semibold">
+                                  Digital Health Pass · Reception Verified
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <span className="rounded-full bg-emerald-500/25 px-3 py-0.5 text-xs font-bold text-emerald-200 border border-emerald-400/40">
+                                ✓ Verified Active
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => window.print()}
+                                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                                title="Print Health Card"
+                              >
+                                <Printer className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Card Body */}
+                          <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                                Patient Full Name
+                              </span>
+                              <p className="text-xl font-bold tracking-tight text-white mt-0.5">
+                                {editName || selectedPatient.name || "Patient"}
+                              </p>
+                            </div>
+
+                            <div>
+                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                                Clinic Member ID
+                              </span>
+                              <div className="flex items-center gap-2 mt-0.5">
+                                <p className="font-mono text-sm font-bold text-[#ffd27a]">
+                                  {`AF-${selectedPatient.id.slice(0, 8).toUpperCase()}`}
+                                </p>
+                                <button
+                                  type="button"
+                                  onClick={() => copyMemberId(`AF-${selectedPatient.id.slice(0, 8).toUpperCase()}`)}
+                                  className="p-1 rounded-md hover:bg-white/15 text-white/80 transition-colors cursor-pointer"
+                                  title="Copy Member ID"
+                                >
+                                  {copiedMemberId ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                                </button>
+                              </div>
+                            </div>
+
+                            <div>
+                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                                Blood Group
+                              </span>
+                              <div className="mt-1">
+                                <span className="inline-flex items-center gap-1 rounded-lg bg-rose-500/20 border border-rose-400/35 px-2.5 py-0.5 text-xs font-bold text-rose-200">
+                                  🩸 {editBloodGroup || selectedPatient.bloodGroup || "O+ (Positive)"}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div>
+                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                                Documented Allergies
+                              </span>
+                              <div className="mt-1">
+                                <span className="inline-flex items-center gap-1 rounded-lg bg-amber-500/20 border border-amber-400/35 px-2.5 py-0.5 text-xs font-bold text-amber-200">
+                                  ⚠ {editAllergies || selectedPatient.allergies || "None reported"}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Card Footer */}
+                          <div className="mt-5 pt-4 border-t border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-white/90">
+                            <div className="space-y-0.5">
+                              <p className="flex items-center gap-1.5">
+                                <span className="font-bold text-emerald-200">Insurance:</span>
+                                <span>{editInsuranceProvider || selectedPatient.insuranceProvider || "Self-Pay"}</span>
+                                <span className="text-white/60">({editInsurancePolicy || selectedPatient.insurancePolicyNumber || "Active"})</span>
+                              </p>
+                              <p className="flex items-center gap-1.5">
+                                <span className="font-bold text-emerald-200">Emergency:</span>
+                                <span>{editEmergencyName || selectedPatient.emergencyContactName || "Front Desk Contact"}</span>
+                                <span className="text-white/60">({editEmergencyPhone || selectedPatient.emergencyContactPhone || "+1 Clinic"})</span>
+                              </p>
+                            </div>
+
+                            <div className="flex items-center gap-2.5 self-end sm:self-center">
+                              <div className="grid h-11 w-11 place-items-center rounded-xl bg-white p-1 shadow-md">
+                                <QrCode className="h-9 w-9 text-[#11382b]" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Front-Desk Profile & Card Editor Form */}
+                        <div className="rounded-2xl border border-[#d6e4db] bg-white p-6 sm:p-7 shadow-xs space-y-6">
+                          <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
+                            <div>
+                              <h4 className="font-display text-lg font-bold text-[#11382b] flex items-center gap-2">
+                                <ShieldCheck className="h-5 w-5 text-[#0e615c]" />
+                                <span>Reception EHR &amp; Health Card Editor</span>
+                              </h4>
+                              <p className="text-xs text-[#527060] mt-0.5">
+                                Update patient information. Changes immediately sync to the patient&apos;s digital health card and clinic EHR.
+                              </p>
+                            </div>
+                            {editSuccessMsg && (
+                              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full shadow-2xs">
+                                <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Card &amp; EHR Updated!
+                              </span>
+                            )}
+                          </div>
+
+                          <form onSubmit={handleUpdatePatient} className="space-y-5">
+                            {/* Patient Full Name */}
+                            <div>
+                              <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                Patient Full Name
+                              </label>
+                              <input
+                                type="text"
+                                required
+                                value={editName}
+                                onChange={(e) => setEditName(e.target.value)}
+                                placeholder="e.g. Maya Chen"
+                                className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                              />
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Phone Number
+                                </label>
+                                <input
+                                  type="tel"
+                                  value={editPhone}
+                                  onChange={(e) => setEditPhone(e.target.value)}
+                                  placeholder="+1 (555) 000-0000"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Date of Birth
+                                </label>
+                                <input
+                                  type="date"
+                                  value={editDob}
+                                  onChange={(e) => setEditDob(e.target.value)}
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Blood Group
+                                </label>
+                                <input
+                                  type="text"
+                                  value={editBloodGroup}
+                                  onChange={(e) => setEditBloodGroup(e.target.value)}
+                                  placeholder="e.g. O+, A+, B-"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Known Drug &amp; Food Allergies
+                                </label>
+                                <input
+                                  type="text"
+                                  value={editAllergies}
+                                  onChange={(e) => setEditAllergies(e.target.value)}
+                                  placeholder="e.g. Penicillin, Peanuts, None reported"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Residential Address
+                                </label>
+                                <input
+                                  type="text"
+                                  value={editAddress}
+                                  onChange={(e) => setEditAddress(e.target.value)}
+                                  placeholder="Street, City, State"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Emergency Contact Name
+                                </label>
+                                <input
+                                  type="text"
+                                  value={editEmergencyName}
+                                  onChange={(e) => setEditEmergencyName(e.target.value)}
+                                  placeholder="Contact Full Name"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Emergency Contact Phone
+                                </label>
+                                <input
+                                  type="tel"
+                                  value={editEmergencyPhone}
+                                  onChange={(e) => setEditEmergencyPhone(e.target.value)}
+                                  placeholder="+1 (555) 000-0000"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Insurance Provider
+                                </label>
+                                <input
+                                  type="text"
+                                  value={editInsuranceProvider}
+                                  onChange={(e) => setEditInsuranceProvider(e.target.value)}
+                                  placeholder="e.g. Blue Cross Blue Shield"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                  Insurance Policy Number
+                                </label>
+                                <input
+                                  type="text"
+                                  value={editInsurancePolicy}
+                                  onChange={(e) => setEditInsurancePolicy(e.target.value)}
+                                  placeholder="e.g. POL-99210-BC"
+                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                />
+                              </div>
+                            </div>
+
+                            <div>
+                              <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                Past Medical History &amp; Chronic Conditions
+                              </label>
+                              <textarea
+                                rows={3}
+                                value={editMedicalHistory}
+                                onChange={(e) => setEditMedicalHistory(e.target.value)}
+                                placeholder="e.g. Mild seasonal allergies, routine annual vaccinations up to date"
+                                className="w-full rounded-xl border border-[#c8d8c6] bg-white p-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                              />
+                            </div>
+
+                            <div className="pt-3 border-t border-[#e7ede5] flex items-center justify-end">
+                              <button
+                                type="submit"
+                                disabled={editSaving}
+                                className="inline-flex items-center gap-2 rounded-xl bg-[#0e615c] px-6 py-3 text-sm font-bold text-white hover:bg-[#0a4c48] disabled:opacity-50 shadow-md transition-all cursor-pointer"
+                              >
+                                {editSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
+                                <span>Save &amp; Update Patient Card</span>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="rounded-2xl border border-dashed border-[#c8d8c6] bg-white p-12 text-center text-sm text-[#527060]">
+                        Select a patient from the left column to view and edit their profile and card.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -1368,47 +2707,245 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
           {/* TAB 5: BILLING & CASHIER */}
           {tab === "billing" && (
             <div className="space-y-6 max-w-6xl">
-              <div className="overflow-hidden rounded-2xl border border-[#dce6db] bg-white shadow-2xs">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-[#f4f7f3] text-xs tracking-wider text-[#436252] uppercase font-bold border-b border-[#e5ede3]">
-                    <tr>
-                      <th className="px-5 py-3">Invoice #</th>
-                      <th className="px-5 py-3">Patient</th>
-                      <th className="px-5 py-3">Amount</th>
-                      <th className="px-5 py-3">Status</th>
-                      <th className="px-5 py-3 text-right">Cashier Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#edf3ec]">
-                    {invoicesList.map((inv) => (
-                      <tr key={inv.id} className="hover:bg-[#f8fbf7] transition-colors">
-                        <td className="px-5 py-3 font-mono font-semibold text-[#d49b35]">{inv.invoiceNumber}</td>
-                        <td className="px-5 py-3 font-semibold text-[#11382b]">{inv.patientName}</td>
-                        <td className="px-5 py-3 font-bold text-[#11382b]">${inv.totalAmount}</td>
-                        <td className="px-5 py-3">
-                          <span
-                            className={`rounded-full px-2.5 py-0.5 text-xs font-bold uppercase border ${
-                              inv.status === "paid" ? "bg-emerald-100 text-emerald-800 border-emerald-200" : "bg-amber-100 text-amber-800 border-amber-200"
-                            }`}
-                          >
-                            {inv.status}
+              {/* Financial Summary KPI Cards (Responsive grid on mobile & desktop) */}
+              {(() => {
+                const totalInvoices = invoicesList.length;
+                const paidInvoices = invoicesList.filter((i) => i.status === "paid");
+                const pendingInvoices = invoicesList.filter((i) => i.status !== "paid");
+                const totalCollected = paidInvoices.reduce((sum, i) => sum + (i.totalAmount || 0), 0);
+                const totalPending = pendingInvoices.reduce((sum, i) => sum + (i.totalAmount || 0), 0);
+
+                const filteredInvoices = invoicesList.filter((inv) => {
+                  const matchesFilter =
+                    billingFilter === "all" ||
+                    (billingFilter === "paid" && inv.status === "paid") ||
+                    (billingFilter === "pending" && inv.status !== "paid");
+                  const q = billingSearch.toLowerCase().trim();
+                  const matchesSearch =
+                    !q ||
+                    inv.patientName?.toLowerCase().includes(q) ||
+                    inv.invoiceNumber?.toLowerCase().includes(q) ||
+                    inv.patientEmail?.toLowerCase().includes(q);
+                  return matchesFilter && matchesSearch;
+                });
+
+                return (
+                  <div className="space-y-5">
+                    {/* Summary Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-medium text-[#527065]">Total Collected</span>
+                          <span className="h-7 w-7 rounded-xl bg-emerald-50 text-emerald-700 grid place-items-center">
+                            <DollarSign className="h-4 w-4" />
                           </span>
-                        </td>
-                        <td className="px-5 py-3 text-right">
-                          {inv.status !== "paid" && (
-                            <button
-                              onClick={() => setPayingInvoice(inv)}
-                              className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold text-white hover:bg-emerald-700 shadow-2xs cursor-pointer"
-                            >
-                              Collect Copay
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                        </div>
+                        <p className="mt-2 text-2xl font-bold text-[#0e615c]">${totalCollected.toLocaleString()}.00</p>
+                        <p className="text-[11px] text-[#7f998b] mt-0.5">{paidInvoices.length} settled receipts</p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-medium text-[#527065]">Pending Checkout</span>
+                          <span className="h-7 w-7 rounded-xl bg-amber-50 text-amber-700 grid place-items-center">
+                            <Clock className="h-4 w-4" />
+                          </span>
+                        </div>
+                        <p className="mt-2 text-2xl font-bold text-amber-700">${totalPending.toLocaleString()}.00</p>
+                        <p className="text-[11px] text-[#7f998b] mt-0.5">{pendingInvoices.length} patients awaiting copay</p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-medium text-[#527065]">Total Invoices</span>
+                          <span className="h-7 w-7 rounded-xl bg-emerald-50 text-[#0e615c] grid place-items-center">
+                            <CreditCard className="h-4 w-4" />
+                          </span>
+                        </div>
+                        <p className="mt-2 text-2xl font-bold text-[#11382b]">{totalInvoices}</p>
+                        <p className="text-[11px] text-[#7f998b] mt-0.5">Clinic billing ledger active</p>
+                      </div>
+                    </div>
+
+                    {/* Filter & Search Bar - Full Mobile Wrapping */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#dce6db] shadow-2xs">
+                      {/* Search Input */}
+                      <div className="relative flex-1 min-w-[200px]">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
+                        <input
+                          type="text"
+                          value={billingSearch}
+                          onChange={(e) => setBillingSearch(e.target.value)}
+                          placeholder="Search patient name, invoice #, or email…"
+                          className="w-full h-9 rounded-xl border border-[#d2e0d1] bg-[#f8faf6] pl-9 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-all shadow-2xs"
+                        />
+                      </div>
+
+                      {/* Filter Chips */}
+                      <div className="flex items-center gap-1.5 overflow-x-auto thin-scroll pb-1 sm:pb-0">
+                        <button
+                          type="button"
+                          onClick={() => setBillingFilter("all")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            billingFilter === "all"
+                              ? "bg-[#0e615c] text-white shadow-2xs"
+                              : "bg-[#f2f7f4] text-[#527065] hover:bg-[#e4ede8]"
+                          }`}
+                        >
+                          All ({totalInvoices})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setBillingFilter("pending")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            billingFilter === "pending"
+                              ? "bg-amber-600 text-white shadow-2xs"
+                              : "bg-amber-50 text-amber-800 border border-amber-200/60 hover:bg-amber-100"
+                          }`}
+                        >
+                          Pending ({pendingInvoices.length})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setBillingFilter("paid")}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
+                            billingFilter === "paid"
+                              ? "bg-emerald-600 text-white shadow-2xs"
+                              : "bg-emerald-50 text-emerald-800 border border-emerald-200/60 hover:bg-emerald-100"
+                          }`}
+                        >
+                          Paid ({paidInvoices.length})
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
+                    <div className="hidden md:block overflow-hidden rounded-2xl border border-[#dce6db] bg-white shadow-2xs">
+                      <div className="overflow-x-auto thin-scroll">
+                        <table className="w-full text-left text-xs">
+                          <thead className="bg-[#f4f7f3] text-[11px] tracking-wider text-[#436252] uppercase font-bold border-b border-[#e5ede3]">
+                            <tr>
+                              <th className="px-5 py-3">Invoice #</th>
+                              <th className="px-5 py-3">Patient</th>
+                              <th className="px-5 py-3">Amount</th>
+                              <th className="px-5 py-3">Status</th>
+                              <th className="px-5 py-3 text-right">Cashier Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-[#edf3ec]">
+                            {filteredInvoices.length === 0 ? (
+                              <tr>
+                                <td colSpan={5} className="px-5 py-8 text-center text-[#7f998b]">
+                                  No invoices match the selected filter.
+                                </td>
+                              </tr>
+                            ) : (
+                              filteredInvoices.map((inv) => (
+                                <tr key={inv.id} className="hover:bg-[#f8fbf7] transition-colors">
+                                  <td className="px-5 py-3.5 font-mono font-semibold text-[#d49b35]">
+                                    {inv.invoiceNumber}
+                                  </td>
+                                  <td className="px-5 py-3.5">
+                                    <div className="font-semibold text-[#11382b]">{inv.patientName}</div>
+                                    {inv.patientEmail && (
+                                      <div className="text-[11px] text-[#7f998b] font-mono">{inv.patientEmail}</div>
+                                    )}
+                                  </td>
+                                  <td className="px-5 py-3.5 font-bold text-[#11382b]">${inv.totalAmount}.00</td>
+                                  <td className="px-5 py-3.5">
+                                    <span
+                                      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border ${
+                                        inv.status === "paid"
+                                          ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                          : "bg-amber-100 text-amber-800 border-amber-200"
+                                      }`}
+                                    >
+                                      {inv.status === "paid" && <Check className="h-3 w-3" />}
+                                      {inv.status}
+                                    </span>
+                                  </td>
+                                  <td className="px-5 py-3.5 text-right">
+                                    {inv.status !== "paid" ? (
+                                      <button
+                                        type="button"
+                                        onClick={() => setPayingInvoice(inv)}
+                                        className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 shadow-2xs transition-colors cursor-pointer"
+                                      >
+                                        <DollarSign className="h-3.5 w-3.5" />
+                                        <span>Collect Copay</span>
+                                      </button>
+                                    ) : (
+                                      <span className="text-[11px] text-emerald-700 font-medium">Receipt Filed</span>
+                                    )}
+                                  </td>
+                                </tr>
+                              ))
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* MOBILE CARD VIEW (visible on mobile only: block md:hidden) */}
+                    <div className="block md:hidden space-y-3">
+                      {filteredInvoices.length === 0 ? (
+                        <div className="rounded-2xl border border-dashed border-[#dce6db] bg-white p-8 text-center text-xs text-[#7f998b]">
+                          No invoices match the selected filter.
+                        </div>
+                      ) : (
+                        filteredInvoices.map((inv) => (
+                          <div
+                            key={inv.id}
+                            className="rounded-2xl border border-[#dce6db] bg-white p-4 shadow-2xs space-y-3"
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <span className="font-mono text-xs font-bold text-[#d49b35]">
+                                  {inv.invoiceNumber}
+                                </span>
+                                <h4 className="text-sm font-bold text-[#11382b] mt-0.5">{inv.patientName}</h4>
+                                {inv.patientEmail && (
+                                  <p className="text-[11px] text-[#7f998b] font-mono">{inv.patientEmail}</p>
+                                )}
+                              </div>
+                              <span
+                                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border shrink-0 ${
+                                  inv.status === "paid"
+                                    ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                    : "bg-amber-100 text-amber-800 border-amber-200"
+                                }`}
+                              >
+                                {inv.status === "paid" && <Check className="h-3 w-3" />}
+                                {inv.status}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center justify-between border-t border-[#edf3ec] pt-2.5 text-xs">
+                              <span className="text-[#567364]">Total Balance Due:</span>
+                              <span className="text-base font-bold text-[#11382b]">${inv.totalAmount}.00</span>
+                            </div>
+
+                            {inv.status !== "paid" ? (
+                              <button
+                                type="button"
+                                onClick={() => setPayingInvoice(inv)}
+                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 px-4 text-xs font-bold text-white hover:bg-emerald-700 shadow-xs transition-colors cursor-pointer"
+                              >
+                                <DollarSign className="h-4 w-4" />
+                                <span>Collect Copay (${inv.totalAmount}.00)</span>
+                              </button>
+                            ) : (
+                              <div className="w-full text-center py-2 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
+                                ✓ Paid in Full · Electronic Receipt Archived
+                              </div>
+                            )}
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -1478,11 +3015,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2 text-xs text-[#162720] focus:border-[#11382b] focus:bg-white focus:outline-none"
               />
             </div>
-            <div className="flex justify-end gap-2 pt-2">
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 border-t border-[#edf3ec]">
               <button
                 type="button"
                 onClick={() => setDirectCancelAppt(null)}
-                className="rounded-full border border-[#dce6db] px-4 py-2 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1]"
+                className="w-full sm:w-auto rounded-xl border border-[#dce6db] px-4 py-2.5 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1] transition-colors cursor-pointer"
               >
                 Go Back
               </button>
@@ -1490,7 +3027,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 type="button"
                 disabled={directCancelBusy || !directCancelReason.trim()}
                 onClick={handleDirectCancel}
-                className="rounded-full bg-rose-600 px-4 py-2 text-xs font-bold text-white hover:bg-rose-700 disabled:opacity-50 shadow-xs"
+                className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-rose-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-rose-700 disabled:opacity-50 shadow-xs transition-colors cursor-pointer"
               >
                 {directCancelBusy ? "Cancelling…" : "Confirm Cancellation"}
               </button>
@@ -1555,30 +3092,64 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
       {/* MODAL: CASHIER PAY */}
       {payingInvoice && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-sm rounded-3xl border border-[#dce6db] bg-white p-6 shadow-2xl text-[#162720] space-y-4">
-            <h3 className="font-display text-base font-bold text-[#11382b]">Collect Patient Copay</h3>
-            <p className="text-xs text-[#567364]">
-              Invoice: <strong>{payingInvoice.invoiceNumber}</strong> · Amount: <strong>${payingInvoice.totalAmount}.00</strong>
-            </p>
-            <div>
-              <label className="text-[11px] font-bold text-[#436252] uppercase">Payment Method</label>
-              <select
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2 text-xs text-[#162720] focus:border-[#11382b] focus:bg-white focus:outline-none"
-              >
-                <option value="Cash">Cash</option>
-                <option value="Credit Card (Visa)">Credit Card (Visa)</option>
-                <option value="Debit Card">Debit Card</option>
-                <option value="Insurance Copay">Insurance Copay</option>
-              </select>
-            </div>
-            <div className="flex justify-end gap-2 pt-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="w-full max-w-md rounded-3xl border border-[#dce6db] bg-white p-5 sm:p-6 shadow-2xl text-[#162720] space-y-4 my-auto">
+            <div className="flex items-center justify-between border-b border-[#edf3ec] pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="h-9 w-9 rounded-xl bg-emerald-50 text-[#0e615c] grid place-items-center">
+                  <CreditCard className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-display text-base font-bold text-[#11382b]">Collect Patient Copay</h3>
+                  <p className="text-[11px] text-[#527065]">Cashier &amp; Checkout Station</p>
+                </div>
+              </div>
               <button
                 type="button"
                 onClick={() => setPayingInvoice(null)}
-                className="rounded-full border border-[#dce6db] px-4 py-2 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1]"
+                className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="rounded-2xl bg-[#f8faf6] p-3.5 border border-[#e5eee7] space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-[#567364]">Patient Name:</span>
+                <span className="font-bold text-[#11382b]">{payingInvoice.patientName}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[#567364]">Invoice Number:</span>
+                <span className="font-mono font-semibold text-[#d49b35]">{payingInvoice.invoiceNumber}</span>
+              </div>
+              <div className="flex items-center justify-between border-t border-[#e2ece5] pt-2 text-sm font-bold">
+                <span className="text-[#11382b]">Total Copay Due:</span>
+                <span className="text-emerald-700">${payingInvoice.totalAmount}.00</span>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-[11px] font-bold text-[#436252] uppercase tracking-wide">
+                Payment Method &amp; Channel
+              </label>
+              <select
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="mt-1.5 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2.5 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none shadow-2xs"
+              >
+                <option value="Cash">Cash (Physical Currency)</option>
+                <option value="Credit Card (Visa)">Credit Card (Visa / Mastercard)</option>
+                <option value="Debit Card">Debit Card (Point of Sale)</option>
+                <option value="Insurance Copay">Insurance Copay / Direct Billing</option>
+                <option value="Mobile Payment">Mobile Payment (Apple Pay / Google Pay)</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 border-t border-[#edf3ec]">
+              <button
+                type="button"
+                onClick={() => setPayingInvoice(null)}
+                className="w-full sm:w-auto rounded-xl border border-[#dce6db] px-4 py-2.5 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1] transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -1586,9 +3157,19 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 type="button"
                 disabled={payBusy}
                 onClick={handlePayInvoice}
-                className="rounded-full bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700 shadow-xs"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-emerald-700 shadow-xs transition-colors cursor-pointer disabled:opacity-50"
               >
-                {payBusy ? "Processing…" : "Mark as Paid"}
+                {payBusy ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    <span>Processing…</span>
+                  </>
+                ) : (
+                  <>
+                    <Check className="h-3.5 w-3.5" />
+                    <span>Mark as Paid (${payingInvoice.totalAmount}.00)</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

@@ -2,6 +2,8 @@
  * End-to-End Role-Based Access Control (RBAC) Verification Suite.
  * Tests all 4 roles: Patient, Doctor/Clinician, Receptionist, Admin.
  */
+export {};
+
 const BASE_URL = "http://127.0.0.1:3000";
 
 interface AuthCookie {

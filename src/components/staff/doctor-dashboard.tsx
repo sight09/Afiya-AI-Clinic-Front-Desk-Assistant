@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { RoleSwitcherModal } from "@/components/auth/role-switcher-modal";
 import {
@@ -8,23 +8,28 @@ import {
   AlertTriangle,
   ArrowRight,
   BellRing,
+  Building2,
   CalendarCheck,
   CalendarDays,
   Check,
   CheckCircle2,
   ChevronDown,
   ClipboardCheck,
+  Copy,
   CreditCard,
   FileText,
   HeartPulse,
   LayoutDashboard,
   Loader2,
   LogOut,
+  Mail,
   Menu,
   PanelLeft,
   PanelLeftClose,
   Pill,
   Plus,
+  Printer,
+  QrCode,
   RefreshCw,
   Save,
   ShieldCheck,
@@ -35,6 +40,7 @@ import {
   Users,
   X,
 } from "lucide-react";
+import { BotanicalCorner, ClinicLogoIcon } from "@/components/ui/botanical-art";
 import {
   Appointment,
   fmt,
@@ -55,6 +61,14 @@ const DOCTOR_TABS = [
   { id: "profile", label: "Clinical Profile & Hours", icon: UserCheck },
 ] as const;
 
+const TAB_DESCRIPTIONS: Record<DoctorTab, string> = {
+  schedule: "Daily clinical calendar, scheduled consultations, and visit progress.",
+  records: "Comprehensive electronic health records, diagnostic plans, and patient medical history.",
+  review: "Review and verify AI-generated patient intake summaries and clinical risk flags.",
+  notifications: "Urgent medical escalations, staff alerts, and appointment modification requests.",
+  profile: "Physician medical credentials, clinic hours, consultation rates, and department assignment.",
+};
+
 export function DoctorDashboard({ user }: { user: { name: string; role: string; email?: string } }) {
   const [tab, setTab] = useState<DoctorTab>("schedule");
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -69,6 +83,8 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
   const [showUserProfileModal, setShowUserProfileModal] = useState(false);
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [copiedStaffId, setCopiedStaffId] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   async function handleSignOut() {
     if (isSigningOut) return;
@@ -126,6 +142,73 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
   useEffect(() => {
     void loadData();
   }, [loadData]);
+
+  // Deduplicated list of patients for clinical documentation
+  const patientOptions = useMemo(() => {
+    const patientMap = new Map<
+      string,
+      {
+        id: string;
+        name: string;
+        email: string;
+        latestAppointmentId?: string;
+        latestReason?: string;
+      }
+    >();
+
+    for (const a of appointments) {
+      if (!a.patientId) continue;
+      const existing = patientMap.get(a.patientId);
+      if (!existing) {
+        patientMap.set(a.patientId, {
+          id: a.patientId,
+          name: a.patientName || "Unknown Patient",
+          email: a.patientEmail || "",
+          latestAppointmentId: a.id,
+          latestReason: a.reason || "",
+        });
+      } else {
+        if ((!existing.name || existing.name === "Unknown Patient") && a.patientName) {
+          existing.name = a.patientName;
+        }
+        if (!existing.email && a.patientEmail) {
+          existing.email = a.patientEmail;
+        }
+        if (a.status === "in_consultation" || a.status === "confirmed") {
+          existing.latestAppointmentId = a.id;
+          if (a.reason) existing.latestReason = a.reason;
+        }
+      }
+    }
+
+    for (const r of records) {
+      if (!r.patientId) continue;
+      if (!patientMap.has(r.patientId)) {
+        patientMap.set(r.patientId, {
+          id: r.patientId,
+          name: r.patientName || "Unknown Patient",
+          email: r.patientEmail || "",
+        });
+      }
+    }
+
+    return Array.from(patientMap.values()).sort((a, b) => a.name.localeCompare(b.name));
+  }, [appointments, records]);
+
+  const handleManualRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await loadData();
+    } finally {
+      setTimeout(() => setRefreshing(false), 400);
+    }
+  };
+
+  const copyStaffId = (id: string) => {
+    navigator.clipboard?.writeText(id);
+    setCopiedStaffId(true);
+    setTimeout(() => setCopiedStaffId(false), 2000);
+  };
 
   async function updateStatus(appointmentId: string, status: string) {
     try {
@@ -445,20 +528,64 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
 
       {/* Main Canvas */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 shrink-0 border-b border-[#e8eee6] px-4 sm:px-6 flex items-center justify-between gap-4 bg-[#fcfdfa]/90 backdrop-blur-md z-10 sticky top-0">
-          <div className="flex items-center gap-3">
+        <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2ece5] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+          <div className="flex items-center gap-3.5 min-w-0">
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="lg:hidden p-2 rounded-xl border border-[#d6e2d4] bg-white text-[#11382b] hover:bg-[#edf5ec] shadow-2xs cursor-pointer"
             >
-              <Menu className="h-4 w-4" />
+              <Menu className="h-5 w-5" />
             </button>
-            <div>
-              <h2 className="font-sans text-[24px] font-semibold text-[#122621] capitalize leading-none">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                  Physician Station
+                </span>
+                <span className="text-[12px] text-[#8ba395]">/</span>
+                <span className="text-[12px] font-medium text-[#527065] truncate">
+                  {DOCTOR_TABS.find((t) => t.id === tab)?.label}
+                </span>
+              </div>
+              <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#11382b] tracking-tight leading-tight">
                 {DOCTOR_TABS.find((t) => t.id === tab)?.label}
-              </h2>
-              <p className="text-[13px] text-[#527065] mt-1 font-normal">Physician Clinical Operations &amp; EHR Consultation</p>
+              </h1>
+              <p className="text-[13px] text-[#527065] mt-0.5 font-normal line-clamp-1">
+                {TAB_DESCRIPTIONS[tab]}
+              </p>
             </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto sm:ml-0">
+            {/* Clinician On Duty Status Indicator */}
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#e2ede5] bg-[#f8faf7] text-xs">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-semibold text-[#11382b]">Dr. On Duty</span>
+              <span className="text-[#8ba395]">·</span>
+              <span className="text-[#527065] font-medium">In Practice</span>
+            </div>
+
+            {/* Quick Action: Document Visit Modal */}
+            <button
+              type="button"
+              onClick={() => setShowConsultModal(true)}
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] transition-colors shadow-2xs cursor-pointer"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              <span>Document Visit</span>
+            </button>
+
+            {/* Refresh Data Button */}
+            <button
+              type="button"
+              onClick={handleManualRefresh}
+              disabled={refreshing}
+              title="Refresh physician schedule & data"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6e2d4] bg-white px-3 py-2 text-xs font-medium text-[#243a2f] hover:bg-[#f6faf7] transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 text-[#0e615c] ${refreshing ? "animate-spin" : ""}`} />
+              <span className="hidden sm:inline">Sync Data</span>
+            </button>
           </div>
         </header>
 
@@ -696,8 +823,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
 
           {/* TAB 5: CLINICAL PROFILE */}
           {tab === "profile" && (
-            <div className="space-y-6 max-w-6xl">
-
+            <div className="space-y-8 max-w-4xl mx-auto py-2">
               {(() => {
                 const myProvider =
                   providers.find(
@@ -706,40 +832,225 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                       user.name.toLowerCase().includes(p.name.toLowerCase().replace(/^(dr\.|nurse)\s+/i, "")) ||
                       (user.email && p.contactEmail?.toLowerCase() === user.email.toLowerCase())
                   ) || providers[0];
+                const staffId = `AFIYA-MD-${(myProvider?.id || "001").slice(-4).toUpperCase()}`;
+                const licenseNumber = `MED-ET-${(myProvider?.id || "9281").slice(-5).toUpperCase()}`;
+
                 return (
-                  <div className="max-w-xl rounded-2xl border border-[#dce6db] bg-white p-6 space-y-4 shadow-2xs">
-                    <div className="flex items-center gap-4">
-                      <div className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#11382b] font-bold text-xl shadow-xs">
-                        MD
-                      </div>
-                      <div>
-                        <h3 className="font-display text-lg text-[#11382b] font-bold">{myProvider?.name || user.name}</h3>
-                        <p className="text-xs text-[#d49b35] font-semibold">
-                          {myProvider?.title || "Healthcare Provider"} · {myProvider?.specialty || "General Medicine"}
-                        </p>
-                        <p className="text-[11px] text-[#7f998b] mt-0.5">Afiya Clinic Staff · Better Care Starts Here</p>
+                  <div className="flex flex-col items-center w-full">
+                    {/* Outer Centered Apple Wallet / Medical Pass Card - Rectangular Landscape Format */}
+                    <div className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-[#1b4332]/25 bg-gradient-to-br from-[#0c382b] via-[#0f4d3c] to-[#164336] text-white relative">
+                      {/* Decorative Gold & Botanical Accents */}
+                      <div className="absolute top-0 right-0 w-96 h-96 bg-radial from-[#d49b35]/15 via-emerald-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
+                      <div className="absolute bottom-0 left-0 w-80 h-80 bg-radial from-[#10b981]/15 to-transparent rounded-full blur-2xl pointer-events-none" />
+                      <BotanicalCorner className="absolute top-2 right-2 w-32 h-32 text-white/5 pointer-events-none" />
+
+                      {/* Card Content - Wide Rectangular 2-Column Grid */}
+                      <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch relative z-10">
+                        {/* Left Column: Clinician Credentials & Identity */}
+                        <div className="lg:col-span-7 flex flex-col justify-between space-y-5">
+                          {/* Top Branding Strip */}
+                          <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10">
+                            <div className="flex items-center gap-2.5">
+                              <div className="h-9 w-9 rounded-xl bg-white/10 border border-white/20 grid place-items-center backdrop-blur-md shadow-xs">
+                                <ClinicLogoIcon className="h-5 w-5 text-[#d49b35]" />
+                              </div>
+                              <div>
+                                <span className="text-[10px] uppercase font-bold tracking-widest text-[#d49b35]">
+                                  Afiya Medical Center
+                                </span>
+                                <h4 className="text-xs font-semibold tracking-wide text-white/90">
+                                  Official Clinician Credential
+                                </h4>
+                              </div>
+                            </div>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 backdrop-blur-md">
+                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                              Verified Clinician
+                            </span>
+                          </div>
+
+                          {/* Physician Avatar & Title */}
+                          <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
+                            <div className="relative shrink-0">
+                              <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-[#d49b35] via-[#a87422] to-[#6d480e] p-0.5 shadow-xl">
+                                <div className="h-full w-full rounded-[14px] bg-[#0d3429] flex items-center justify-center text-2xl font-bold text-[#f7e2a9]">
+                                  MD
+                                </div>
+                              </div>
+                              <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 border-2 border-[#0c382b] flex items-center justify-center">
+                                <Check className="h-3.5 w-3.5 text-white" />
+                              </div>
+                            </div>
+
+                            <div className="min-w-0 flex-1">
+                              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                                {myProvider?.name || user.name}
+                              </h2>
+                              <p className="text-sm font-semibold text-[#f3cf7a] mt-1">
+                                {myProvider?.title || "Consultant Physician"} · {myProvider?.specialty || "Internal Medicine"}
+                              </p>
+                              <p className="text-xs text-white/70 mt-1 line-clamp-1">
+                                {myProvider?.departmentName || "Department of Clinical Medicine & Outpatient Services"}
+                              </p>
+
+                              {/* Credentials Pills */}
+                              <div className="mt-3 flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs">
+                                <button
+                                  type="button"
+                                  onClick={() => copyStaffId(staffId)}
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white/90 transition-colors cursor-pointer text-[11px] font-mono"
+                                  title="Click to copy staff ID"
+                                >
+                                  <span>ID: {staffId}</span>
+                                  {copiedStaffId ? (
+                                    <Check className="h-3 w-3 text-emerald-400" />
+                                  ) : (
+                                    <Copy className="h-3 w-3 text-white/60" />
+                                  )}
+                                </button>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-white/80 text-[11px] font-mono">
+                                  Lic #{licenseNumber}
+                                </span>
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-400/25 text-emerald-300 text-[11px] font-semibold">
+                                  Fee: ${myProvider?.consultationFee || 90}.00
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Quick Location & Security Pill */}
+                          <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-white/80 border-t border-white/10">
+                            <span className="flex items-center gap-1.5">
+                              <Building2 className="h-3.5 w-3.5 text-[#d49b35]" />
+                              <span>{myProvider?.roomNumber || "Suite 102 - West Wing"}</span>
+                            </span>
+                            <span className="text-white/30">·</span>
+                            <span className="flex items-center gap-1.5">
+                              <Mail className="h-3.5 w-3.5 text-[#d49b35]" />
+                              <span className="font-mono text-[11px] truncate max-w-[200px]">
+                                {myProvider?.contactEmail || user.email || "dr.meyer@afiyaclinic.com"}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Right Column: Practice Hours, EMR Scan & Clinical Access Badge */}
+                        <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-black/25 backdrop-blur-md p-4 sm:p-5 border border-white/15 space-y-4">
+                          <div>
+                            <div className="flex items-center justify-between text-xs text-white/70 mb-1">
+                              <span className="flex items-center gap-1.5 font-medium text-white/90">
+                                <CalendarDays className="h-3.5 w-3.5 text-[#d49b35]" />
+                                Practice Hours
+                              </span>
+                              <span className="font-semibold text-emerald-300">In Practice</span>
+                            </div>
+                            <p className="text-xs font-semibold text-white pl-5">
+                              {myProvider?.workingHours || "Mon – Fri · 09:00 – 16:00"}
+                            </p>
+                          </div>
+
+                          {/* EMR Authorization Scan QR */}
+                          <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3.5">
+                            <div className="p-2 rounded-lg bg-white text-[#0c382b] shrink-0 shadow-sm">
+                              <QrCode className="h-9 w-9" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-xs font-bold text-white">Hospital EMR Auth Scan</p>
+                              <p className="text-[11px] text-white/60 leading-tight mt-0.5">
+                                Kiosk &amp; pharmacy clinician verification
+                              </p>
+                              <div className="mt-1.5 flex items-center gap-2">
+                                <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                                  Level 4 Access
+                                </span>
+                                <span className="text-[10px] text-white/50">Exp: Dec 2027</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Quick In-Card Print & Copy Actions */}
+                          <div className="grid grid-cols-2 gap-2 pt-1">
+                            <button
+                              type="button"
+                              onClick={() => window.print()}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white transition-colors cursor-pointer"
+                            >
+                              <Printer className="h-3.5 w-3.5 text-[#d49b35]" />
+                              <span>Print Card</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => copyStaffId(staffId)}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white transition-colors cursor-pointer"
+                            >
+                              {copiedStaffId ? (
+                                <>
+                                  <Check className="h-3.5 w-3.5 text-emerald-400" />
+                                  <span>Copied!</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3.5 w-3.5 text-[#d49b35]" />
+                                  <span>Copy ID</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="grid gap-2 border-t border-[#edf3ec] pt-4 text-xs">
-                      <div className="flex justify-between py-1 border-b border-[#edf3ec]">
-                        <span className="text-[#567364]">Consultation Suite:</span>
-                        <span className="font-semibold text-[#11382b]">{myProvider?.roomNumber || "Suite 102"}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#edf3ec]">
-                        <span className="text-[#567364]">Practice Hours:</span>
-                        <span className="font-semibold text-[#11382b]">{myProvider?.workingHours || "Monday – Friday 09:00 – 16:00"}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#edf3ec]">
-                        <span className="text-[#567364]">Standard Consultation Fee:</span>
-                        <span className="font-semibold text-emerald-700">
-                          ${myProvider?.consultationFee || 90}.00
+                    {/* Additional Clinical Privileges & Accreditation Summary Box */}
+                    <div className="mt-8 w-full max-w-4xl rounded-2xl border border-[#d9e6e0] bg-white p-6 shadow-2xs text-[#162720] space-y-4">
+                      <div className="flex items-center justify-between border-b border-[#edf3ec] pb-3">
+                        <div className="flex items-center gap-2.5">
+                          <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                          <h3 className="font-display text-base font-bold text-[#11382b]">
+                            Active Clinical Privileges &amp; Scope
+                          </h3>
+                        </div>
+                        <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                          Active · Good Standing
                         </span>
                       </div>
-                      <div className="flex justify-between py-1">
-                        <span className="text-[#567364]">Contact Email:</span>
-                        <span className="font-mono text-[#11382b]">{myProvider?.contactEmail || user.email || "dr.meyer@demo.clinic"}</span>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div className="flex items-start gap-2 p-2.5 rounded-xl bg-[#f8faf7] border border-[#e6eee8]">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                          <div>
+                            <p className="font-semibold text-[#11382b]">Inpatient &amp; Outpatient Consultations</p>
+                            <p className="text-[11px] text-[#527065] mt-0.5">Authorized for direct clinical evaluations and triage.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 p-2.5 rounded-xl bg-[#f8faf7] border border-[#e6eee8]">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                          <div>
+                            <p className="font-semibold text-[#11382b]">Electronic Prescriptions (e-Rx)</p>
+                            <p className="text-[11px] text-[#527065] mt-0.5">DEA Schedule II-V digital prescribing credentials.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 p-2.5 rounded-xl bg-[#f8faf7] border border-[#e6eee8]">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                          <div>
+                            <p className="font-semibold text-[#11382b]">Diagnostic &amp; Lab Ordering</p>
+                            <p className="text-[11px] text-[#527065] mt-0.5">Direct orders to clinical pathology and imaging.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 p-2.5 rounded-xl bg-[#f8faf7] border border-[#e6eee8]">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                          <div>
+                            <p className="font-semibold text-[#11382b]">Telehealth &amp; Remote Review</p>
+                            <p className="text-[11px] text-[#527065] mt-0.5">AI intake validation and remote follow-up care.</p>
+                          </div>
+                        </div>
                       </div>
+
+                      <p className="text-[11px] text-[#7f998b] pt-2 border-t border-[#edf3ec] leading-relaxed">
+                        Clinician profile managed by Afiya Clinic Medical Board. Any update to consultation rates, licensed scope, or practice hours must be submitted to the Clinical Administration Office.
+                      </p>
                     </div>
                   </div>
                 );
@@ -823,13 +1134,22 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                 <select
                   required
                   value={newConsult.patientId}
-                  onChange={(e) => setNewConsult({ ...newConsult, patientId: e.target.value })}
+                  onChange={(e) => {
+                    const pid = e.target.value;
+                    const matchedPatient = patientOptions.find((p) => p.id === pid);
+                    setNewConsult((prev) => ({
+                      ...prev,
+                      patientId: pid,
+                      appointmentId: prev.appointmentId || matchedPatient?.latestAppointmentId || "",
+                      chiefComplaint: prev.chiefComplaint || matchedPatient?.latestReason || "",
+                    }));
+                  }}
                   className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2 text-xs text-[#162720] focus:border-[#11382b] focus:bg-white focus:outline-none"
                 >
                   <option value="">Select Patient…</option>
-                  {appointments.map((a) => (
-                    <option key={a.patientId} value={a.patientId}>
-                      {a.patientName} ({a.patientEmail})
+                  {patientOptions.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name} {p.email ? `(${p.email})` : ""}
                     </option>
                   ))}
                 </select>

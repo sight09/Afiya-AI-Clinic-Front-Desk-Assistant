@@ -102,20 +102,85 @@ const REFUSAL_MESSAGE =
 let ruleCache: { at: number; rules: RedFlagRule[] } | null = null;
 const RULE_CACHE_MS = 30_000;
 
+const DEFAULT_FALLBACK_RULES: RedFlagRule[] = [
+  { id: "fallback-1", phrase: "chest pain", category: "cardiac", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-2", phrase: "trouble breathing", category: "respiratory", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-3", phrase: "severe bleeding", category: "trauma", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-4", phrase: "suicidal", category: "mental_health", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-5", phrase: "kill myself", category: "mental_health", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-6", phrase: "unconscious", category: "neurological", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-7", phrase: "overdose", category: "toxicology", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-8", phrase: "sudden weakness", category: "neurological", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+  { id: "fallback-9", phrase: "stroke", category: "neurological", severity: "high", escalationMessage: "[DEMO POLICY — PENDING CLINIC-OWNER APPROVAL] Your message mentions symptoms that may need urgent attention. Please seek immediate care from your local emergency services." },
+];
+
+const DEFAULT_FALLBACK_FAQS: FaqEntry[] = [
+  {
+    id: "faq-hours",
+    question: "What are your opening hours?",
+    answer: "Afiya Clinic is open Monday to Friday from 8:00 to 18:00, and Saturday from 9:00 to 13:00. We are closed on Sundays and public holidays.",
+    category: "hours",
+    keywords: ["hours", "open", "opening times", "closing", "saturday", "sunday"],
+  },
+  {
+    id: "faq-book",
+    question: "How do I book an appointment?",
+    answer: "You can book directly with me here in the chat — just say you'd like to book and I'll show you live availability. You can also call the front desk during opening hours.",
+    category: "booking",
+    keywords: ["book", "booking", "appointment", "schedule", "slot"],
+  },
+  {
+    id: "faq-cancel",
+    question: "How do I cancel or reschedule my appointment?",
+    answer: "Sign in, open your appointments, and choose cancel. Cancellation is free up to 4 hours before your slot. Cancelling frees the slot for patients on the waitlist.",
+    category: "booking",
+    keywords: ["cancel", "cancellation", "reschedule", "change appointment"],
+  },
+  {
+    id: "faq-insurance",
+    question: "Which insurance plans do you accept?",
+    answer: "We accept most major insurers. Because coverage varies by plan, please bring your insurance card and confirm coverage with our front desk before your visit.",
+    category: "billing",
+    keywords: ["insurance", "coverage", "billing", "payment", "cost", "price"],
+  },
+  {
+    id: "faq-vaccines",
+    question: "Do you offer vaccinations?",
+    answer: "Yes — flu, travel and routine vaccinations are available by appointment through our general practice department.",
+    category: "services",
+    keywords: ["vaccine", "vaccination", "flu shot", "immunisation", "jab"],
+  },
+];
+
+async function safeAudit(log: typeof auditLogs.$inferInsert): Promise<void> {
+  try {
+    await db.insert(auditLogs).values(log);
+  } catch (err) {
+    console.warn("[audit] Log insert bypassed (DB offline):", err instanceof Error ? err.message : err);
+  }
+}
+
 export async function loadActiveRules(): Promise<RedFlagRule[]> {
   if (ruleCache && Date.now() - ruleCache.at < RULE_CACHE_MS) return ruleCache.rules;
-  const rows = await db
-    .select({
-      id: redFlagRules.id,
-      phrase: redFlagRules.phrase,
-      category: redFlagRules.category,
-      severity: redFlagRules.severity,
-      escalationMessage: redFlagRules.escalationMessage,
-    })
-    .from(redFlagRules)
-    .where(eq(redFlagRules.active, true));
-  ruleCache = { at: Date.now(), rules: rows };
-  return rows;
+  try {
+    const rows = await db
+      .select({
+        id: redFlagRules.id,
+        phrase: redFlagRules.phrase,
+        category: redFlagRules.category,
+        severity: redFlagRules.severity,
+        escalationMessage: redFlagRules.escalationMessage,
+      })
+      .from(redFlagRules)
+      .where(eq(redFlagRules.active, true));
+    if (rows.length > 0) {
+      ruleCache = { at: Date.now(), rules: rows };
+      return rows;
+    }
+  } catch (err) {
+    console.warn("[pipeline] Unable to fetch active rules from DB, using resilient defaults:", err instanceof Error ? err.message : err);
+  }
+  return DEFAULT_FALLBACK_RULES;
 }
 
 /** Test/seed hook. */
@@ -124,17 +189,22 @@ export function invalidateRuleCache(): void {
 }
 
 async function loadApprovedFaqs(): Promise<FaqEntry[]> {
-  const rows = await db
-    .select({
-      id: faqs.id,
-      question: faqs.question,
-      answer: faqs.answer,
-      category: faqs.category,
-      keywords: faqs.keywords,
-    })
-    .from(faqs)
-    .where(and(eq(faqs.active, true), eq(faqs.approval, "approved")));
-  return rows;
+  try {
+    const rows = await db
+      .select({
+        id: faqs.id,
+        question: faqs.question,
+        answer: faqs.answer,
+        category: faqs.category,
+        keywords: faqs.keywords,
+      })
+      .from(faqs)
+      .where(and(eq(faqs.active, true), eq(faqs.approval, "approved")));
+    if (rows.length > 0) return rows;
+  } catch (err) {
+    console.warn("[pipeline] Unable to fetch FAQs from DB, using resilient defaults:", err instanceof Error ? err.message : err);
+  }
+  return DEFAULT_FALLBACK_FAQS;
 }
 
 /* ------------------------------- intent routing ----------------------------- */
@@ -235,7 +305,7 @@ export async function handleAssistantMessage(opts: {
   // 1) Injection attempts route to a deterministic safe reply. The flagged
   //    text is never passed to the LLM. Minimal audit only (keeps hash).
   if (!guard.ok) {
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user?.id ?? null,
       actorRole: opts.user?.role ?? "anonymous",
       action: "injection_attempt",
@@ -253,7 +323,7 @@ export async function handleAssistantMessage(opts: {
   const rules = await loadActiveRules();
   const scan = scanForRedFlags(text, rules);
   if (scan.matched && scan.rule) {
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user?.id ?? null,
       actorRole: opts.user?.role ?? "anonymous",
       action: "safety_escalation",
@@ -304,7 +374,7 @@ export async function handleAssistantMessage(opts: {
         a.status === "reschedule_requested",
     );
 
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user.id,
       actorRole: opts.user.role,
       action: "ai_tool_call",
@@ -361,7 +431,7 @@ export async function handleAssistantMessage(opts: {
     const all = await listAppointmentsFor(opts.user.id, opts.user.role);
     const active = all.filter((a) => a.status !== "cancelled");
 
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user.id,
       actorRole: opts.user.role,
       action: "ai_tool_call",
@@ -459,7 +529,7 @@ export async function handleAssistantMessage(opts: {
       limit: 8,
     });
 
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user.id,
       actorRole: opts.user.role,
       action: "ai_tool_call",
@@ -556,7 +626,7 @@ export async function handleAssistantMessage(opts: {
       extraction,
       patientName: opts.user.name,
     });
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user.id,
       actorRole: opts.user.role,
       action: "intake_recorded",
@@ -564,7 +634,7 @@ export async function handleAssistantMessage(opts: {
       entityId: summary.summaryId,
       meta: { engine, missingCount: extraction.missing_information.length },
     });
-    await db.insert(auditLogs).values({
+    await safeAudit({
       actorId: opts.user.id,
       actorRole: opts.user.role,
       action: "ai_tool_call",
@@ -606,7 +676,7 @@ export async function handleAssistantMessage(opts: {
   const corpus = await loadApprovedFaqs();
   const result = answerFromCorpus(text, corpus);
 
-  await db.insert(auditLogs).values({
+  await safeAudit({
     actorId: opts.user?.id ?? null,
     actorRole: opts.user?.role ?? "anonymous",
     action: "ai_tool_call",

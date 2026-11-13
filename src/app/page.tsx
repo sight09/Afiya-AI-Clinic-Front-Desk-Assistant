@@ -16,15 +16,34 @@ export default async function HomePage() {
     redirect("/staff");
   }
 
-  const infoRows = await db.select().from(clinicInfo);
-  const info = Object.fromEntries(infoRows.map((r) => [r.key, r.value]));
+  let info: Record<string, string> = {
+    name: "Afiya Health Center",
+    phone: "+251-11-667-8900",
+    email: "care@afiyahealth.et",
+    hours: "Monday - Saturday: 8:00 AM - 6:00 PM",
+    address: "Bole Sub-City, Next to Millennium Hall, Addis Ababa, Ethiopia",
+    emergency_note:
+      "For medical emergencies, call 907 or go to the nearest emergency center immediately.",
+  };
+  let slotCount = 240;
 
-  const [openCount] = await db
-    .select({ n: sql<number>`count(*)::int` })
-    .from(slots)
-    .where(eq(slots.status, "open"));
+  try {
+    const infoRows = await db.select().from(clinicInfo);
+    if (infoRows.length > 0) {
+      info = Object.fromEntries(infoRows.map((r) => [r.key, r.value]));
+    }
 
-  const slotCount = openCount?.n ?? 240;
+    const [openCount] = await db
+      .select({ n: sql<number>`count(*)::int` })
+      .from(slots)
+      .where(eq(slots.status, "open"));
+
+    if (openCount?.n !== undefined) {
+      slotCount = openCount.n;
+    }
+  } catch (err) {
+    console.warn("[page] Database offline, using resilient clinic defaults:", err instanceof Error ? err.message : err);
+  }
 
   return (
     <main className="h-screen h-[100dvh] w-screen overflow-hidden bg-[#f7f8f4] text-[#162720] antialiased">

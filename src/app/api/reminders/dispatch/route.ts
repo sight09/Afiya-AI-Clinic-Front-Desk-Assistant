@@ -2,6 +2,8 @@ import { getCurrentUser, requireRole } from "@/lib/auth/service";
 import { dispatchDueReminders } from "@/lib/booking/service";
 import { toSafeErrorPayload } from "@/lib/errors";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Dispatch due reminders through the (mock) notification channel.
  * Staff-triggered for the demo; in production a cron/worker would call this.

@@ -5,6 +5,8 @@ import { invoices, notifications, auditLogs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { AppError, toSafeErrorPayload } from "@/lib/errors";
 
+export const dynamic = "force-dynamic";
+
 const PaySchema = z.object({
   paymentMethod: z.string().min(1).default("Credit Card"),
   notes: z.string().max(300).optional(),

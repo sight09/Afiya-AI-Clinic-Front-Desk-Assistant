@@ -5,6 +5,8 @@ import { AppError, toSafeErrorPayload } from "@/lib/errors";
 import { db } from "@/db";
 import { auditLogs } from "@/db/schema";
 
+export const dynamic = "force-dynamic";
+
 const ReviewSchema = z
   .object({
     decision: z.enum(["approved", "rejected"]),

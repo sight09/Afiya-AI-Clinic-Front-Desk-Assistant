@@ -2,6 +2,8 @@ import { getCurrentUser, requireUser } from "@/lib/auth/service";
 import { cancelAppointment } from "@/lib/booking/service";
 import { toSafeErrorPayload } from "@/lib/errors";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   try {
     const user = requireUser(await getCurrentUser());

@@ -5,6 +5,8 @@ import { slots, providers, auditLogs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { AppError, toSafeErrorPayload } from "@/lib/errors";
 
+export const dynamic = "force-dynamic";
+
 const AddSlotSchema = z.object({
   startAt: z.string().datetime(),
   durationMin: z.number().int().min(15).max(120).default(30),

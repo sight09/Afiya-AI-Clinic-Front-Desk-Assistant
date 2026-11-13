@@ -3,6 +3,8 @@ import { getCurrentUser, requireRole } from "@/lib/auth/service";
 import { updateAppointmentStatus } from "@/lib/booking/service";
 import { AppError, toSafeErrorPayload } from "@/lib/errors";
 
+export const dynamic = "force-dynamic";
+
 const StatusUpdateSchema = z.object({
   status: z.enum([
     "confirmed",

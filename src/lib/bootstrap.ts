@@ -23,7 +23,6 @@ let ran = false;
 
 export async function ensureBootstrapped(): Promise<void> {
   if (ran) return;
-  ran = true;
 
   try {
     const tableCheck = await pool.query("select to_regclass('public.users') as t");
@@ -56,6 +55,7 @@ export async function ensureBootstrapped(): Promise<void> {
         `[bootstrap] demo seed applied: ${summary.accounts} accounts, ${summary.slots} slots, ${summary.faqs} FAQs`,
       );
     }
+    ran = true;
   } catch (err) {
     // Never block server startup; surface the issue in logs instead.
     console.error(

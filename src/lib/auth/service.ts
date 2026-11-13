@@ -124,22 +124,48 @@ export function verifyPasswordResetOtp(
 
 /* --------------------------------- sessions -------------------------------- */
 
-export async function createSession(userId: string): Promise<string> {
+const inMemorySessions = new Map<string, { user: SessionUser; expiresAt: number }>();
+
+export async function createSession(userId: string, fallbackUser?: SessionUser): Promise<string> {
   const token = randomBytes(32).toString("hex");
-  await db.insert(sessions).values({
-    token,
-    userId,
-    expiresAt: new Date(Date.now() + SESSION_TTL_MS),
-  });
+  const expiresAt = new Date(Date.now() + SESSION_TTL_MS);
+
+  if (fallbackUser) {
+    inMemorySessions.set(token, { user: fallbackUser, expiresAt: expiresAt.getTime() });
+  }
+
+  try {
+    await db.insert(sessions).values({
+      token,
+      userId,
+      expiresAt,
+    });
+  } catch (err) {
+    console.warn("[session] DB session insert skipped (offline):", err instanceof Error ? err.message : err);
+  }
   return token;
 }
 
 export async function destroySession(token: string): Promise<void> {
-  await db.delete(sessions).where(eq(sessions.token, token));
+  inMemorySessions.delete(token);
+  try {
+    await db.delete(sessions).where(eq(sessions.token, token));
+  } catch (err) {
+    console.warn("[session] DB session destroy skipped (offline):", err instanceof Error ? err.message : err);
+  }
 }
 
 export async function getSessionUser(token: string | undefined): Promise<SessionUser | null> {
   if (!token) return null;
+
+  const memSession = inMemorySessions.get(token);
+  if (memSession) {
+    if (Date.now() < memSession.expiresAt) {
+      return memSession.user;
+    }
+    inMemorySessions.delete(token);
+  }
+
   try {
     const rows = await db
       .select({

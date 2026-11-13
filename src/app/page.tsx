@@ -4,6 +4,7 @@ import { eq, sql } from "drizzle-orm";
 import { getCurrentUser, isStaff } from "@/lib/auth/service";
 import { PatientPortal } from "@/components/chat/patient-portal";
 import { redirect } from "next/navigation";
+import { ensureBootstrapped } from "@/lib/bootstrap";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +29,7 @@ export default async function HomePage() {
   let slotCount = 240;
 
   try {
+    await ensureBootstrapped();
     const infoRows = await db.select().from(clinicInfo);
     if (infoRows.length > 0) {
       info = Object.fromEntries(infoRows.map((r) => [r.key, r.value]));

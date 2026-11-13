@@ -3,7 +3,7 @@ services:
     name: afiya-clinic
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     envVars:
       - key: DATABASE_URL
@@ -14,8 +14,6 @@ services:
         value: demo1234
       - key: AI_PROVIDER
         value: mock
-      - key: NODE_ENV
-        value: production
       - key: PORT
         value: 10000
 
@@ -24,3 +22,4 @@ databases:
     databaseName: clinic_db
     user: clinic_admin
     plan: free
+

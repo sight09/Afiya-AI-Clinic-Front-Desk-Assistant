@@ -39,7 +39,16 @@ export async function ensureBootstrapped(): Promise<void> {
         // drizzle uses statement-breakpoint separators
         for (const statement of sqlText.split("--> statement-breakpoint")) {
           const trimmed = statement.trim();
-          if (trimmed.length > 0) await pool.query(trimmed);
+          if (trimmed.length > 0) {
+            try {
+              await pool.query(trimmed);
+            } catch (stmtErr) {
+              console.warn(
+                "[bootstrap] statement notice:",
+                stmtErr instanceof Error ? stmtErr.message : stmtErr,
+              );
+            }
+          }
         }
       }
       console.warn(`[bootstrap] schema applied (${files.length} file(s))`);

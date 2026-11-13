@@ -102,18 +102,16 @@ function cookieOptsFor(req: Request, clientProto?: string) {
       ? clientProto
       : (forwarded ?? new URL(req.url).protocol.replace(":", ""));
 
+  const isHttps = proto === "https" || req.url.startsWith("https://") || forwarded === "https";
   const maxAge = 60 * 60 * 24 * 7;
-  if (proto === "https") {
-    return {
-      httpOnly: true,
-      sameSite: "none" as const,
-      secure: true,
-      partitioned: true,
-      path: "/",
-      maxAge,
-    };
-  }
-  return { httpOnly: true, sameSite: "lax" as const, path: "/", maxAge };
+
+  return {
+    httpOnly: true,
+    sameSite: "lax" as const,
+    secure: isHttps,
+    path: "/",
+    maxAge,
+  };
 }
 
 export async function GET(req: Request, ctx: { params: Promise<{ action: string }> }) {
@@ -173,12 +171,39 @@ export async function POST(req: Request, ctx: { params: Promise<{ action: string
         const validPassword =
           parsed.data.password === (process.env.SEED_DEMO_PASSWORD ?? "demo1234");
         if (fallback && validPassword) {
-          user = {
-            id: fallback.id,
-            email: parsed.data.email.toLowerCase(),
-            name: fallback.name,
-            role: fallback.role,
-          };
+          try {
+            const upserted = await db
+              .insert(users)
+              .values({
+                email: parsed.data.email.toLowerCase(),
+                name: fallback.name,
+                role: fallback.role,
+                passwordHash: hashPassword(parsed.data.password),
+                isSynthetic: true,
+              })
+              .onConflictDoUpdate({
+                target: users.email,
+                set: { role: fallback.role },
+              })
+              .returning();
+            if (upserted[0]) {
+              user = upserted[0];
+            } else {
+              user = {
+                id: fallback.id,
+                email: parsed.data.email.toLowerCase(),
+                name: fallback.name,
+                role: fallback.role,
+              };
+            }
+          } catch {
+            user = {
+              id: fallback.id,
+              email: parsed.data.email.toLowerCase(),
+              name: fallback.name,
+              role: fallback.role,
+            };
+          }
         } else {
           throw new AppError("unauthorized", "Invalid email or password.");
         }

@@ -5,9 +5,11 @@
 import "dotenv/config";
 import { pool } from "./index";
 import { runSeed } from "./seed-lib";
+import { ensureBootstrapped } from "@/lib/bootstrap";
 
 async function main() {
   console.log("Seeding synthetic demo data…");
+  await ensureBootstrapped();
   const s = await runSeed();
   console.log("Seed complete:");
   console.log(`  faqs:    ${s.faqs} (approved demo content)`);

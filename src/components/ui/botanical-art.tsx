@@ -9,25 +9,14 @@ export function ClinicLogoIcon({
 }) {
   return (
     <div
-      className={`grid place-items-center rounded-full bg-[#004d40] shadow-sm shrink-0 ${className}`}
+      className={`relative grid place-items-center rounded-2xl bg-white/10 border border-white/20 shadow-sm shrink-0 overflow-hidden select-none ${className}`}
+      title="Afiya Clinic Mascot"
     >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={pulseColor}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-3/5 w-3/5"
-      >
-        {/* Robot Assistant Icon */}
-        <path d="M12 8V4H8" />
-        <rect width="16" height="12" x="4" y="8" rx="2" />
-        <path d="M2 14h2" />
-        <path d="M20 14h2" />
-        <path d="M9 13v2" />
-        <path d="M15 13v2" />
-      </svg>
+      <img
+        src="/mascot.svg"
+        alt="Afiya Mascot"
+        className="h-full w-full object-contain p-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
+      />
     </div>
   );
 }

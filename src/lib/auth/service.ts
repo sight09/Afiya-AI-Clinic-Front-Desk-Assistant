@@ -43,6 +43,85 @@ export function sha256(input: string): string {
   return createHash("sha256").update(input).digest("hex");
 }
 
+/* ----------------------------------- OTP ----------------------------------- */
+
+type OtpRecord = {
+  code: string;
+  expiresAt: number;
+  attempts: number;
+};
+
+// In-memory OTP storage mapping normalized email to code & metadata
+const otpStore = new Map<string, OtpRecord>();
+
+/**
+ * Generate a 6-digit cryptographically random OTP code for password reset.
+ * Valid for 10 minutes. Max 3 verification attempts.
+ */
+export function generatePasswordResetOtp(email: string): string {
+  const normalizedEmail = email.toLowerCase().trim();
+  const buf = randomBytes(4);
+  const num = (buf.readUInt32BE(0) % 900000) + 100000;
+  const code = num.toString();
+
+  otpStore.set(normalizedEmail, {
+    code,
+    expiresAt: Date.now() + 10 * 60 * 1000, // 10 minutes
+    attempts: 0,
+  });
+
+  return code;
+}
+
+/**
+ * Verify a 6-digit OTP code for a given email address.
+ * Automatically increments attempt count and enforces single-use consumption.
+ */
+export function verifyPasswordResetOtp(
+  email: string,
+  inputCode: string
+): { valid: boolean; reason?: string } {
+  const normalizedEmail = email.toLowerCase().trim();
+  const record = otpStore.get(normalizedEmail);
+
+  if (!record) {
+    return {
+      valid: false,
+      reason: "No active verification code found for this email. Please request a new code.",
+    };
+  }
+
+  if (Date.now() > record.expiresAt) {
+    otpStore.delete(normalizedEmail);
+    return {
+      valid: false,
+      reason: "The verification code has expired. Please request a new code.",
+    };
+  }
+
+  if (record.attempts >= 3) {
+    otpStore.delete(normalizedEmail);
+    return {
+      valid: false,
+      reason: "Too many incorrect attempts. For security, please request a new verification code.",
+    };
+  }
+
+  record.attempts += 1;
+
+  if (record.code !== inputCode.trim()) {
+    const remaining = 3 - record.attempts;
+    return {
+      valid: false,
+      reason: `Invalid verification code (${remaining} attempt${remaining === 1 ? "" : "s"} remaining).`,
+    };
+  }
+
+  // Successfully verified: consume the OTP so it cannot be re-used
+  otpStore.delete(normalizedEmail);
+  return { valid: true };
+}
+
 /* --------------------------------- sessions -------------------------------- */
 
 export async function createSession(userId: string): Promise<string> {

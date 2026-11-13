@@ -12,6 +12,7 @@ import {
   CalendarCheck,
   CalendarDays,
   Check,
+  CheckCheck,
   CheckCircle2,
   ChevronDown,
   ClipboardCheck,
@@ -41,6 +42,7 @@ import {
   X,
 } from "lucide-react";
 import { BotanicalCorner, ClinicLogoIcon } from "@/components/ui/botanical-art";
+import { printCard } from "@/lib/print";
 import {
   Appointment,
   fmt,
@@ -77,7 +79,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
   const [summaries, setSummaries] = useState<Summary[]>([]);
   const [providers, setProviders] = useState<Provider[]>([]);
   const [notificationsList, setNotificationsList] = useState<NotificationItem[]>([]);
-  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const unreadNotifications = useMemo(() => notificationsList.filter((n) => !n.read).length, [notificationsList]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [showUserProfileModal, setShowUserProfileModal] = useState(false);
@@ -136,7 +138,6 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
     setSummaries(s.summaries ?? []);
     setProviders(p.providers ?? []);
     setNotificationsList(n.notifications ?? []);
-    setUnreadNotifications(n.unreadCount ?? 0);
   }, []);
 
   useEffect(() => {
@@ -203,6 +204,34 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
       setTimeout(() => setRefreshing(false), 400);
     }
   };
+
+  async function markNotificationAsRead(id: string) {
+    setNotificationsList((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+    try {
+      await fetch("/api/notifications", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+    } catch {
+      /* ignore */
+    }
+  }
+
+  async function markAllNotificationsRead() {
+    setNotificationsList((prev) => prev.map((n) => ({ ...n, read: true })));
+    try {
+      await fetch("/api/notifications", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ all: true }),
+      });
+    } catch {
+      /* ignore */
+    }
+  }
 
   const copyStaffId = (id: string) => {
     navigator.clipboard?.writeText(id);
@@ -383,7 +412,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
               {DOCTOR_TABS.map((t) => {
                 const Icon = t.icon;
                 const active = tab === t.id;
-                const count = t.id === "review" ? drafts.length : t.id === "notifications" ? notificationsList.length : 0;
+                const count = t.id === "review" ? drafts.length : t.id === "notifications" ? unreadNotifications : 0;
                 return (
                   <button
                     key={t.id}
@@ -479,7 +508,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                 {DOCTOR_TABS.map((t) => {
                   const Icon = t.icon;
                   const active = tab === t.id;
-                  const count = t.id === "review" ? drafts.length : t.id === "notifications" ? notificationsList.length : 0;
+                  const count = t.id === "review" ? drafts.length : t.id === "notifications" ? unreadNotifications : 0;
                   return (
                     <button
                       key={t.id}
@@ -557,24 +586,6 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
           </div>
 
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto sm:ml-0">
-            {/* Clinician On Duty Status Indicator */}
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[#e2ede5] bg-[#f8faf7] text-xs">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-semibold text-[#11382b]">Dr. On Duty</span>
-              <span className="text-[#8ba395]">·</span>
-              <span className="text-[#527065] font-medium">In Practice</span>
-            </div>
-
-            {/* Quick Action: Document Visit Modal */}
-            <button
-              type="button"
-              onClick={() => setShowConsultModal(true)}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] transition-colors shadow-2xs cursor-pointer"
-            >
-              <Plus className="h-3.5 w-3.5" />
-              <span>Document Visit</span>
-            </button>
-
             {/* Refresh Data Button */}
             <button
               type="button"
@@ -784,38 +795,103 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
           {/* TAB 4: NOTIFICATIONS & ALERTS */}
           {tab === "notifications" && (
             <div className="space-y-6 max-w-6xl">
-              <div className="flex items-center justify-end">
-                <span className="rounded-full bg-emerald-100 border border-emerald-200 px-3.5 py-1 text-xs font-bold text-emerald-800">
-                  {notificationsList.length} Total Alerts
-                </span>
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e7ede5]">
+                <div className="flex items-center gap-2.5">
+                  <span className="rounded-full bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd] px-3.5 py-1 text-xs font-bold">
+                    {notificationsList.length} Total Alerts
+                  </span>
+                  {unreadNotifications > 0 ? (
+                    <span className="rounded-full bg-rose-100 text-rose-800 border border-rose-300 px-3 py-1 text-xs font-bold flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
+                      {unreadNotifications} Unread
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1 text-xs font-medium flex items-center gap-1">
+                      <Check className="h-3 w-3 text-emerald-600" /> All caught up
+                    </span>
+                  )}
+                </div>
+
+                {unreadNotifications > 0 && (
+                  <button
+                    type="button"
+                    onClick={markAllNotificationsRead}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
+                  >
+                    <CheckCheck className="h-3.5 w-3.5 text-[#0e615c]" />
+                    <span>Mark all as read</span>
+                  </button>
+                )}
               </div>
 
               {notificationsList.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-[#dce6db] bg-white p-12 text-center shadow-2xs">
                   <BellRing className="mx-auto h-8 w-8 text-[#7f998b]" />
-                  <p className="mt-3 text-xs text-[#7f998b]">No pending notifications at this time.</p>
+                  <p className="mt-3 text-xs text-[#7f998b]">No notifications at this time.</p>
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {notificationsList.map((n) => (
-                    <div
-                      key={n.id}
-                      className="rounded-2xl border border-[#dce6db] bg-white p-4 transition-colors hover:bg-[#f8fbf7] flex items-start gap-3.5 shadow-2xs"
-                    >
-                      <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#d49b35]/15 text-[#d49b35]">
-                        <BellRing className="h-4 w-4" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <h4 className="text-xs font-bold text-[#11382b]">{n.title}</h4>
-                          <span className="text-[10px] text-[#7f998b] font-mono">
-                            {fmtDate(n.createdAt)}
-                          </span>
+                  {notificationsList.map((n) => {
+                    const isUnread = !n.read;
+                    return (
+                      <div
+                        key={n.id}
+                        className={`rounded-2xl border p-4 transition-all flex items-start gap-3.5 shadow-2xs ${
+                          isUnread
+                            ? "border-emerald-300 bg-gradient-to-r from-emerald-50/60 to-white"
+                            : "border-[#dce6db] bg-white hover:bg-[#f8fbf7]"
+                        }`}
+                      >
+                        <div
+                          className={`mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl ${
+                            isUnread
+                              ? "bg-emerald-600 text-white shadow-xs"
+                              : "bg-[#d49b35]/15 text-[#d49b35]"
+                          }`}
+                        >
+                          <BellRing className="h-4 w-4" />
                         </div>
-                        <p className="mt-1 text-xs text-[#374e41] leading-relaxed">{n.message}</p>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <h4 className={`text-xs font-bold ${isUnread ? "text-[#0e615c]" : "text-[#11382b]"}`}>
+                                {n.title}
+                              </h4>
+                              {isUnread && (
+                                <span className="rounded-full bg-rose-500/15 text-rose-700 px-2 py-0.5 text-[10px] font-bold">
+                                  New
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-[#7f998b] font-mono">
+                              {fmtDate(n.createdAt)}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-xs text-[#374e41] leading-relaxed">{n.message}</p>
+                        </div>
+
+                        {/* Action: Mark as read button */}
+                        <div className="shrink-0 self-center">
+                          {isUnread ? (
+                            <button
+                              type="button"
+                              onClick={() => markNotificationAsRead(n.id)}
+                              title="Mark this notification as read"
+                              className="inline-flex items-center gap-1 rounded-lg border border-[#c8d8c6] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#11382b] hover:bg-[#ebf5f1] hover:text-[#0e615c] transition-colors shadow-2xs cursor-pointer"
+                            >
+                              <Check className="h-3 w-3 text-emerald-600" />
+                              <span className="hidden sm:inline">Mark read</span>
+                            </button>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[11px] text-[#8ba395] font-medium px-2 py-1">
+                              <Check className="h-3 w-3 text-[#8ba395]" />
+                              <span className="hidden sm:inline">Read</span>
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -838,7 +914,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                 return (
                   <div className="flex flex-col items-center w-full">
                     {/* Outer Centered Apple Wallet / Medical Pass Card - Rectangular Landscape Format */}
-                    <div className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-[#1b4332]/25 bg-gradient-to-br from-[#0c382b] via-[#0f4d3c] to-[#164336] text-white relative">
+                    <div id="doctor-credential-card" className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-[#1b4332]/25 bg-gradient-to-br from-[#0c382b] via-[#0f4d3c] to-[#164336] text-white relative">
                       {/* Decorative Gold & Botanical Accents */}
                       <div className="absolute top-0 right-0 w-96 h-96 bg-radial from-[#d49b35]/15 via-emerald-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
                       <div className="absolute bottom-0 left-0 w-80 h-80 bg-radial from-[#10b981]/15 to-transparent rounded-full blur-2xl pointer-events-none" />
@@ -969,10 +1045,10 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                           </div>
 
                           {/* Quick In-Card Print & Copy Actions */}
-                          <div className="grid grid-cols-2 gap-2 pt-1">
+                          <div className="grid grid-cols-2 gap-2 pt-1 no-print">
                             <button
                               type="button"
-                              onClick={() => window.print()}
+                              onClick={() => printCard("doctor-credential-card")}
                               className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white transition-colors cursor-pointer"
                             >
                               <Printer className="h-3.5 w-3.5 text-[#d49b35]" />

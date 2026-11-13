@@ -12,6 +12,7 @@ import {
   CalendarDays,
   CalendarPlus,
   Check,
+  CheckCheck,
   CheckCircle2,
   ChevronDown,
   ChevronRight,
@@ -69,6 +70,7 @@ import { BotanicalCorner, ClinicLogoIcon, RobotChatIcon } from "@/components/ui/
 import { ClinicalMascot } from "@/components/ui/clinical-mascot";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { RoleSwitcherModal } from "@/components/auth/role-switcher-modal";
+import { printCard } from "@/lib/print";
 
 /* --------------------------------- types ---------------------------------- */
 
@@ -414,7 +416,7 @@ export function PatientPortal({
   const [profile, setProfile] = useState<PatientProfileData | null>(null);
   const [notificationsList, setNotificationsList] = useState<AppNotification[]>([]);
   const [providersList, setProvidersList] = useState<ProviderProfile[]>([]);
-  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const unreadNotifications = notificationsList.filter((n) => !n.read).length;
 
   // ChatGPT-mood Layout states
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -481,7 +483,6 @@ export function PatientPortal({
         setProfile(profRes.patient);
       }
       setNotificationsList(notifRes.notifications ?? []);
-      setUnreadNotifications(notifRes.unreadCount ?? 0);
       setProvidersList(provRes.providers ?? []);
     } catch {
       /* ignore background fetch errors */
@@ -759,14 +760,29 @@ export function PatientPortal({
 
 
 
+  async function markNotificationAsRead(id: string) {
+    setNotificationsList((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+    try {
+      await fetch("/api/notifications", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+    } catch {
+      /* ignore */
+    }
+  }
+
   async function markAllNotificationsRead() {
+    setNotificationsList((prev) => prev.map((n) => ({ ...n, read: true })));
     try {
       await fetch("/api/notifications", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ all: true }),
       });
-      await refreshAllData();
     } catch {
       /* noop */
     }
@@ -2319,27 +2335,44 @@ export function PatientPortal({
         {activeTab === "profile" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full space-y-8 thin-scroll">
             {/* INTERACTIVE DIGITAL HEALTH PASS (High Visibility Apple Wallet / Clinic Pass) */}
-            <div className="w-full max-w-2xl mx-auto rounded-[28px] p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#07241a] via-[#0e3a2b] to-[#174e3b] border-2 border-[#d49b35]/40">
+            <div id="patient-digital-health-pass" className="w-full max-w-2xl mx-auto rounded-[28px] p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#07241a] via-[#0e3a2b] to-[#174e3b] border-2 border-[#d49b35]/40">
               {/* Botanical Accent Watermark */}
               <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
                 <BotanicalCorner className="h-36 w-36" />
               </div>
 
               {/* Card Header */}
-              <div className="flex items-center justify-between pb-5 border-b border-white/20">
-                <div className="flex items-center gap-3">
-                  <ClinicLogoIcon className="h-9 w-9 bg-white/10" pulseColor="#d49b35" />
-                  <div>
-                    <p className="font-display text-base font-bold tracking-wide text-white">Afiya Clinic</p>
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#f2bf5e] font-semibold">
+              <div className="flex items-center justify-between gap-4 pb-5 border-b border-white/20">
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="relative h-11 w-11 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 border border-[#d49b35]/40 p-1 flex items-center justify-center shrink-0 shadow-md backdrop-blur-md group">
+                    <img
+                      src="/mascot.svg"
+                      alt="Afiya Mascot"
+                      className="h-9 w-9 object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-transform duration-200 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="font-display text-base font-bold tracking-wide text-white">Afiya Clinic</p>
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#d49b35]/25 text-[#ffd27a] border border-[#d49b35]/40 uppercase tracking-wider hidden sm:inline-block">
+                        PASS #AF
+                      </span>
+                    </div>
+                    <p className="text-xs uppercase tracking-[0.18em] text-[#f2bf5e] font-semibold truncate">
                       Official Digital Health Pass · Better Care Starts Here
                     </p>
                   </div>
                 </div>
 
-                <span className="rounded-full bg-emerald-500/25 px-3.5 py-1 text-xs font-bold text-emerald-200 border border-emerald-400/40 shadow-xs">
-                  ✓ Verified Patient
-                </span>
+                {/* Redesigned Premium Verified Patient Badge */}
+                <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500/25 via-emerald-400/20 to-teal-500/25 border border-emerald-400/60 px-3.5 py-1.5 text-xs font-bold text-white shadow-[0_2px_12px_rgba(16,185,129,0.3)] backdrop-blur-md shrink-0 whitespace-nowrap">
+                  <div className="grid h-4 w-4 place-items-center rounded-full bg-emerald-400/30 text-emerald-200">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
+                  </div>
+                  <span className="tracking-wide font-bold text-emerald-100">
+                    Verified Patient
+                  </span>
+                </div>
               </div>
 
               {/* Card Body */}
@@ -2443,7 +2476,7 @@ export function PatientPortal({
                 </button>
                 <button
                   type="button"
-                  onClick={() => window.print()}
+                  onClick={() => printCard("patient-digital-health-pass")}
                   className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
                 >
                   <Printer className="h-3.5 w-3.5 text-[#527060]" />
@@ -2735,8 +2768,14 @@ export function PatientPortal({
               {notificationsList.length > 0 && (
                 <button
                   onClick={markAllNotificationsRead}
-                  className="rounded-full border border-[#cedece] bg-[#f8faf6] px-4 py-1.5 text-xs font-bold text-[#11382b] hover:bg-[#edf4ea] transition-colors cursor-pointer"
+                  disabled={unreadNotifications === 0}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
+                    unreadNotifications === 0
+                      ? "border-[#e0ebe0] bg-[#f8faf6] text-[#8ea496] cursor-not-allowed opacity-70"
+                      : "border-[#cedece] bg-[#f8faf6] text-[#11382b] hover:bg-[#edf4ea]"
+                  }`}
                 >
+                  <CheckCheck className="h-3.5 w-3.5 text-emerald-600" />
                   Mark all as read
                 </button>
               )}
@@ -2767,7 +2806,24 @@ export function PatientPortal({
                           {!n.read && <span className="h-2 w-2 rounded-full bg-rose-500" />}
                           {n.title}
                         </span>
-                        <span className="text-[11px] text-[#718d7e] font-medium">{fmtTime(n.createdAt)}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[11px] text-[#718d7e] font-medium">{fmtTime(n.createdAt)}</span>
+                          {!n.read ? (
+                            <button
+                              onClick={() => markNotificationAsRead(n.id)}
+                              className="inline-flex items-center gap-1 rounded-full border border-emerald-300 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 hover:bg-emerald-100 transition-colors cursor-pointer"
+                              title="Mark this notification as read"
+                            >
+                              <CheckCheck className="h-3 w-3" />
+                              Mark read
+                            </button>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-500">
+                              <CheckCheck className="h-3 w-3 text-emerald-600" />
+                              Read
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <p className="mt-1 text-[#385547] leading-relaxed text-xs">{n.message}</p>
                     </div>
@@ -3094,7 +3150,7 @@ export function PatientPortal({
       {/* D. PRINTABLE VISIT RECORD MODAL */}
       {viewingRecord && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[32px] border border-[#d6e2d4] bg-white p-7 shadow-2xl space-y-6">
+          <div id="patient-consultation-document" className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[32px] border border-[#d6e2d4] bg-white p-7 shadow-2xl space-y-6">
             <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
               <div className="flex items-center gap-3">
                 <ClinicLogoIcon className="h-8 w-8 bg-[#11382b]" pulseColor="#d49b35" />
@@ -3104,9 +3160,9 @@ export function PatientPortal({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 no-print">
                 <button
-                  onClick={() => window.print()}
+                  onClick={() => printCard("patient-consultation-document")}
                   className="inline-flex items-center gap-1 rounded-full border border-[#cedece] bg-[#f8faf6] px-3 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#edf4ea]"
                 >
                   <Printer className="h-3.5 w-3.5 text-[#d49b35]" />

@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { assertOwnership, isStaff } from "@/lib/auth/service";
+import {
+  assertOwnership,
+  isStaff,
+  hashPassword,
+  verifyPassword,
+  generatePasswordResetOtp,
+  verifyPasswordResetOtp,
+} from "@/lib/auth/service";
 import { appointmentStatusEnum } from "@/db/schema";
 
 describe("Clinic management features & authorization", () => {
@@ -104,5 +111,33 @@ describe("Clinic management features & authorization", () => {
     expect(sampleRecord.diagnosis.length).toBeGreaterThan(0);
     expect(sampleRecord.prescriptions.length).toBe(1);
     expect(sampleRecord.vitals.bloodPressure).toBe("120/80 mmHg");
+  });
+
+  it("hashes passwords securely with scrypt and verifies matches correctly", () => {
+    const rawPass = "newStrongPass123!";
+    const hashed = hashPassword(rawPass);
+    expect(hashed).toMatch(/^scrypt:[a-f0-9]{32}:[a-f0-9]{128}$/);
+    expect(verifyPassword(rawPass, hashed)).toBe(true);
+    expect(verifyPassword("wrongPassword", hashed)).toBe(false);
+  });
+
+  it("manages secure 6-digit OTP generation, single-use consumption, and verification", () => {
+    const testEmail = "patient.recovery@demo.clinic";
+    const otp = generatePasswordResetOtp(testEmail);
+
+    expect(otp).toHaveLength(6);
+    expect(/^\d{6}$/.test(otp)).toBe(true);
+
+    // Wrong code fails
+    const badCheck = verifyPasswordResetOtp(testEmail, "000000");
+    expect(badCheck.valid).toBe(false);
+
+    // Correct code succeeds
+    const goodCheck = verifyPasswordResetOtp(testEmail, otp);
+    expect(goodCheck.valid).toBe(true);
+
+    // Single-use: cannot be reused
+    const reusedCheck = verifyPasswordResetOtp(testEmail, otp);
+    expect(reusedCheck.valid).toBe(false);
   });
 });

@@ -398,7 +398,7 @@ export function FrontDeskChat({ signedIn }: { signedIn: boolean }) {
 
         <Panel title="Your appointments" icon={<CalendarCheck2 className="h-4 w-4" />}>
           {!authed ? (
-            <a href="/login" className="flex items-center gap-2 text-sm text-pine underline underline-offset-4">
+            <a href="/login" className="flex items-center gap-2 text-sm text-[#0284c7] hover:text-[#0369a1] underline underline-offset-4 font-medium">
               <Lock className="h-3.5 w-3.5" /> Sign in to view and manage bookings
             </a>
           ) : confirmed.length === 0 ? (
@@ -514,7 +514,7 @@ function MessageBubble({
             </p>
           )}
           {p?.kind === "auth" && (
-            <a href="/login" className="mt-3 inline-flex items-center gap-2 rounded-full bg-pine px-4 py-2 text-xs font-medium text-cream hover:bg-pine-soft">
+            <a href="/login" className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#0284c7] px-4 py-2 text-xs font-medium text-white hover:bg-[#0369a1] shadow-sm">
               <Lock className="h-3.5 w-3.5" /> Sign in to continue <ArrowRight className="h-3.5 w-3.5" />
             </a>
           )}

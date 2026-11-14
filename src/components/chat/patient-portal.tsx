@@ -1296,7 +1296,7 @@ export function PatientPortal({
               sidebarOpen ? (
                 <a
                   href="/login"
-                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#0f2744] px-3.5 py-2.5 text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white px-3.5 py-2.5 text-xs font-bold transition-all shadow-md cursor-pointer"
                   title="Sign In to Patient or Staff Account"
                 >
                   <LogIn className="h-4 w-4" />
@@ -1305,7 +1305,7 @@ export function PatientPortal({
               ) : (
                 <a
                   href="/login"
-                  className="h-10 w-10 mx-auto rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#0f2744] flex items-center justify-center transition-all shadow-xs cursor-pointer"
+                  className="h-10 w-10 mx-auto rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white flex items-center justify-center transition-all shadow-md cursor-pointer"
                   title="Sign In"
                 >
                   <LogIn className="h-5 w-5" />
@@ -3651,7 +3651,7 @@ function ChatMessage({
           {p?.kind === "auth" && (
             <a
               href="/login"
-              className="mt-3.5 inline-flex items-center gap-2 rounded-full bg-[#0f2744] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] shadow-xs"
+              className="mt-3.5 inline-flex items-center gap-2 rounded-full bg-[#0284c7] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0369a1] shadow-xs"
             >
               <Lock className="h-3.5 w-3.5" /> Sign in to continue <ArrowRight className="h-3.5 w-3.5" />
             </a>

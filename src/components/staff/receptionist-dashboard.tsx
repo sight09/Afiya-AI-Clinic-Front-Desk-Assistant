@@ -673,7 +673,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2.5">
-                <img src="/afiya-icon.png" alt="Afiya" className="h-8 w-8 object-contain rounded-lg" />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 shrink-0">
+                  <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-full w-full object-contain filter drop-shadow-xs" />
+                </div>
                 <div>
                   <p className="font-display text-[18px] font-medium text-white tracking-tight leading-none">Afiya</p>
                   <p className="font-sans text-[12px] font-normal tracking-normal text-sky-300 mt-0.5">Reception Desk</p>
@@ -790,11 +792,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 title="Click to expand sidebar"
                 className="relative group h-10 w-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer"
               >
-                <img
-                  src="/afiya-icon.png"
-                  alt="Afiya"
-                  className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
-                />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 transition-all duration-200 group-hover:opacity-0 group-hover:scale-75">
+                  <img
+                    src="/afiya-icon.png?v=3"
+                    alt="Afiya"
+                    className="h-full w-full object-contain filter drop-shadow-xs"
+                  />
+                </div>
                 <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
 
@@ -821,7 +825,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           : "text-[#64748b] hover:bg-white/5 hover:text-white"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 ${active ? "text-[#d49b35]" : "text-[#475569]"}`} />
+                      <Icon className={`h-4 w-4 ${active ? "text-[#0ea5e9]" : "text-[#64748b]"}`} />
                       {count > 0 && (
                         <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
                       )}
@@ -950,15 +954,15 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       {/* CARD 1: Large Featured Daily Intake Hero (5 cols on lg) */}
                       <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#0f2744] via-[#0f2744] to-[#0f2744] p-5 text-white shadow-md border border-[#0f2744]/30 flex flex-col justify-between relative overflow-hidden">
                         {/* Glow accent */}
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-radial from-[#d49b35]/15 via-sky-400/5 to-transparent rounded-full blur-xl pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-radial from-sky-500/20 via-sky-400/5 to-transparent rounded-full blur-xl pointer-events-none" />
 
                         <div className="relative z-10">
                           <div className="flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span className="h-7 w-7 rounded-lg bg-white/10 border border-white/20 grid place-items-center">
-                                <CalendarDays className="h-3.5 w-3.5 text-[#d49b35]" />
+                                <CalendarDays className="h-3.5 w-3.5 text-[#0284c7]" />
                               </span>
-                              <span className="text-[11px] uppercase font-bold tracking-wider text-[#d49b35]">
+                              <span className="text-[11px] uppercase font-bold tracking-wider text-[#0284c7]">
                                 Daily Clinical Intake
                               </span>
                             </div>
@@ -1422,7 +1426,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         setPatientFilingMode("file_new");
                         setFilingSuccessMsg(false);
                       }}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#0f2744] px-4 py-2.5 text-xs font-bold transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02]"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] text-white px-4 py-2.5 text-xs font-bold transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02]"
                     >
                       <UserPlus className="h-4 w-4" />
                       <span>+ File New Patient Card</span>
@@ -1546,7 +1550,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {/* Section 2: Clinical Details */}
                     <div className="space-y-4">
                       <h5 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider flex items-center gap-2 border-b border-[#f8fafc] pb-1.5">
-                        <Heart className="h-4 w-4 text-[#d49b35]" />
+                        <Heart className="h-4 w-4 text-[#0ea5e9]" />
                         <span>2. Clinical Safety &amp; Allergies</span>
                       </h5>
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -1665,7 +1669,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         disabled={filingSaving}
                         className="inline-flex items-center gap-2 rounded-xl bg-[#0284c7] px-6 py-3 text-sm font-bold text-white hover:bg-[#0369a1] disabled:opacity-50 shadow-md transition-all cursor-pointer"
                       >
-                        {filingSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
+                        {filingSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-white" />}
                         <span>File Patient Profile &amp; Issue Health Card</span>
                       </button>
                     </div>
@@ -1760,7 +1764,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {selectedPatient ? (
                       <>
                         {/* Live Digital Health Card (Receptionist View) */}
-                        <div id="receptionist-patient-pass" className="w-full rounded-[26px] p-6 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] border-2 border-[#d49b35]/40">
+                        <div id="receptionist-patient-pass" className="w-full rounded-[26px] p-6 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] border-2 border-sky-400/40">
                           {/* Botanical Watermark */}
                           <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
                             <BotanicalCorner className="h-32 w-32" />
@@ -1769,7 +1773,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           {/* Card Header */}
                           <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/20">
                             <div className="flex items-center gap-3 min-w-0">
-                              <div className="relative h-10 w-10 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 border border-[#d49b35]/40 p-1 flex items-center justify-center shrink-0 shadow-md backdrop-blur-md">
+                              <div className="relative h-10 w-10 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 border border-sky-400/40 p-1 flex items-center justify-center shrink-0 shadow-md backdrop-blur-md">
                                 <img
                                   src="/mascot.svg"
                                   alt="Afiya Mascot"
@@ -1778,7 +1782,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               </div>
                               <div className="min-w-0">
                                 <p className="font-display text-sm font-bold tracking-wide text-white">Afiya Clinic</p>
-                                <p className="text-[11px] uppercase tracking-[0.16em] text-[#f2bf5e] font-semibold truncate">
+                                <p className="text-[11px] uppercase tracking-[0.16em] text-sky-300 font-semibold truncate">
                                   Digital Health Pass · Reception Verified
                                 </p>
                               </div>
@@ -1820,7 +1824,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 Clinic Member ID
                               </span>
                               <div className="flex items-center gap-2 mt-0.5">
-                                <p className="font-mono text-sm font-bold text-[#ffd27a]">
+                                <p className="font-mono text-sm font-bold text-sky-200">
                                   {`AF-${selectedPatient.id.slice(0, 8).toUpperCase()}`}
                                 </p>
                                 <button
@@ -2058,7 +2062,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 disabled={editSaving}
                                 className="inline-flex items-center gap-2 rounded-xl bg-[#0284c7] px-6 py-3 text-sm font-bold text-white hover:bg-[#0369a1] disabled:opacity-50 shadow-md transition-all cursor-pointer"
                               >
-                                {editSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
+                                {editSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-white" />}
                                 <span>Save &amp; Update Patient Card</span>
                               </button>
                             </div>
@@ -2718,7 +2722,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     <div className="flex items-center justify-between pb-2 border-b border-[#f0f7ff]">
                       <div>
                         <p className="font-bold text-[#0f2744] text-sm">{p.name}</p>
-                        <p className="text-xs text-[#d49b35] font-semibold">{p.specialty}</p>
+                        <p className="text-xs text-[#0284c7] font-semibold">{p.specialty}</p>
                       </div>
                       <span className="rounded-full bg-sky-100 text-blue-800 border border-sky-200 px-2.5 py-0.5 text-xs font-bold">
                         On Duty
@@ -2874,7 +2878,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             ) : (
                               filteredInvoices.map((inv) => (
                                 <tr key={inv.id} className="hover:bg-[#f8fafc] transition-colors">
-                                  <td className="px-5 py-3.5 font-mono font-semibold text-[#d49b35]">
+                                  <td className="px-5 py-3.5 font-mono font-semibold text-[#0f2744]">
                                     {inv.invoiceNumber}
                                   </td>
                                   <td className="px-5 py-3.5">
@@ -2932,7 +2936,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           >
                             <div className="flex items-start justify-between gap-2">
                               <div>
-                                <span className="font-mono text-xs font-bold text-[#d49b35]">
+                                <span className="font-mono text-xs font-bold text-[#0284c7]">
                                   {inv.invoiceNumber}
                                 </span>
                                 <h4 className="text-sm font-bold text-[#0f2744] mt-0.5">{inv.patientName}</h4>
@@ -3217,7 +3221,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[#475569]">Invoice Number:</span>
-                <span className="font-mono font-semibold text-[#d49b35]">{payingInvoice.invoiceNumber}</span>
+                <span className="font-mono font-semibold text-[#0284c7]">{payingInvoice.invoiceNumber}</span>
               </div>
               <div className="flex items-center justify-between border-t border-[#e2e8f0] pt-2 text-sm font-bold">
                 <span className="text-[#0f2744]">Total Copay Due:</span>

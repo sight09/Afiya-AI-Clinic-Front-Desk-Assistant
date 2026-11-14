@@ -898,12 +898,14 @@ export function PatientPortal({
           {sidebarOpen ? (
             <div className="flex items-center justify-between pb-3.5 border-b border-white/10 px-1">
               <a href="/" className="flex items-center gap-2.5 group">
-                <img src="/afiya-icon.png" alt="Afiya" className="h-8 w-8 object-contain rounded-lg" />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 shrink-0 group-hover:border-sky-400/60 transition-colors">
+                  <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-full w-full object-contain filter drop-shadow-xs" />
+                </div>
                 <div>
                   <span className="font-display text-[18px] font-medium text-white tracking-tight block leading-tight">
                     Afiya
                   </span>
-                  <span className="font-sans text-[12px] font-normal tracking-normal text-[#64748b] block">
+                  <span className="font-sans text-[12px] font-normal tracking-normal text-sky-200/70 block">
                     Better Care Starts Here
                   </span>
                 </div>
@@ -925,11 +927,13 @@ export function PatientPortal({
                 className="relative group h-10 w-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer"
                 title="Click to expand sidebar"
               >
-                <img
-                  src="/afiya-icon.png"
-                  alt="Afiya"
-                  className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
-                />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 transition-all duration-200 group-hover:opacity-0 group-hover:scale-75">
+                  <img
+                    src="/afiya-icon.png?v=3"
+                    alt="Afiya"
+                    className="h-full w-full object-contain filter drop-shadow-xs"
+                  />
+                </div>
                 <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
             </div>
@@ -974,7 +978,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-white" : "text-white/60"}`} />
                   <span>AI Front-Desk</span>
                 </div>
               </button>
@@ -988,7 +992,7 @@ export function PatientPortal({
                 }`}
                 title="AI Front-Desk"
               >
-                <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-white" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1003,7 +1007,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-white" : "text-white/60"}`} />
                   <span>Appointments</span>
                 </div>
                 {confirmedAppointments.length > 0 && (
@@ -1022,7 +1026,7 @@ export function PatientPortal({
                 }`}
                 title={`Appointments (${confirmedAppointments.length})`}
               >
-                <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-white" : "text-white/60"}`} />
                 {confirmedAppointments.length > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                 )}
@@ -1040,7 +1044,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-white" : "text-white/60"}`} />
                   <span>Visit Records</span>
                 </div>
                 {records.length > 0 && (
@@ -1059,7 +1063,7 @@ export function PatientPortal({
                 }`}
                 title={`Visit Records (${records.length})`}
               >
-                <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-white" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1074,7 +1078,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-white" : "text-white/60"}`} />
                   <span>Billing &amp; Receipts</span>
                 </div>
                 {pendingTotal > 0 && (
@@ -1093,7 +1097,7 @@ export function PatientPortal({
                 }`}
                 title={`Billing & Receipts ${pendingTotal > 0 ? `($${pendingTotal} Due)` : ""}`}
               >
-                <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-white" : "text-white/60"}`} />
                 {pendingTotal > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                 )}
@@ -1111,7 +1115,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-white" : "text-white/60"}`} />
                   <span>Digital Health ID</span>
                 </div>
                 <span className="text-[11px] text-white/50 font-medium">Card</span>
@@ -1126,7 +1130,7 @@ export function PatientPortal({
                 }`}
                 title="Digital Health ID Card"
               >
-                <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-white" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1141,7 +1145,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-white" : "text-white/60"}`} />
                   <span>Doctors Directory</span>
                 </div>
                 <span className="text-[11px] text-white/50 font-medium">{providersList.length || 3}</span>
@@ -1156,7 +1160,7 @@ export function PatientPortal({
                 }`}
                 title="Doctors Directory"
               >
-                <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-white" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1171,7 +1175,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-white" : "text-white/60"}`} />
                   <span>Notifications</span>
                 </div>
                 {unreadNotifications > 0 && (
@@ -1190,7 +1194,7 @@ export function PatientPortal({
                 }`}
                 title={`Notifications (${unreadNotifications} unread)`}
               >
-                <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-white" : "text-white/60"}`} />
                 {unreadNotifications > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-rose-500" />
                 )}
@@ -1208,7 +1212,7 @@ export function PatientPortal({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#0ea5e9]" : "text-white/50"}`} />
+                  <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-white" : "text-white/60"}`} />
                   <span>Safety &amp; Rules</span>
                 </div>
                 <span className="text-[11px] px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300">
@@ -1225,7 +1229,7 @@ export function PatientPortal({
                 }`}
                 title="Clinical Safety & Rules (100% Deterministic)"
               >
-                <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#0ea5e9]" : "text-white/60"}`} />
+                <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-white" : "text-white/60"}`} />
               </button>
             )}
           </nav>
@@ -1268,7 +1272,7 @@ export function PatientPortal({
                   title="View User Profile & Information"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#0f2744] font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
+                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] text-white border border-sky-400/30 font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
                       {currentUser?.name ? currentUser.name[0] : "P"}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -1286,7 +1290,7 @@ export function PatientPortal({
                 <button
                   type="button"
                   onClick={() => setShowUserProfileModal(true)}
-                  className="h-10 w-10 mx-auto rounded-xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#0f2744] font-bold text-sm shadow-xs flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#d49b35]/60 transition-all"
+                  className="h-10 w-10 mx-auto rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] text-white border border-sky-400/30 font-bold text-sm shadow-xs flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-sky-400/60 transition-all"
                   title={`${currentUser?.name || "User Profile"} (${currentUser?.role || "Active"})`}
                 >
                   {currentUser?.name ? currentUser.name[0] : "P"}
@@ -1556,7 +1560,7 @@ export function PatientPortal({
                         disabled={busy}
                         className="inline-flex items-center gap-1.5 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-1 text-[11px] font-medium text-[#1e293b] hover:border-[#0f2744] hover:bg-white hover:text-[#0f2744] transition-all disabled:opacity-50 active:scale-95 shadow-2xs cursor-pointer"
                       >
-                        <Sparkles className="h-3 w-3 text-[#d49b35]" />
+                        <Sparkles className="h-3 w-3 text-[#0ea5e9]" />
                         <span>{qp.label}</span>
                       </button>
                     ))}
@@ -1663,7 +1667,7 @@ export function PatientPortal({
                 }}
                 className="inline-flex items-center gap-1.5 rounded-full bg-[#0f2744] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] transition-all shadow-xs"
               >
-                <CalendarPlus className="h-3.5 w-3.5 text-[#d49b35]" />
+                <CalendarPlus className="h-3.5 w-3.5 text-[#0284c7]" />
                 <span>+ Book New Slot</span>
               </button>
             </div>
@@ -1737,7 +1741,7 @@ export function PatientPortal({
                   }}
                   className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0f2744] px-5 py-2.5 text-xs font-semibold text-white hover:bg-[#0f2744] shadow-xs cursor-pointer transition-colors"
                 >
-                  <MessageSquare className="h-4 w-4 text-[#d49b35]" />
+                  <MessageSquare className="h-4 w-4 text-[#0284c7]" />
                   <span>Book with Assistant</span>
                 </button>
               </div>
@@ -1759,7 +1763,7 @@ export function PatientPortal({
                         <div className="flex items-start justify-between gap-3 pb-3 border-b border-[#f1f5f9]">
                           <div className="flex items-center gap-3">
                             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#0f2744] to-[#0f2744] text-[#d49b35] font-bold text-sm shadow-xs">
-                              <Stethoscope className="h-5 w-5 text-[#d49b35]" />
+                              <Stethoscope className="h-5 w-5 text-[#0284c7]" />
                             </div>
                             <div>
                               <p className="text-sm font-bold text-[#0f2744] leading-tight">
@@ -1884,7 +1888,7 @@ export function PatientPortal({
                           onClick={() => downloadIcs(a)}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0f2744] hover:text-[#0f2744] hover:underline cursor-pointer"
                         >
-                          <CalendarPlus className="h-4 w-4 text-[#d49b35]" />
+                          <CalendarPlus className="h-4 w-4 text-[#0284c7]" />
                           <span>Add to Calendar (.ics)</span>
                         </button>
 
@@ -1978,7 +1982,7 @@ export function PatientPortal({
                         onClick={() => setViewingRecord(r)}
                         className="inline-flex items-center gap-1.5 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-xs font-semibold text-[#0f2744] hover:bg-[#f1f5f9] transition-colors cursor-pointer"
                       >
-                        <Printer className="h-3.5 w-3.5 text-[#d49b35]" />
+                        <Printer className="h-3.5 w-3.5 text-[#0284c7]" />
                         <span>Print Consultation Summary</span>
                       </button>
                     </div>
@@ -2041,7 +2045,7 @@ export function PatientPortal({
                     {r.prescriptions && r.prescriptions.length > 0 && (
                       <div className="space-y-2.5 pt-1">
                         <p className="text-xs font-bold text-[#0f2744] uppercase tracking-wider flex items-center gap-1.5">
-                          <Pill className="h-4 w-4 text-[#d49b35]" /> Prescribed Medications &amp; Pharmacy Orders
+                          <Pill className="h-4 w-4 text-[#0284c7]" /> Prescribed Medications &amp; Pharmacy Orders
                         </p>
                         <div className="grid gap-2 sm:grid-cols-2">
                           {r.prescriptions.map((px, idx) => (
@@ -2313,7 +2317,7 @@ export function PatientPortal({
                           onClick={() => setPayingInvoice(inv)}
                           className="inline-flex items-center gap-1.5 rounded-full bg-[#0f2744] px-5 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] shadow-xs active:scale-95 transition-transform cursor-pointer"
                         >
-                          <CreditCard className="h-3.5 w-3.5 text-[#d49b35]" />
+                          <CreditCard className="h-3.5 w-3.5 text-[#0284c7]" />
                           <span>Pay Now</span>
                         </button>
                       ) : (
@@ -2335,7 +2339,7 @@ export function PatientPortal({
         {activeTab === "profile" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full space-y-8 thin-scroll">
             {/* INTERACTIVE DIGITAL HEALTH PASS (High Visibility Apple Wallet / Clinic Pass) */}
-            <div id="patient-digital-health-pass" className="w-full max-w-2xl mx-auto rounded-[28px] p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] border-2 border-[#d49b35]/40">
+            <div id="patient-digital-health-pass" className="w-full max-w-2xl mx-auto rounded-[28px] p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] border-2 border-sky-400/40">
               {/* Botanical Accent Watermark */}
               <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
                 <BotanicalCorner className="h-36 w-36" />
@@ -2344,7 +2348,7 @@ export function PatientPortal({
               {/* Card Header */}
               <div className="flex items-center justify-between gap-4 pb-5 border-b border-white/20">
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="relative h-11 w-11 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 border border-[#d49b35]/40 p-1 flex items-center justify-center shrink-0 shadow-md backdrop-blur-md group">
+                  <div className="relative h-11 w-11 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 border border-sky-400/40 p-1 flex items-center justify-center shrink-0 shadow-md backdrop-blur-md group">
                     <img
                       src="/mascot.svg"
                       alt="Afiya Mascot"
@@ -2354,11 +2358,11 @@ export function PatientPortal({
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <p className="font-display text-base font-bold tracking-wide text-white">Afiya Clinic</p>
-                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#d49b35]/25 text-[#ffd27a] border border-[#d49b35]/40 uppercase tracking-wider hidden sm:inline-block">
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sky-500/25 text-sky-200 border border-sky-400/40 uppercase tracking-wider hidden sm:inline-block">
                         PASS #AF
                       </span>
                     </div>
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#f2bf5e] font-semibold truncate">
+                    <p className="text-xs uppercase tracking-[0.18em] text-sky-300 font-semibold truncate">
                       Official Digital Health Pass · Better Care Starts Here
                     </p>
                   </div>
@@ -2391,7 +2395,7 @@ export function PatientPortal({
                     Clinic Member ID
                   </span>
                   <div className="flex items-center gap-2 mt-1">
-                    <p className="font-mono text-base font-bold text-[#ffd27a]">
+                    <p className="font-mono text-base font-bold text-sky-200">
                       {profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC"}
                     </p>
                     <button
@@ -2566,7 +2570,7 @@ export function PatientPortal({
                 {/* 2. Clinical Indicators & Safety */}
                 <div>
                   <h4 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <Heart className="h-4 w-4 text-[#d49b35]" />
+                    <Heart className="h-4 w-4 text-[#0ea5e9]" />
                     <span>Clinical Profile &amp; Emergency Alerts</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -2738,7 +2742,7 @@ export function PatientPortal({
                       onClick={() => startBookingWithDoctor(p)}
                       className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#0f2744] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#0f2744] transition-transform active:scale-95 shadow-xs cursor-pointer"
                     >
-                      <CalendarPlus className="h-3.5 w-3.5 text-[#d49b35]" />
+                      <CalendarPlus className="h-3.5 w-3.5 text-[#0284c7]" />
                       <span>Book Consultation with {p.name.split(" ")[1] || p.name}</span>
                     </button>
                   </div>
@@ -2797,7 +2801,7 @@ export function PatientPortal({
                     }`}
                   >
                     <div className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white text-[#0f2744] border border-[#e2e8f0] mt-0.5">
-                      <Bell className="h-4 w-4 text-[#d49b35]" />
+                      <Bell className="h-4 w-4 text-[#0284c7]" />
                     </div>
 
                     <div className="flex-1">
@@ -2843,7 +2847,7 @@ export function PatientPortal({
             <div className="rounded-3xl border border-sky-300 bg-gradient-to-r from-sky-50 to-[#f1f5f9] p-6 shadow-xs">
               <div className="flex items-start gap-4">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#0f2744] text-white">
-                  <ShieldCheck className="h-6 w-6 text-[#d49b35]" />
+                  <ShieldCheck className="h-6 w-6 text-[#0ea5e9]" />
                 </span>
                 <div>
                   <h3 className="font-display text-lg font-bold text-[#0f2744]">
@@ -2892,7 +2896,7 @@ export function PatientPortal({
             {/* Interactive Red Flag Simulator */}
             <div className="rounded-3xl border border-[#e2e8f0] bg-[#ffffff] p-6 shadow-2xs space-y-4">
               <h4 className="font-display text-base font-bold text-[#0f2744] flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#d49b35]" />
+                <Sparkles className="h-4 w-4 text-[#0ea5e9]" />
                 <span>Test Safety Screening Live</span>
               </h4>
               <p className="text-xs text-[#475569]">
@@ -3135,9 +3139,9 @@ export function PatientPortal({
                   <button
                     type="submit"
                     disabled={payBusy}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-[#0f2744] px-6 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] disabled:opacity-50 shadow-xs"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] px-6 py-2 text-xs font-semibold text-white disabled:opacity-50 shadow-md transition-colors"
                   >
-                    {payBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4 text-[#d49b35]" />}
+                    {payBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4 text-white" />}
                     Pay ${payingInvoice.totalAmount}.00
                   </button>
                 </div>
@@ -3153,7 +3157,7 @@ export function PatientPortal({
           <div id="patient-consultation-document" className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[32px] border border-[#e2e8f0] bg-white p-7 shadow-2xl space-y-6">
             <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
               <div className="flex items-center gap-3">
-                <ClinicLogoIcon className="h-8 w-8 bg-[#0f2744]" pulseColor="#d49b35" />
+                <ClinicLogoIcon className="h-8 w-8 bg-[#0f2744]" pulseColor="#0ea5e9" />
                 <div>
                   <h3 className="font-display text-base font-bold text-[#0f2744]">Afiya Clinic</h3>
                   <p className="text-[10px] text-[#475569] uppercase tracking-wider">Official Medical Consultation Summary · Better Care Starts Here</p>
@@ -3165,7 +3169,7 @@ export function PatientPortal({
                   onClick={() => printCard("patient-consultation-document")}
                   className="inline-flex items-center gap-1 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-1.5 text-xs font-semibold text-[#0f2744] hover:bg-[#f1f5f9]"
                 >
-                  <Printer className="h-3.5 w-3.5 text-[#d49b35]" />
+                  <Printer className="h-3.5 w-3.5 text-[#0284c7]" />
                   <span>Print Document</span>
                 </button>
                 <button
@@ -3303,7 +3307,7 @@ export function PatientPortal({
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="grid h-8 w-8 place-items-center rounded-xl bg-[#0f2744] text-[#d49b35]">
+                <div className="grid h-8 w-8 place-items-center rounded-xl bg-sky-50 text-[#0284c7] border border-sky-200">
                   <User className="h-4 w-4" />
                 </div>
                 <div>
@@ -3321,7 +3325,7 @@ export function PatientPortal({
 
             {/* Profile Hero Card */}
             <div className="rounded-2xl border border-[#e2e8f0] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] p-4 flex items-center gap-3.5">
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#0f2744] font-bold text-xl shadow-xs">
+              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] text-white border border-sky-400/30 font-bold text-xl shadow-md">
                 {currentUser?.name ? currentUser.name[0] : "P"}
               </div>
               <div className="min-w-0 flex-1">
@@ -3698,7 +3702,7 @@ function ChatMessage({
         {p?.kind === "booking" && (
           <div className="rounded-[24px] border border-[#e2e8f0] bg-white p-4 shadow-xs space-y-3">
             <p className="text-xs font-bold text-[#0f2744] flex items-center gap-1.5">
-              <CalendarDays className="h-4 w-4 text-[#d49b35]" /> Available Appointment Slots:
+              <CalendarDays className="h-4 w-4 text-[#0284c7]" /> Available Appointment Slots:
             </p>
             <div className="space-y-2">
               {p.slots.slice(0, 6).map((slot) => (
@@ -3734,7 +3738,7 @@ function ChatMessage({
         {p?.kind === "appointments_action" && (
           <div className="rounded-[24px] border border-[#e2e8f0] bg-white p-4 shadow-xs space-y-3">
             <p className="text-xs font-bold text-[#0f2744] flex items-center gap-1.5">
-              <CalendarDays className="h-4 w-4 text-[#d49b35]" />
+              <CalendarDays className="h-4 w-4 text-[#0284c7]" />
               <span>
                 {p.action === "cancellation"
                   ? "Active Bookings (Select to Request Cancellation / Reschedule):"

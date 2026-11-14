@@ -379,7 +379,9 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2.5">
-                <img src="/afiya-icon.png" alt="Afiya" className="h-8 w-8 object-contain rounded-lg" />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 shrink-0">
+                  <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-full w-full object-contain filter drop-shadow-xs" />
+                </div>
                 <div>
                   <p className="font-display text-[18px] font-medium text-white tracking-tight leading-none">Afiya</p>
                   <p className="font-sans text-[12px] font-normal tracking-normal text-sky-300 mt-0.5">Clinician Station</p>
@@ -448,7 +450,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                   setShowConsultModal(true);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#d49b35] to-[#c28b2a] px-3 py-2 text-xs font-bold text-[#0f2744] hover:brightness-105 transition-all shadow-xs active:scale-98 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0284c7] to-[#0369a1] px-3 py-2 text-xs font-bold text-white hover:from-[#0369a1] hover:to-[#075985] transition-all shadow-md active:scale-98 cursor-pointer"
               >
                 <Plus className="h-3.5 w-3.5" />
                 <span>Document Visit</span>
@@ -496,11 +498,13 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                 title="Click to expand sidebar"
                 className="relative group h-10 w-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer"
               >
-                <img
-                  src="/afiya-icon.png"
-                  alt="Afiya"
-                  className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
-                />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 transition-all duration-200 group-hover:opacity-0 group-hover:scale-75">
+                  <img
+                    src="/afiya-icon.png?v=3"
+                    alt="Afiya"
+                    className="h-full w-full object-contain filter drop-shadow-xs"
+                  />
+                </div>
                 <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
 
@@ -520,9 +524,9 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                           : "text-[#64748b] hover:bg-white/5 hover:text-white"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 ${active ? "text-[#d49b35]" : "text-[#475569]"}`} />
+                      <Icon className={`h-4 w-4 ${active ? "text-[#0ea5e9]" : "text-[#64748b]"}`} />
                       {count > 0 && (
-                        <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#d49b35]" />
+                        <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                       )}
                     </button>
                   );
@@ -534,7 +538,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                   type="button"
                   onClick={() => setShowConsultModal(true)}
                   title="Document Visit"
-                  className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#d49b35] to-[#c28b2a] text-[#0f2744] hover:brightness-105 transition-all shadow-xs cursor-pointer"
+                  className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#0284c7] to-[#0369a1] text-white hover:from-[#0369a1] hover:to-[#075985] transition-all shadow-md cursor-pointer"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -722,7 +726,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                         <p className="font-bold text-[#0f2744] text-sm">{r.patientName}</p>
                         <p className="text-[10px] text-[#64748b]">{r.patientEmail}</p>
                       </div>
-                      <span className="text-[11px] font-bold text-[#d49b35]">{fmtDate(r.visitDate)}</span>
+                      <span className="text-[11px] font-bold text-[#0284c7]">{fmtDate(r.visitDate)}</span>
                     </div>
                     <div className="text-xs space-y-2 text-[#1e293b]">
                       <p><strong className="text-[#475569]">Chief Complaint:</strong> {r.chiefComplaint}</p>
@@ -767,7 +771,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                   {drafts.map((d) => (
                     <div key={d.id} className="rounded-2xl border border-[#e2e8f0] bg-white p-5 space-y-3 shadow-2xs">
                       <div className="flex items-center justify-between pb-2 border-b border-[#f0f7ff]">
-                        <span className="text-[10px] font-bold text-[#d49b35] uppercase">AI Intake Draft</span>
+                        <span className="text-[10px] font-bold text-[#0284c7] bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200 uppercase">AI Intake Draft</span>
                         <span className="text-[10px] text-[#64748b]">{fmt(d.createdAt)}</span>
                       </div>
                       <p className="text-xs text-[#1e293b] leading-relaxed italic bg-[#f8fafc] p-3 rounded-xl border border-[#e2e8f0]">&quot;{d.draft}&quot;</p>
@@ -916,7 +920,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                     {/* Outer Centered Apple Wallet / Medical Pass Card - Rectangular Landscape Format */}
                     <div id="doctor-credential-card" className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-[#0f2744]/25 bg-gradient-to-br from-[#0c213b] via-[#0f2744] to-[#0f2744] text-white relative">
                       {/* Decorative Gold & Botanical Accents */}
-                      <div className="absolute top-0 right-0 w-96 h-96 bg-radial from-[#d49b35]/15 via-sky-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
+                      <div className="absolute top-0 right-0 w-96 h-96 bg-radial from-sky-500/20 via-sky-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
                       <div className="absolute bottom-0 left-0 w-80 h-80 bg-radial from-[#0ea5e9]/15 to-transparent rounded-full blur-2xl pointer-events-none" />
                       <BotanicalCorner className="absolute top-2 right-2 w-32 h-32 text-white/5 pointer-events-none" />
 
@@ -928,10 +932,10 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                           <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10">
                             <div className="flex items-center gap-2.5">
                               <div className="h-9 w-9 rounded-xl bg-white/10 border border-white/20 grid place-items-center backdrop-blur-md shadow-xs">
-                                <ClinicLogoIcon className="h-5 w-5 text-[#d49b35]" />
+                                <ClinicLogoIcon className="h-5 w-5 text-sky-400" />
                               </div>
                               <div>
-                                <span className="text-[10px] uppercase font-bold tracking-widest text-[#d49b35]">
+                                <span className="text-[10px] uppercase font-bold tracking-widest text-sky-300">
                                   Afiya Medical Center
                                 </span>
                                 <h4 className="text-xs font-semibold tracking-wide text-white/90">
@@ -948,8 +952,8 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                           {/* Physician Avatar & Title */}
                           <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
                             <div className="relative shrink-0">
-                              <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-[#d49b35] via-[#a87422] to-[#6d480e] p-0.5 shadow-xl">
-                                <div className="h-full w-full rounded-[14px] bg-[#0f2744] flex items-center justify-center text-2xl font-bold text-[#f7e2a9]">
+                              <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-[#0284c7] via-[#0ea5e9] to-[#0f2744] p-0.5 shadow-xl">
+                                <div className="h-full w-full rounded-[14px] bg-[#0b192c] flex items-center justify-center text-2xl font-bold text-sky-200">
                                   MD
                                 </div>
                               </div>
@@ -997,12 +1001,12 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                           {/* Quick Location & Security Pill */}
                           <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-white/80 border-t border-white/10">
                             <span className="flex items-center gap-1.5">
-                              <Building2 className="h-3.5 w-3.5 text-[#d49b35]" />
+                              <Building2 className="h-3.5 w-3.5 text-sky-300" />
                               <span>{myProvider?.roomNumber || "Suite 102 - West Wing"}</span>
                             </span>
                             <span className="text-white/30">·</span>
                             <span className="flex items-center gap-1.5">
-                              <Mail className="h-3.5 w-3.5 text-[#d49b35]" />
+                              <Mail className="h-3.5 w-3.5 text-sky-300" />
                               <span className="font-mono text-[11px] truncate max-w-[200px]">
                                 {myProvider?.contactEmail || user.email || "dr.meyer@afiyaclinic.com"}
                               </span>
@@ -1015,7 +1019,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                           <div>
                             <div className="flex items-center justify-between text-xs text-white/70 mb-1">
                               <span className="flex items-center gap-1.5 font-medium text-white/90">
-                                <CalendarDays className="h-3.5 w-3.5 text-[#d49b35]" />
+                                <CalendarDays className="h-3.5 w-3.5 text-sky-300" />
                                 Practice Hours
                               </span>
                               <span className="font-semibold text-sky-300">In Practice</span>
@@ -1051,7 +1055,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                               onClick={() => printCard("doctor-credential-card")}
                               className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white transition-colors cursor-pointer"
                             >
-                              <Printer className="h-3.5 w-3.5 text-[#d49b35]" />
+                              <Printer className="h-3.5 w-3.5 text-sky-300" />
                               <span>Print Card</span>
                             </button>
                             <button
@@ -1066,7 +1070,7 @@ export function DoctorDashboard({ user }: { user: { name: string; role: string; 
                                 </>
                               ) : (
                                 <>
-                                  <Copy className="h-3.5 w-3.5 text-[#d49b35]" />
+                                  <Copy className="h-3.5 w-3.5 text-sky-300" />
                                   <span>Copy ID</span>
                                 </>
                               )}

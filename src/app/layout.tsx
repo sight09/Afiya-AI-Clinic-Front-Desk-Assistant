@@ -8,10 +8,11 @@ export const metadata: Metadata = {
     "Afiya Clinic intelligent front-desk assistant: approved clinic FAQs, structured symptom intake, safe emergency escalation, and live appointment booking. Better Care Starts Here.",
   icons: {
     icon: [
-      { url: "/afiya-icon.png", type: "image/png" },
-      { url: "/favicon.ico" },
+      { url: "/afiya-icon.png?v=3", type: "image/png" },
+      { url: "/icon.png?v=3", type: "image/png" },
+      { url: "/favicon.ico?v=3" },
     ],
-    apple: "/afiya-icon.png",
+    apple: "/afiya-icon.png?v=3",
   },
 };
 
@@ -19,6 +20,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/afiya-icon.png?v=3" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico?v=3" />
+        <link rel="apple-touch-icon" href="/afiya-icon.png?v=3" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

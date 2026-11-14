@@ -373,7 +373,9 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2.5">
-                <img src="/afiya-icon.png" alt="Afiya" className="h-8 w-8 object-contain rounded-lg" />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 shrink-0">
+                  <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-full w-full object-contain filter drop-shadow-xs" />
+                </div>
                 <div>
                   <p className="font-display text-[18px] font-medium text-white tracking-tight leading-none">Afiya</p>
                   <p className="font-sans text-[12px] font-normal tracking-normal text-sky-300 mt-0.5">Executive Admin</p>
@@ -442,7 +444,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                   setShowAddUserModal(true);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#d49b35] to-[#c28b2a] px-3 py-2 text-xs font-bold text-[#0f2744] hover:brightness-105 transition-all shadow-xs active:scale-98 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0284c7] to-[#0369a1] px-3 py-2 text-xs font-bold text-white hover:from-[#0369a1] hover:to-[#075985] transition-all shadow-md active:scale-98 cursor-pointer"
               >
                 <UserPlus className="h-3.5 w-3.5" />
                 <span>Add Staff Account</span>
@@ -454,7 +456,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                 }}
                 className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10 cursor-pointer"
               >
-                <CalendarCheck className="h-3.5 w-3.5 text-[#d49b35]" />
+                <CalendarCheck className="h-3.5 w-3.5 text-sky-300" />
                 <span>Add Provider Slot</span>
               </button>
             </div>
@@ -468,7 +470,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                 title="View Admin Profile"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="grid h-8 w-8 place-items-center rounded-lg bg-[#d49b35]/20 text-[#d49b35] font-bold text-xs group-hover:scale-105 transition-transform">
+                  <div className="grid h-8 w-8 place-items-center rounded-lg bg-sky-500/20 text-sky-300 font-bold text-xs group-hover:scale-105 transition-transform">
                     {user.name[0] || "A"}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -500,11 +502,13 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                 title="Click to expand sidebar"
                 className="relative group h-10 w-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer"
               >
-                <img
-                  src="/afiya-icon.png"
-                  alt="Afiya"
-                  className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
-                />
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 transition-all duration-200 group-hover:opacity-0 group-hover:scale-75">
+                  <img
+                    src="/afiya-icon.png?v=3"
+                    alt="Afiya"
+                    className="h-full w-full object-contain filter drop-shadow-xs"
+                  />
+                </div>
                 <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
 
@@ -524,7 +528,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                           : "text-[#64748b] hover:bg-white/5 hover:text-white"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 ${active ? "text-[#d49b35]" : "text-[#475569]"}`} />
+                      <Icon className={`h-4 w-4 ${active ? "text-[#0ea5e9]" : "text-[#64748b]"}`} />
                       {count > 0 && (
                         <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
                       )}
@@ -538,7 +542,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                   type="button"
                   onClick={() => setShowAddUserModal(true)}
                   title="Add Staff Account"
-                  className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#d49b35] to-[#c28b2a] text-[#0f2744] hover:brightness-105 transition-all shadow-xs cursor-pointer"
+                  className="h-9 w-9 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#0284c7] to-[#0369a1] text-white hover:from-[#0369a1] hover:to-[#075985] transition-all shadow-md cursor-pointer"
                 >
                   <UserPlus className="h-4 w-4" />
                 </button>
@@ -548,7 +552,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                   title="Add Provider Slot"
                   className="h-9 w-9 flex items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white hover:bg-white/10 transition-colors cursor-pointer"
                 >
-                  <CalendarCheck className="h-4 w-4 text-[#d49b35]" />
+                  <CalendarCheck className="h-4 w-4 text-[#0284c7]" />
                 </button>
               </div>
             </div>
@@ -558,7 +562,7 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                 type="button"
                 onClick={() => setShowUserProfileModal(true)}
                 title={`Administrator: ${user.name}`}
-                className="h-8 w-8 rounded-lg bg-[#d49b35]/20 text-[#d49b35] hover:bg-[#d49b35]/30 font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
+                className="h-8 w-8 rounded-lg bg-sky-500/20 text-sky-300 hover:bg-sky-500/30 font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
               >
                 {user.name[0] || "A"}
               </button>
@@ -712,16 +716,16 @@ export function AdminDashboard({ user }: { user: { name: string; role: string } 
                       {/* CARD 1: Large Featured Revenue & Financial Trend Card */}
                       <div className="lg:col-span-8 rounded-3xl bg-gradient-to-br from-[#0f2744] via-[#0f2744] to-[#0f2744] p-6 sm:p-7 text-white shadow-xl border border-[#0f2744]/30 relative overflow-hidden flex flex-col justify-between">
                         {/* Subtle Background Glow */}
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-radial from-[#d49b35]/15 via-sky-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-80 h-80 bg-radial from-sky-500/20 via-sky-400/5 to-transparent rounded-full blur-2xl pointer-events-none" />
 
                         <div>
                           <div className="flex flex-wrap items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
                               <span className="h-8 w-8 rounded-xl bg-white/10 border border-white/15 grid place-items-center">
-                                <DollarSign className="h-4 w-4 text-[#d49b35]" />
+                                <DollarSign className="h-4 w-4 text-[#0284c7]" />
                               </span>
                               <div>
-                                <span className="text-[11px] uppercase font-bold tracking-wider text-[#d49b35]">
+                                <span className="text-[11px] uppercase font-bold tracking-wider text-[#0284c7]">
                                   Financial Ledger
                                 </span>
                                 <h3 className="text-sm font-semibold text-white/90">Gross Clinic Inflow &amp; Trend</h3>

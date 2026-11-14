@@ -20,7 +20,7 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
       {/* Floating Mascot Entity */}
       <div className="animate-float relative">
         {/* Ambient Vitality Glow */}
-        <div className="absolute inset-0 -m-3 bg-gradient-to-tr from-emerald-300/30 via-teal-200/20 to-emerald-400/20 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute inset-0 -m-3 bg-gradient-to-tr from-sky-300/30 via-blue-200/20 to-sky-400/20 rounded-full blur-xl pointer-events-none" />
 
         {/* Mascot SVG */}
         <svg
@@ -29,24 +29,24 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
           viewBox="0 0 120 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="relative z-10 drop-shadow-[0_8px_16px_rgba(17,56,43,0.14)]"
+          className="relative z-10 drop-shadow-[0_8px_16px_rgba(15,39,68,0.14)]"
         >
           <defs>
             {/* Gradients */}
             <linearGradient id="mascotBody" x1="20" y1="20" x2="100" y2="105" gradientUnits="userSpaceOnUse">
               <stop stopColor="#ffffff" />
-              <stop offset="0.65" stopColor="#edf7f2" />
-              <stop offset="1" stopColor="#d5ecdF" />
+              <stop offset="0.65" stopColor="#f0f7ff" />
+              <stop offset="1" stopColor="#dbeafe" />
             </linearGradient>
 
             <linearGradient id="mascotEarGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop stopColor="#256c54" />
-              <stop offset="1" stopColor="#11382b" />
+              <stop stopColor="#1d4ed8" />
+              <stop offset="1" stopColor="#0f2744" />
             </linearGradient>
 
             <linearGradient id="mascotCap" x1="30" y1="12" x2="90" y2="35" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#1c5542" />
-              <stop offset="1" stopColor="#0f3427" />
+              <stop stopColor="#1e40af" />
+              <stop offset="1" stopColor="#0f2744" />
             </linearGradient>
 
             <linearGradient id="heartGrad" x1="0" y1="0" x2="1" y2="1">
@@ -63,30 +63,30 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
           {/* Stethoscope Neck Band */}
           <path
             d="M 32 64 C 32 88, 88 88, 88 64"
-            stroke="#1b4d3c"
+            stroke="#0284c7"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
           {/* Stethoscope Bell Chest Piece */}
           <circle cx="60" cy="85" r="7" fill="#d49b35" stroke="#ffffff" strokeWidth="2" />
-          <circle cx="60" cy="85" r="3" fill="#11382b" />
+          <circle cx="60" cy="85" r="3" fill="#0f2744" />
 
           {/* Front Desk Headset (Operator / Receptionist Communicator) */}
           <path
             d="M 24 54 C 24 24, 96 24, 96 54"
-            stroke="#2b5e4c"
+            stroke="#1e40af"
             strokeWidth="3.5"
             strokeLinecap="round"
             fill="none"
           />
           {/* Headset Earcups */}
-          <rect x="20" y="44" width="7" height="18" rx="3.5" fill="#11382b" stroke="#ffffff" strokeWidth="1.5" />
-          <rect x="93" y="44" width="7" height="18" rx="3.5" fill="#11382b" stroke="#ffffff" strokeWidth="1.5" />
+          <rect x="20" y="44" width="7" height="18" rx="3.5" fill="#0f2744" stroke="#ffffff" strokeWidth="1.5" />
+          <rect x="93" y="44" width="7" height="18" rx="3.5" fill="#0f2744" stroke="#ffffff" strokeWidth="1.5" />
           {/* Headset Mic Boom */}
           <path
             d="M 25 56 C 25 74, 44 76, 50 73"
-            stroke="#1b4d3c"
+            stroke="#0284c7"
             strokeWidth="2.5"
             strokeLinecap="round"
             fill="none"
@@ -101,7 +101,7 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
             height="62"
             rx="30"
             fill="url(#mascotBody)"
-            stroke="#b7ddcc"
+            stroke="#bfdbfe"
             strokeWidth="2"
           />
 
@@ -109,7 +109,7 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
           <path
             d="M 38 34 C 44 20, 76 20, 82 34 Z"
             fill="url(#mascotCap)"
-            stroke="#11382b"
+            stroke="#0f2744"
             strokeWidth="1.5"
           />
           {/* Medical Cross on Cap */}
@@ -119,11 +119,11 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
           {/* Expressive Eyes with Blink Animation */}
           <g className="animate-mascot-blink">
             {/* Left Eye */}
-            <ellipse cx="46" cy="50" rx="4.5" ry="6" fill="#11382b" />
+            <ellipse cx="46" cy="50" rx="4.5" ry="6" fill="#0f2744" />
             <circle cx="44.5" cy="48" r="2" fill="#ffffff" />
 
             {/* Right Eye */}
-            <ellipse cx="74" cy="50" rx="4.5" ry="6" fill="#11382b" />
+            <ellipse cx="74" cy="50" rx="4.5" ry="6" fill="#0f2744" />
             <circle cx="72.5" cy="48" r="2" fill="#ffffff" />
           </g>
 
@@ -134,7 +134,7 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
           {/* Smiling Mouth */}
           <path
             d="M 54 58 Q 60 64 66 58"
-            stroke="#11382b"
+            stroke="#0f2744"
             strokeWidth="2.2"
             strokeLinecap="round"
             fill="none"
@@ -150,26 +150,26 @@ export function ClinicalMascot({ size = "lg", className = "", showBadge = true }
           <g className="animate-sparkle" style={{ transformOrigin: "16px 42px", animationDelay: "1.2s" }}>
             <path
               d="M 16 38 L 17.5 41 L 20 42.5 L 17.5 44 L 16 47 L 14.5 44 L 12 42.5 L 14.5 41 Z"
-              fill="#256c54"
+              fill="#0284c7"
             />
           </g>
 
           {/* Medical Cross Emblem Badge on Chest */}
           <g style={{ transformOrigin: "60px 73px" }}>
-            <circle cx="60" cy="73" r="8" fill="#ffffff" stroke="#26a69a" strokeWidth="1.5" />
-            <rect x="58.5" y="68.5" width="3" height="9" rx="1" fill="#005d52" />
-            <rect x="55.5" y="71.5" width="9" height="3" rx="1" fill="#005d52" />
+            <circle cx="60" cy="73" r="8" fill="#ffffff" stroke="#0ea5e9" strokeWidth="1.5" />
+            <rect x="58.5" y="68.5" width="3" height="9" rx="1" fill="#0284c7" />
+            <rect x="55.5" y="71.5" width="9" height="3" rx="1" fill="#0284c7" />
           </g>
         </svg>
       </div>
 
       {/* Floating Dynamic Shadow Oval */}
-      <div className="w-16 h-3 bg-[#11382b]/15 rounded-[100%] filter blur-[3px] animate-shadow-pulse -mt-1" />
+      <div className="w-16 h-3 bg-[#0f2744]/15 rounded-[100%] filter blur-[3px] animate-shadow-pulse -mt-1" />
 
       {/* Live Clinical Tag */}
       {showBadge && (
-        <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-[#cce0d2] shadow-2xs text-[11px] font-semibold text-[#11382b]">
-          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-blue-200 shadow-2xs text-[11px] font-semibold text-[#0f2744]">
+          <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
           <span>Afiya AI · Better Care Starts Here</span>
         </div>
       )}

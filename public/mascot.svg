@@ -38,18 +38,18 @@
     <!-- Gradients -->
     <linearGradient id="mascotBody" x1="20" y1="20" x2="100" y2="105" gradientUnits="userSpaceOnUse">
       <stop stop-color="#ffffff" />
-      <stop offset="0.65" stop-color="#edf7f2" />
-      <stop offset="1" stop-color="#d5ecdf" />
+      <stop offset="0.65" stop-color="#f0f7ff" />
+      <stop offset="1" stop-color="#e0f2fe" />
     </linearGradient>
 
     <linearGradient id="mascotEarGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#256c54" />
-      <stop offset="1" stop-color="#11382b" />
+      <stop stop-color="#0284c7" />
+      <stop offset="1" stop-color="#0f2744" />
     </linearGradient>
 
     <linearGradient id="mascotCap" x1="30" y1="12" x2="90" y2="35" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#1c5542" />
-      <stop offset="1" stop-color="#0f3427" />
+      <stop stop-color="#0369a1" />
+      <stop offset="1" stop-color="#0b192c" />
     </linearGradient>
 
     <linearGradient id="heartGrad" x1="0" y1="0" x2="1" y2="1">
@@ -58,9 +58,9 @@
     </linearGradient>
 
     <radialGradient id="vitalityGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#10b981" stop-opacity="0.22" />
-      <stop offset="70%" stop-color="#34d399" stop-opacity="0.08" />
-      <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.22" />
+      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
     </radialGradient>
   </defs>
 
@@ -68,37 +68,37 @@
   <circle cx="60" cy="56" r="48" fill="url(#vitalityGlow)" />
 
   <!-- Shadow Oval -->
-  <ellipse cx="60" cy="115" rx="32" ry="4.5" fill="#11382b" class="mascot-shadow" />
+  <ellipse cx="60" cy="115" rx="32" ry="4.5" fill="#0f2744" class="mascot-shadow" />
 
   <!-- Floating Mascot Group -->
   <g class="mascot-container">
     <!-- Stethoscope Neck Loop Behind -->
     <path
       d="M 32 64 C 32 88, 88 88, 88 64"
-      stroke="#1b4d3c"
+      stroke="#0284c7"
       stroke-width="5"
       stroke-linecap="round"
       fill="none"
     />
     <!-- Stethoscope Bell Chest Piece -->
     <circle cx="60" cy="85" r="7" fill="#d49b35" stroke="#ffffff" stroke-width="2" />
-    <circle cx="60" cy="85" r="3" fill="#11382b" />
+    <circle cx="60" cy="85" r="3" fill="#0f2744" />
 
     <!-- Front Desk Headset (Communicator) -->
     <path
       d="M 24 54 C 24 24, 96 24, 96 54"
-      stroke="#2b5e4c"
+      stroke="#0369a1"
       stroke-width="3.5"
       stroke-linecap="round"
       fill="none"
     />
     <!-- Headset Earcups -->
-    <rect x="20" y="44" width="7" height="18" rx="3.5" fill="#11382b" stroke="#ffffff" stroke-width="1.5" />
-    <rect x="93" y="44" width="7" height="18" rx="3.5" fill="#11382b" stroke="#ffffff" stroke-width="1.5" />
+    <rect x="20" y="44" width="7" height="18" rx="3.5" fill="#0f2744" stroke="#ffffff" stroke-width="1.5" />
+    <rect x="93" y="44" width="7" height="18" rx="3.5" fill="#0f2744" stroke="#ffffff" stroke-width="1.5" />
     <!-- Headset Mic Boom -->
     <path
       d="M 25 56 C 25 74, 44 76, 50 73"
-      stroke="#1b4d3c"
+      stroke="#0284c7"
       stroke-width="2.5"
       stroke-linecap="round"
       fill="none"
@@ -113,7 +113,7 @@
       height="62"
       rx="30"
       fill="url(#mascotBody)"
-      stroke="#b7ddcc"
+      stroke="#cbd5e1"
       stroke-width="2"
     />
 
@@ -121,7 +121,7 @@
     <path
       d="M 38 34 C 44 20, 76 20, 82 34 Z"
       fill="url(#mascotCap)"
-      stroke="#11382b"
+      stroke="#0f2744"
       stroke-width="1.5"
     />
     <!-- White Medical Cross on Cap -->
@@ -131,11 +131,11 @@
     <!-- Expressive Eyes with Blink Animation -->
     <g class="mascot-blink">
       <!-- Left Eye -->
-      <ellipse cx="46" cy="50" rx="4.5" ry="6" fill="#11382b" />
+      <ellipse cx="46" cy="50" rx="4.5" ry="6" fill="#0f2744" />
       <circle cx="44.5" cy="48" r="2" fill="#ffffff" />
 
       <!-- Right Eye -->
-      <ellipse cx="74" cy="50" rx="4.5" ry="6" fill="#11382b" />
+      <ellipse cx="74" cy="50" rx="4.5" ry="6" fill="#0f2744" />
       <circle cx="72.5" cy="48" r="2" fill="#ffffff" />
     </g>
 
@@ -146,7 +146,7 @@
     <!-- Smiling Mouth -->
     <path
       d="M 54 58 Q 60 64 66 58"
-      stroke="#11382b"
+      stroke="#0f2744"
       stroke-width="2.2"
       stroke-linecap="round"
       fill="none"
@@ -161,14 +161,14 @@
     <!-- Emerald Left Sparkle -->
     <path
       d="M 16 38 L 17.5 41 L 20 42.5 L 17.5 44 L 16 47 L 14.5 44 L 12 42.5 L 14.5 41 Z"
-      fill="#256c54"
+      fill="#0284c7"
     />
 
     <!-- Afiya Medical Cross Emblem Badge on Chest -->
     <g class="mascot-cross">
-      <circle cx="60" cy="73" r="8" fill="#ffffff" stroke="#26a69a" stroke-width="1.5" />
-      <rect x="58.5" y="68.5" width="3" height="9" rx="1" fill="#005d52" />
-      <rect x="55.5" y="71.5" width="9" height="3" rx="1" fill="#005d52" />
+      <circle cx="60" cy="73" r="8" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.5" />
+      <rect x="58.5" y="68.5" width="3" height="9" rx="1" fill="#0284c7" />
+      <rect x="55.5" y="71.5" width="9" height="3" rx="1" fill="#0284c7" />
     </g>
   </g>
 </svg>

@@ -319,7 +319,7 @@ export function FrontDeskChat({ signedIn }: { signedIn: boolean }) {
               </button>
             )}
             <span className="flex items-center gap-1.5 rounded-full border border-cream/15 px-3 py-1 text-[11px] text-cream/70">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
               live schedule
             </span>
           </div>
@@ -509,7 +509,7 @@ function MessageBubble({
             </p>
           )}
           {p?.kind === "faq" && p.grounded && (
-            <p className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-emerald-700/20 bg-emerald-700/8 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-emerald-900 uppercase">
+            <p className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-sky-500/20 bg-sky-500/8 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-sky-900 uppercase">
               <Check className="h-3 w-3" /> grounded in approved clinic faq
             </p>
           )}
@@ -576,11 +576,11 @@ function MessageBubble({
 
         {/* Booking confirmation */}
         {p?.kind === "booked" && (
-          <div className="flex items-center gap-3 rounded-2xl border border-emerald-700/25 bg-emerald-700/8 px-4 py-3">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-700 text-cream"><Check className="h-4 w-4" /></span>
+          <div className="flex items-center gap-3 rounded-2xl border border-sky-500/25 bg-sky-500/8 px-4 py-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-600 text-cream"><Check className="h-4 w-4" /></span>
             <div>
-              <p className="text-sm font-semibold text-emerald-950">{p.label}</p>
-              <p className="text-xs text-emerald-900/70">{p.duplicate ? "already booked — duplicate submission safely ignored" : "booking confirmed · server revalidated the slot"}</p>
+              <p className="text-sm font-semibold text-slate-900">{p.label}</p>
+              <p className="text-xs text-sky-900/70">{p.duplicate ? "already booked — duplicate submission safely ignored" : "booking confirmed · server revalidated the slot"}</p>
             </div>
           </div>
         )}

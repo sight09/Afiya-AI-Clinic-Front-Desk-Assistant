@@ -657,12 +657,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
   );
 
   return (
-    <div className="min-h-screen bg-[#f8faf7] text-[#162720] antialiased flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] antialiased flex flex-col lg:flex-row">
       {/* ----------------- RECEPTIONIST SIDEBAR ----------------- */}
       {/* ----------------- RECEPTIONIST SIDEBAR ----------------- */}
       {/* ----------------- RECEPTIONIST SIDEBAR ----------------- */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 transform bg-[#0c241c] text-[#e3ece6] border-r border-[#16382b] transition-all duration-300 ease-in-out lg:static flex flex-col justify-between shrink-0 overflow-hidden ${
+        className={`fixed inset-y-0 left-0 z-40 transform bg-[#0b192c] text-[#e2e8f0] border-r border-[#0f2744] transition-all duration-300 ease-in-out lg:static flex flex-col justify-between shrink-0 overflow-hidden ${
           sidebarOpen ? "w-64 xl:w-72" : "w-16 lg:w-[70px]"
         } ${
           mobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0"
@@ -676,7 +676,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 <img src="/afiya-icon.png" alt="Afiya" className="h-8 w-8 object-contain rounded-lg" />
                 <div>
                   <p className="font-display text-[18px] font-medium text-white tracking-tight leading-none">Afiya</p>
-                  <p className="font-sans text-[12px] font-normal tracking-normal text-emerald-300 mt-0.5">Reception Desk</p>
+                  <p className="font-sans text-[12px] font-normal tracking-normal text-sky-300 mt-0.5">Reception Desk</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -723,19 +723,19 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     }}
                     className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                       active
-                        ? "font-medium text-white bg-white/10 border-l-[3px] border-[#3fb484] shadow-xs"
-                        : "font-normal text-[#9cb5a5] hover:bg-white/5 hover:text-white"
+                        ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                        : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Icon className={`h-[19px] w-[19px] shrink-0 ${active ? "text-[#3fb484]" : "text-[#7f9e8a]"}`} />
+                      <Icon className={`h-[19px] w-[19px] shrink-0 ${active ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                       <span>{t.label}</span>
                     </div>
                     {count > 0 && (
                       <span
                         className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
                           t.id === "patient_profiles"
-                            ? "bg-emerald-500/30 text-emerald-200 border border-emerald-400/30"
+                            ? "bg-sky-500/30 text-sky-200 border border-sky-400/30"
                             : "bg-rose-500 text-white animate-pulse"
                         }`}
                       >
@@ -764,8 +764,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-semibold text-white truncate">{user.name}</p>
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <p className="text-[10px] text-emerald-300 capitalize font-medium">Front Desk Specialist</p>
+                      <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                      <p className="text-[10px] text-sky-300 capitalize font-medium">Front Desk Specialist</p>
                     </div>
                   </div>
                   <User className="h-3.5 w-3.5 text-white/40 group-hover:text-white transition-colors" />
@@ -777,7 +777,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                   <p className="text-[11px] font-semibold text-white/80">Afiya Front Desk</p>
                   <p className="text-[10px] text-white/40">Reception Station · Active</p>
                 </div>
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <span className="h-2 w-2 rounded-full bg-sky-400" />
               </div>
             </div>
           </div>
@@ -795,7 +795,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                   alt="Afiya"
                   className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
                 />
-                <PanelLeft className="h-5 w-5 text-emerald-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
+                <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
 
               <nav className="w-full space-y-1.5 mt-2">
@@ -817,11 +817,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       title={t.label}
                       className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                         active
-                          ? "bg-[#184838] text-white shadow-xs"
-                          : "text-[#9cb5a5] hover:bg-white/5 hover:text-white"
+                          ? "bg-[#0c213b] text-white shadow-xs"
+                          : "text-[#64748b] hover:bg-white/5 hover:text-white"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 ${active ? "text-[#d49b35]" : "text-[#7f9e8a]"}`} />
+                      <Icon className={`h-4 w-4 ${active ? "text-[#d49b35]" : "text-[#475569]"}`} />
                       {count > 0 && (
                         <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
                       )}
@@ -849,29 +849,29 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
       {/* Main Canvas */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2ece5] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+        <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2e8f0] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
           <div className="flex items-center gap-3.5 min-w-0">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-xl border border-[#d6e2d4] bg-white text-[#11382b] hover:bg-[#edf5ec] shadow-2xs cursor-pointer"
+              className="lg:hidden p-2 rounded-xl border border-[#e2e8f0] bg-white text-[#0f2744] hover:bg-[#f1f5f9] shadow-2xs cursor-pointer"
             >
               <Menu className="h-5 w-5" />
             </button>
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#f0f7ff] text-[#0284c7] border border-[#e2e8f0]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0ea5e9] animate-pulse" />
                   Front Desk Station
                 </span>
-                <span className="text-[12px] text-[#8ba395]">/</span>
-                <span className="text-[12px] font-medium text-[#527065] truncate">
+                <span className="text-[12px] text-[#64748b]">/</span>
+                <span className="text-[12px] font-medium text-[#475569] truncate">
                   {RECEPTIONIST_TABS.find((t) => t.id === tab)?.label}
                 </span>
               </div>
-              <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#11382b] tracking-tight leading-tight">
+              <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#0f2744] tracking-tight leading-tight">
                 {RECEPTIONIST_TABS.find((t) => t.id === tab)?.label}
               </h1>
-              <p className="text-[13px] text-[#527065] mt-0.5 font-normal line-clamp-1">
+              <p className="text-[13px] text-[#475569] mt-0.5 font-normal line-clamp-1">
                 {TAB_DESCRIPTIONS[tab]}
               </p>
             </div>
@@ -883,7 +883,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               <button
                 type="button"
                 onClick={() => setTab("book_patient")}
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] transition-colors shadow-2xs cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0284c7] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#0369a1] transition-colors shadow-2xs cursor-pointer"
               >
                 <Plus className="h-3.5 w-3.5" />
                 <span>Book Patient</span>
@@ -896,9 +896,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               onClick={handleManualRefresh}
               disabled={refreshing}
               title="Refresh clinic schedules & queue"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6e2d4] bg-white px-3 py-2 text-xs font-medium text-[#243a2f] hover:bg-[#f6faf7] transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#e2e8f0] bg-white px-3 py-2 text-xs font-medium text-[#1e293b] hover:bg-[#f8fafc] transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
             >
-              <RefreshCw className={`h-3.5 w-3.5 text-[#0e615c] ${refreshing ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-3.5 w-3.5 text-[#0284c7] ${refreshing ? "animate-spin" : ""}`} />
               <span className="hidden sm:inline">Sync Data</span>
             </button>
 
@@ -948,9 +948,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {/* ASYMMETRICAL FRONT-DESK TRIAGE COMMAND BENTO */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
                       {/* CARD 1: Large Featured Daily Intake Hero (5 cols on lg) */}
-                      <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#0c382b] via-[#0f4d3c] to-[#164336] p-5 text-white shadow-md border border-[#1b4332]/30 flex flex-col justify-between relative overflow-hidden">
+                      <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#0f2744] via-[#0f2744] to-[#0f2744] p-5 text-white shadow-md border border-[#0f2744]/30 flex flex-col justify-between relative overflow-hidden">
                         {/* Glow accent */}
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-radial from-[#d49b35]/15 via-emerald-400/5 to-transparent rounded-full blur-xl pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-radial from-[#d49b35]/15 via-sky-400/5 to-transparent rounded-full blur-xl pointer-events-none" />
 
                         <div className="relative z-10">
                           <div className="flex items-center justify-between gap-2">
@@ -962,8 +962,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 Daily Clinical Intake
                               </span>
                             </div>
-                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
                               Live Station Queue
                             </span>
                           </div>
@@ -997,14 +997,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             {inClinicPct > 0 && (
                               <div
                                 title={`In Clinic: ${checkedInAppts.length}`}
-                                className="h-full rounded-full bg-emerald-400 transition-all duration-500"
+                                className="h-full rounded-full bg-sky-400 transition-all duration-500"
                                 style={{ width: `${inClinicPct}%` }}
                               />
                             )}
                             {completedPct > 0 && (
                               <div
                                 title={`Completed: ${completedAppts.length}`}
-                                className="h-full rounded-full bg-teal-200 transition-all duration-500"
+                                className="h-full rounded-full bg-sky-200 transition-all duration-500"
                                 style={{ width: `${completedPct}%` }}
                               />
                             )}
@@ -1015,11 +1015,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               {confirmedAppts.length} Awaiting
                             </span>
                             <span className="flex items-center gap-1">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
                               {checkedInAppts.length} In Clinic
                             </span>
                             <span className="flex items-center gap-1">
-                              <span className="w-1.5 h-1.5 rounded-full bg-teal-200" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-sky-200" />
                               {completedAppts.length} Done
                             </span>
                           </div>
@@ -1068,60 +1068,60 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       </div>
 
                       {/* CARD 3: Active Consultation & Discharge Card (3 cols on lg) */}
-                      <div className="lg:col-span-3 rounded-2xl bg-white p-5 border border-[#d9e6e0] shadow-2xs flex flex-col justify-between space-y-3">
+                      <div className="lg:col-span-3 rounded-2xl bg-white p-5 border border-[#e2e8f0] shadow-2xs flex flex-col justify-between space-y-3">
                         <div>
-                          <div className="flex items-center justify-between pb-2 border-b border-[#edf3ec]">
-                            <span className="text-[11px] font-bold text-[#527065] uppercase tracking-wider">
+                          <div className="flex items-center justify-between pb-2 border-b border-[#f0f7ff]">
+                            <span className="text-[11px] font-bold text-[#475569] uppercase tracking-wider">
                               Clinical Triage
                             </span>
-                            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
                           </div>
 
                           <div className="mt-3 grid grid-cols-2 gap-2">
                             {/* In Clinic Mini-Box */}
-                            <div className="p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-100 text-left">
-                              <div className="flex items-center gap-1.5 text-emerald-800 text-[11px] font-semibold">
-                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                            <div className="p-2.5 rounded-xl bg-sky-50/60 border border-sky-100 text-left">
+                              <div className="flex items-center gap-1.5 text-blue-800 text-[11px] font-semibold">
+                                <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />
                                 <span>In Clinic</span>
                               </div>
-                              <p className="font-display text-2xl font-bold text-emerald-900 mt-1">
+                              <p className="font-display text-2xl font-bold text-blue-900 mt-1">
                                 {checkedInAppts.length}
                               </p>
-                              <span className="text-[10px] text-emerald-700">With MD/Exam</span>
+                              <span className="text-[10px] text-blue-700">With MD/Exam</span>
                             </div>
 
                             {/* Completed Mini-Box */}
-                            <div className="p-2.5 rounded-xl bg-[#f8faf7] border border-[#e5eee7] text-left">
-                              <div className="flex items-center gap-1.5 text-[#527065] text-[11px] font-semibold">
-                                <Check className="h-3.5 w-3.5 text-[#0e615c] shrink-0" />
+                            <div className="p-2.5 rounded-xl bg-[#f8fafc] border border-[#e2e8f0] text-left">
+                              <div className="flex items-center gap-1.5 text-[#475569] text-[11px] font-semibold">
+                                <Check className="h-3.5 w-3.5 text-[#0284c7] shrink-0" />
                                 <span>Done</span>
                               </div>
-                              <p className="font-display text-2xl font-bold text-[#11382b] mt-1">
+                              <p className="font-display text-2xl font-bold text-[#0f2744] mt-1">
                                 {completedAppts.length}
                               </p>
-                              <span className="text-[10px] text-[#7f998b]">Discharged</span>
+                              <span className="text-[10px] text-[#64748b]">Discharged</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="pt-2 border-t border-[#edf3ec] flex items-center justify-between text-[11px] text-[#527065]">
+                        <div className="pt-2 border-t border-[#f0f7ff] flex items-center justify-between text-[11px] text-[#475569]">
                           <span>Active Rooms:</span>
-                          <span className="font-semibold text-[#11382b]">Suites 101–104 Active</span>
+                          <span className="font-semibold text-[#0f2744]">Suites 101–104 Active</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Filter & Search Bar - Mobile Responsive Wrapping */}
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#dce6db] shadow-2xs">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#e2e8f0] shadow-2xs">
                       {/* Search Input */}
                       <div className="relative flex-1 min-w-[200px]">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#475569]" />
                         <input
                           type="text"
                           value={scheduleSearch}
                           onChange={(e) => setScheduleSearch(e.target.value)}
                           placeholder="Search patient, doctor, or reason…"
-                          className="w-full h-9 rounded-xl border border-[#d2e0d1] bg-[#f8faf6] pl-9 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-all shadow-2xs"
+                          className="w-full h-9 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-9 pr-3 text-xs text-[#0f172a] placeholder:text-[#64748b] focus:border-[#0284c7] focus:bg-white focus:outline-none transition-all shadow-2xs"
                         />
                       </div>
 
@@ -1132,8 +1132,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setScheduleStatusFilter("all")}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                             scheduleStatusFilter === "all"
-                              ? "bg-[#0e615c] text-white shadow-2xs"
-                              : "bg-[#f2f7f4] text-[#527065] hover:bg-[#e4ede8]"
+                              ? "bg-[#0284c7] text-white shadow-2xs"
+                              : "bg-[#f8fafc] text-[#475569] hover:bg-[#e2e8f0]"
                           }`}
                         >
                           All ({totalAppts})
@@ -1154,8 +1154,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setScheduleStatusFilter("in_clinic")}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                             scheduleStatusFilter === "in_clinic"
-                              ? "bg-emerald-600 text-white shadow-2xs"
-                              : "bg-emerald-50 text-emerald-800 border border-emerald-200/60 hover:bg-emerald-100"
+                              ? "bg-blue-600 text-white shadow-2xs"
+                              : "bg-sky-50 text-blue-800 border border-sky-200/60 hover:bg-sky-100"
                           }`}
                         >
                           In Clinic ({checkedInAppts.length})
@@ -1165,8 +1165,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setScheduleStatusFilter("completed")}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                             scheduleStatusFilter === "completed"
-                              ? "bg-[#11382b] text-white shadow-2xs"
-                              : "bg-[#f2f7f4] text-[#527065] hover:bg-[#e4ede8]"
+                              ? "bg-[#0f2744] text-white shadow-2xs"
+                              : "bg-[#f8fafc] text-[#475569] hover:bg-[#e2e8f0]"
                           }`}
                         >
                           Completed ({completedAppts.length})
@@ -1175,10 +1175,10 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     </div>
 
                     {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-                    <div className="hidden md:block overflow-hidden rounded-2xl border border-[#d9e6e0] bg-white shadow-2xs">
+                    <div className="hidden md:block overflow-hidden rounded-2xl border border-[#e2e8f0] bg-white shadow-2xs">
                       <div className="overflow-x-auto thin-scroll">
                         <table className="w-full text-left text-sm">
-                          <thead className="bg-[#f3f8f5] text-[12px] text-[#527065] font-medium normal-case border-b border-[#e5ede3]">
+                          <thead className="bg-[#f0f7ff] text-[12px] text-[#475569] font-medium normal-case border-b border-[#e2e8f0]">
                             <tr>
                               <th className="px-5 py-3 font-medium">Scheduled time</th>
                               <th className="px-5 py-3 font-medium">Patient</th>
@@ -1188,30 +1188,30 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               <th className="px-5 py-3 text-right font-medium">Front-desk actions</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-[#edf3ec]">
+                          <tbody className="divide-y divide-[#f0f7ff]">
                             {filteredAppointments.length === 0 ? (
                               <tr>
-                                <td colSpan={6} className="px-5 py-8 text-center text-[#7f998b]">
+                                <td colSpan={6} className="px-5 py-8 text-center text-[#64748b]">
                                   No appointments match the selected filter.
                                 </td>
                               </tr>
                             ) : (
                               filteredAppointments.map((a) => (
-                                <tr key={a.id} className="hover:bg-[#f8fbf7] transition-colors">
-                                  <td className="px-5 py-3.5 font-medium text-[#11382b]">{fmt(a.startAt)}</td>
+                                <tr key={a.id} className="hover:bg-[#f8fafc] transition-colors">
+                                  <td className="px-5 py-3.5 font-medium text-[#0f2744]">{fmt(a.startAt)}</td>
                                   <td className="px-5 py-3.5">
-                                    <p className="font-semibold text-[#11382b]">{a.patientName}</p>
-                                    <p className="text-xs text-[#7f998b] font-mono">{a.patientEmail}</p>
+                                    <p className="font-semibold text-[#0f2744]">{a.patientName}</p>
+                                    <p className="text-xs text-[#64748b] font-mono">{a.patientEmail}</p>
                                   </td>
-                                  <td className="px-5 py-3.5 text-[#243a2f] font-medium">{a.providerName}</td>
-                                  <td className="px-5 py-3.5 text-[#567364]">{a.departmentName}</td>
+                                  <td className="px-5 py-3.5 text-[#1e293b] font-medium">{a.providerName}</td>
+                                  <td className="px-5 py-3.5 text-[#475569]">{a.departmentName}</td>
                                   <td className="px-5 py-3.5">
                                     <span
                                       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold uppercase border ${
                                         a.status === "confirmed"
                                           ? "bg-blue-100 text-blue-800 border-blue-200"
                                           : a.status === "checked_in"
-                                          ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                          ? "bg-sky-100 text-blue-800 border-sky-200"
                                           : a.status === "in_consultation"
                                           ? "bg-purple-100 text-purple-800 border-purple-200"
                                           : a.status === "completed"
@@ -1231,10 +1231,10 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                       <button
                                         type="button"
                                         onClick={() => openPatientProfile(a.patientId)}
-                                        className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors cursor-pointer shadow-2xs"
+                                        className="inline-flex items-center gap-1 rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold text-blue-800 hover:bg-sky-100 transition-colors cursor-pointer shadow-2xs"
                                         title="View & Edit Patient Health Card"
                                       >
-                                        <QrCode className="h-3 w-3 text-[#0e615c]" />
+                                        <QrCode className="h-3 w-3 text-[#0284c7]" />
                                         <span>Card / EHR</span>
                                       </button>
                                       {a.status === "confirmed" && (
@@ -1269,26 +1269,26 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {/* MOBILE CARD VIEW (visible on mobile only: block md:hidden) */}
                     <div className="block md:hidden space-y-3.5">
                       {filteredAppointments.length === 0 ? (
-                        <div className="rounded-2xl border border-dashed border-[#dce6db] bg-white p-8 text-center text-xs text-[#7f998b]">
+                        <div className="rounded-2xl border border-dashed border-[#e2e8f0] bg-white p-8 text-center text-xs text-[#64748b]">
                           No appointments match the selected filter.
                         </div>
                       ) : (
                         filteredAppointments.map((a) => (
                           <div
                             key={a.id}
-                            className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs space-y-3.5"
+                            className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs space-y-3.5"
                           >
                             {/* Card Header: Scheduled Time & Status */}
-                            <div className="flex items-start justify-between gap-2 border-b border-[#edf3ec] pb-3">
+                            <div className="flex items-start justify-between gap-2 border-b border-[#f0f7ff] pb-3">
                               <div className="flex items-center gap-2">
                                 <span className="h-8 w-8 rounded-xl bg-blue-50 text-blue-700 grid place-items-center shrink-0">
                                   <Clock className="h-4 w-4" />
                                 </span>
                                 <div>
-                                  <span className="text-xs font-bold text-[#11382b] block">
+                                  <span className="text-xs font-bold text-[#0f2744] block">
                                     {fmt(a.startAt)}
                                   </span>
-                                  <span className="text-[11px] text-[#527065]">{a.departmentName}</span>
+                                  <span className="text-[11px] text-[#475569]">{a.departmentName}</span>
                                 </div>
                               </div>
                               <span
@@ -1296,7 +1296,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   a.status === "confirmed"
                                     ? "bg-blue-100 text-blue-800 border-blue-200"
                                     : a.status === "checked_in"
-                                    ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                    ? "bg-sky-100 text-blue-800 border-sky-200"
                                     : a.status === "in_consultation"
                                     ? "bg-purple-100 text-purple-800 border-purple-200"
                                     : a.status === "completed"
@@ -1315,25 +1315,25 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             {/* Patient & Doctor Details */}
                             <div className="space-y-1.5 text-xs">
                               <div>
-                                <span className="text-[#527065] text-[11px]">Patient:</span>
-                                <h4 className="text-sm font-bold text-[#11382b]">{a.patientName}</h4>
+                                <span className="text-[#475569] text-[11px]">Patient:</span>
+                                <h4 className="text-sm font-bold text-[#0f2744]">{a.patientName}</h4>
                                 {a.patientEmail && (
-                                  <p className="text-[11px] text-[#7f998b] font-mono">{a.patientEmail}</p>
+                                  <p className="text-[11px] text-[#64748b] font-mono">{a.patientEmail}</p>
                                 )}
                               </div>
-                              <div className="pt-1 flex items-center justify-between text-xs text-[#243a2f]">
-                                <span className="text-[#527065]">Physician:</span>
-                                <span className="font-semibold text-[#11382b]">{a.providerName}</span>
+                              <div className="pt-1 flex items-center justify-between text-xs text-[#1e293b]">
+                                <span className="text-[#475569]">Physician:</span>
+                                <span className="font-semibold text-[#0f2744]">{a.providerName}</span>
                               </div>
                               {a.reason && (
-                                <div className="p-2.5 rounded-xl bg-[#f8faf6] border border-[#e5eee7] text-[11px] text-[#374e41] leading-relaxed">
-                                  <strong className="text-[#11382b]">Reason:</strong> {a.reason}
+                                <div className="p-2.5 rounded-xl bg-[#f8fafc] border border-[#e2e8f0] text-[11px] text-[#1e293b] leading-relaxed">
+                                  <strong className="text-[#0f2744]">Reason:</strong> {a.reason}
                                 </div>
                               )}
                             </div>
 
                             {/* Mobile Actions Cluster */}
-                            <div className="pt-2 border-t border-[#edf3ec] space-y-2">
+                            <div className="pt-2 border-t border-[#f0f7ff] space-y-2">
                               {/* Primary Check-In Button (Large touch target) */}
                               {a.status === "confirmed" && (
                                 <button
@@ -1347,7 +1347,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               )}
 
                               {a.status === "checked_in" && (
-                                <div className="w-full text-center py-2 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
+                                <div className="w-full text-center py-2 rounded-xl bg-sky-50 text-blue-800 text-xs font-semibold border border-sky-200">
                                   ✓ Patient Checked In · Waiting in Lounge
                                 </div>
                               )}
@@ -1357,9 +1357,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 <button
                                   type="button"
                                   onClick={() => openPatientProfile(a.patientId)}
-                                  className="flex items-center justify-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 py-2 px-3 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors cursor-pointer"
+                                  className="flex items-center justify-center gap-1.5 rounded-xl border border-sky-200 bg-sky-50 py-2 px-3 text-xs font-semibold text-blue-800 hover:bg-sky-100 transition-colors cursor-pointer"
                                 >
-                                  <QrCode className="h-3.5 w-3.5 text-[#0e615c]" />
+                                  <QrCode className="h-3.5 w-3.5 text-[#0284c7]" />
                                   <span>Card / EHR</span>
                                 </button>
                                 {a.status !== "cancelled" && a.status !== "completed" && (
@@ -1390,16 +1390,16 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
           {tab === "patient_profiles" && (
             <div className="space-y-6 max-w-7xl mx-auto">
               {/* Header Action Banner */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-[#d6e4db] bg-gradient-to-r from-[#0c241c] via-[#12382c] to-[#164333] p-5 sm:p-6 text-white shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-[#cbd5e1] bg-gradient-to-r from-[#0b192c] via-[#0f2744] to-[#0f2744] p-5 sm:p-6 text-white shadow-xs">
                 <div className="flex items-start gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-white/10 text-emerald-300 shrink-0 border border-white/15">
+                  <div className="p-2.5 rounded-xl bg-white/10 text-sky-300 shrink-0 border border-white/15">
                     <QrCode className="h-6 w-6" />
                   </div>
                   <div>
                     <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
                       Patient Profiles &amp; Digital Health Cards
                     </h3>
-                    <p className="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-xl leading-relaxed">
+                    <p className="text-xs sm:text-sm text-sky-100/80 mt-1 max-w-xl leading-relaxed">
                       Front-desk EHR registry: File new patient profiles, update clinical demographics, manage documented allergies, and issue verified digital cards.
                     </p>
                   </div>
@@ -1422,7 +1422,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         setPatientFilingMode("file_new");
                         setFilingSuccessMsg(false);
                       }}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#11382b] px-4 py-2.5 text-xs font-bold transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02]"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#0f2744] px-4 py-2.5 text-xs font-bold transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02]"
                     >
                       <UserPlus className="h-4 w-4" />
                       <span>+ File New Patient Card</span>
@@ -1433,20 +1433,20 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
               {/* MODE 1: FILE NEW PATIENT */}
               {patientFilingMode === "file_new" ? (
-                <div className="rounded-2xl border border-[#d6e4db] bg-white p-6 sm:p-8 shadow-sm space-y-6">
-                  <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
+                <div className="rounded-2xl border border-[#cbd5e1] bg-white p-6 sm:p-8 shadow-sm space-y-6">
+                  <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
                     <div>
-                      <h4 className="font-display text-lg font-bold text-[#11382b] flex items-center gap-2">
-                        <UserPlus className="h-5 w-5 text-[#0e615c]" />
+                      <h4 className="font-display text-lg font-bold text-[#0f2744] flex items-center gap-2">
+                        <UserPlus className="h-5 w-5 text-[#0284c7]" />
                         <span>Front-Desk Patient Filing Form</span>
                       </h4>
-                      <p className="text-xs text-[#527060] mt-0.5">
+                      <p className="text-xs text-[#475569] mt-0.5">
                         Register a walk-in, phone patient, or emergency intake. This automatically creates their verified profile and digital health card.
                       </p>
                     </div>
                     {filingSuccessMsg && (
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full shadow-2xs">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Patient Card Filed!
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-800 bg-sky-100 border border-sky-300 px-3.5 py-1.5 rounded-full shadow-2xs">
+                        <CheckCircle2 className="h-4 w-4 text-blue-600" /> Patient Card Filed!
                       </span>
                     )}
                   </div>
@@ -1454,13 +1454,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                   <form onSubmit={handleFileNewPatient} className="space-y-6">
                     {/* Section 1: Demographics */}
                     <div className="space-y-4">
-                      <h5 className="text-xs font-bold text-[#11382b] uppercase tracking-wider flex items-center gap-2 border-b border-[#f0f4ef] pb-1.5">
-                        <User className="h-4 w-4 text-[#0e615c]" />
+                      <h5 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider flex items-center gap-2 border-b border-[#f8fafc] pb-1.5">
+                        <User className="h-4 w-4 text-[#0284c7]" />
                         <span>1. Primary Demographics &amp; Contact</span>
                       </h5>
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                         <div className="sm:col-span-2">
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Full Legal Name <span className="text-rose-500">*</span>
                           </label>
                           <input
@@ -1469,11 +1469,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}
                             placeholder="e.g. Maya Chen"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Email Address <span className="text-rose-500">*</span>
                           </label>
                           <input
@@ -1482,14 +1482,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newEmail}
                             onChange={(e) => setNewEmail(e.target.value)}
                             placeholder="e.g. maya@example.com"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Phone Number
                           </label>
                           <input
@@ -1497,28 +1497,28 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newPhone}
                             onChange={(e) => setNewPhone(e.target.value)}
                             placeholder="+1 (555) 000-0000"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Date of Birth
                           </label>
                           <input
                             type="date"
                             value={newDob}
                             onChange={(e) => setNewDob(e.target.value)}
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Gender
                           </label>
                           <select
                             value={newGender}
                             onChange={(e) => setNewGender(e.target.value)}
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           >
                             <option value="unspecified">Unspecified</option>
                             <option value="female">Female</option>
@@ -1530,7 +1530,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                        <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                           Residential Address
                         </label>
                         <input
@@ -1538,26 +1538,26 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           value={newAddress}
                           onChange={(e) => setNewAddress(e.target.value)}
                           placeholder="Street, City, State, ZIP"
-                          className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                         />
                       </div>
                     </div>
 
                     {/* Section 2: Clinical Details */}
                     <div className="space-y-4">
-                      <h5 className="text-xs font-bold text-[#11382b] uppercase tracking-wider flex items-center gap-2 border-b border-[#f0f4ef] pb-1.5">
+                      <h5 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider flex items-center gap-2 border-b border-[#f8fafc] pb-1.5">
                         <Heart className="h-4 w-4 text-[#d49b35]" />
                         <span>2. Clinical Safety &amp; Allergies</span>
                       </h5>
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Blood Group
                           </label>
                           <select
                             value={newBloodGroup}
                             onChange={(e) => setNewBloodGroup(e.target.value)}
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           >
                             <option value="O+">O+ (Positive)</option>
                             <option value="O-">O- (Negative)</option>
@@ -1571,7 +1571,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           </select>
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Known Drug &amp; Food Allergies
                           </label>
                           <input
@@ -1579,14 +1579,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newAllergies}
                             onChange={(e) => setNewAllergies(e.target.value)}
                             placeholder="e.g. Penicillin, Peanuts, None reported"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Emergency Contact Name
                           </label>
                           <input
@@ -1594,11 +1594,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newEmergencyName}
                             onChange={(e) => setNewEmergencyName(e.target.value)}
                             placeholder="Full name of emergency contact"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Emergency Contact Phone
                           </label>
                           <input
@@ -1606,14 +1606,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newEmergencyPhone}
                             onChange={(e) => setNewEmergencyPhone(e.target.value)}
                             placeholder="+1 (555) 000-0000"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Insurance Carrier
                           </label>
                           <input
@@ -1621,11 +1621,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newInsuranceProvider}
                             onChange={(e) => setNewInsuranceProvider(e.target.value)}
                             placeholder="e.g. Blue Shield, Aetna, Self-Pay / Cash"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                          <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                             Insurance Policy / Member ID
                           </label>
                           <input
@@ -1633,13 +1633,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             value={newInsurancePolicy}
                             onChange={(e) => setNewInsurancePolicy(e.target.value)}
                             placeholder="e.g. POL-99210-BC"
-                            className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                            className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                        <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                           Medical History &amp; Chronic Conditions
                         </label>
                         <textarea
@@ -1647,23 +1647,23 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           value={newMedicalHistory}
                           onChange={(e) => setNewMedicalHistory(e.target.value)}
                           placeholder="e.g. Mild seasonal asthma, routine vaccinations up to date"
-                          className="w-full rounded-xl border border-[#c8d8c6] bg-white p-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          className="w-full rounded-xl border border-[#cbd5e1] bg-white p-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                         />
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-[#e7ede5] flex items-center justify-between">
+                    <div className="pt-3 border-t border-[#e2e8f0] flex items-center justify-between">
                       <button
                         type="button"
                         onClick={() => setPatientFilingMode("view_edit")}
-                        className="rounded-xl border border-[#c8d8c6] bg-white px-5 py-2.5 text-xs font-semibold text-[#527060] hover:bg-gray-50 transition-colors cursor-pointer"
+                        className="rounded-xl border border-[#cbd5e1] bg-white px-5 py-2.5 text-xs font-semibold text-[#475569] hover:bg-gray-50 transition-colors cursor-pointer"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
                         disabled={filingSaving}
-                        className="inline-flex items-center gap-2 rounded-xl bg-[#0e615c] px-6 py-3 text-sm font-bold text-white hover:bg-[#0a4c48] disabled:opacity-50 shadow-md transition-all cursor-pointer"
+                        className="inline-flex items-center gap-2 rounded-xl bg-[#0284c7] px-6 py-3 text-sm font-bold text-white hover:bg-[#0369a1] disabled:opacity-50 shadow-md transition-all cursor-pointer"
                       >
                         {filingSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
                         <span>File Patient Profile &amp; Issue Health Card</span>
@@ -1676,9 +1676,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                   {/* Left Column: Patients List (4 cols) */}
                   <div className="lg:col-span-4 space-y-4">
-                    <div className="rounded-2xl border border-[#d6e4db] bg-white p-4 shadow-2xs space-y-3">
+                    <div className="rounded-2xl border border-[#cbd5e1] bg-white p-4 shadow-2xs space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#11382b]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#0f2744]">
                           Clinic Patients ({filteredPatients.length})
                         </span>
                         <button
@@ -1687,7 +1687,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             setPatientFilingMode("file_new");
                             setFilingSuccessMsg(false);
                           }}
-                          className="text-xs font-bold text-[#0e615c] hover:underline flex items-center gap-1 cursor-pointer"
+                          className="text-xs font-bold text-[#0284c7] hover:underline flex items-center gap-1 cursor-pointer"
                         >
                           <Plus className="h-3 w-3" /> File New
                         </button>
@@ -1695,13 +1695,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                       {/* Search box */}
                       <div className="relative">
-                        <Search className="absolute left-3 top-3 h-4 w-4 text-[#7f998b]" />
+                        <Search className="absolute left-3 top-3 h-4 w-4 text-[#64748b]" />
                         <input
                           type="text"
                           value={patientSearch}
                           onChange={(e) => setPatientSearch(e.target.value)}
                           placeholder="Search by name, email, ID..."
-                          className="h-10 w-full rounded-xl border border-[#c8d8c6] bg-[#f9faf7] pl-9 pr-3 text-xs text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                          className="h-10 w-full rounded-xl border border-[#cbd5e1] bg-[#f8fafc] pl-9 pr-3 text-xs text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                         />
                       </div>
                     </div>
@@ -1709,7 +1709,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {/* Patient Cards List */}
                     <div className="space-y-2 max-h-[640px] overflow-y-auto pr-1">
                       {filteredPatients.length === 0 ? (
-                        <div className="rounded-2xl border border-dashed border-[#c8d8c6] bg-[#f9faf7] p-8 text-center text-xs text-[#527060]">
+                        <div className="rounded-2xl border border-dashed border-[#cbd5e1] bg-[#f8fafc] p-8 text-center text-xs text-[#475569]">
                           No patients found matching your search.
                         </div>
                       ) : (
@@ -1722,18 +1722,18 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               onClick={() => selectPatient(pat)}
                               className={`w-full text-left rounded-2xl p-3.5 border transition-all cursor-pointer ${
                                 isSelected
-                                  ? "border-[#0e615c] bg-[#eef7f4] shadow-xs ring-1 ring-[#0e615c]"
-                                  : "border-[#dce6db] bg-white hover:bg-[#f6faf7] shadow-2xs"
+                                  ? "border-[#0284c7] bg-[#f8fafc] shadow-xs ring-1 ring-[#0284c7]"
+                                  : "border-[#e2e8f0] bg-white hover:bg-[#f8fafc] shadow-2xs"
                               }`}
                             >
                               <div className="flex items-start justify-between gap-2">
                                 <div className="min-w-0">
-                                  <p className="font-semibold text-sm text-[#11382b] truncate">
+                                  <p className="font-semibold text-sm text-[#0f2744] truncate">
                                     {pat.name || "Unnamed Patient"}
                                   </p>
-                                  <p className="text-xs text-[#527060] truncate">{pat.email}</p>
+                                  <p className="text-xs text-[#475569] truncate">{pat.email}</p>
                                 </div>
-                                <span className="font-mono text-[11px] font-bold text-[#0e615c] bg-white px-2 py-0.5 rounded-lg border border-[#c8d8c6] shrink-0">
+                                <span className="font-mono text-[11px] font-bold text-[#0284c7] bg-white px-2 py-0.5 rounded-lg border border-[#cbd5e1] shrink-0">
                                   {`AF-${pat.id.slice(0, 6).toUpperCase()}`}
                                 </span>
                               </div>
@@ -1760,7 +1760,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {selectedPatient ? (
                       <>
                         {/* Live Digital Health Card (Receptionist View) */}
-                        <div id="receptionist-patient-pass" className="w-full rounded-[26px] p-6 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#07241a] via-[#0e3a2b] to-[#174e3b] border-2 border-[#d49b35]/40">
+                        <div id="receptionist-patient-pass" className="w-full rounded-[26px] p-6 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] border-2 border-[#d49b35]/40">
                           {/* Botanical Watermark */}
                           <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
                             <BotanicalCorner className="h-32 w-32" />
@@ -1785,11 +1785,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             </div>
 
                             <div className="flex items-center gap-2 shrink-0">
-                              <div className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500/25 via-emerald-400/20 to-teal-500/25 border border-emerald-400/60 px-3 py-1 text-[11px] font-bold text-white shadow-[0_2px_10px_rgba(16,185,129,0.3)] backdrop-blur-md whitespace-nowrap">
-                                <div className="grid h-3.5 w-3.5 place-items-center rounded-full bg-emerald-400/30 text-emerald-200">
-                                  <ShieldCheck className="h-3 w-3 text-emerald-300" />
+                              <div className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-sky-500/25 via-sky-400/20 to-blue-500/25 border border-sky-400/60 px-3 py-1 text-[11px] font-bold text-white shadow-[0_2px_10px_rgba(14,165,233,0.3)] backdrop-blur-md whitespace-nowrap">
+                                <div className="grid h-3.5 w-3.5 place-items-center rounded-full bg-sky-400/30 text-sky-200">
+                                  <ShieldCheck className="h-3 w-3 text-sky-300" />
                                 </div>
-                                <span className="tracking-wide font-bold text-emerald-100">
+                                <span className="tracking-wide font-bold text-sky-100">
                                   Verified Active
                                 </span>
                               </div>
@@ -1807,7 +1807,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           {/* Card Body */}
                           <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                              <span className="text-[11px] uppercase tracking-wider text-sky-200/90 block font-bold">
                                 Patient Full Name
                               </span>
                               <p className="text-xl font-bold tracking-tight text-white mt-0.5">
@@ -1816,7 +1816,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             </div>
 
                             <div>
-                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                              <span className="text-[11px] uppercase tracking-wider text-sky-200/90 block font-bold">
                                 Clinic Member ID
                               </span>
                               <div className="flex items-center gap-2 mt-0.5">
@@ -1829,13 +1829,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   className="p-1 rounded-md hover:bg-white/15 text-white/80 transition-colors cursor-pointer"
                                   title="Copy Member ID"
                                 >
-                                  {copiedMemberId ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                                  {copiedMemberId ? <Check className="h-3.5 w-3.5 text-sky-400" /> : <Copy className="h-3.5 w-3.5" />}
                                 </button>
                               </div>
                             </div>
 
                             <div>
-                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                              <span className="text-[11px] uppercase tracking-wider text-sky-200/90 block font-bold">
                                 Blood Group
                               </span>
                               <div className="mt-1">
@@ -1846,7 +1846,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             </div>
 
                             <div>
-                              <span className="text-[11px] uppercase tracking-wider text-emerald-200/90 block font-bold">
+                              <span className="text-[11px] uppercase tracking-wider text-sky-200/90 block font-bold">
                                 Documented Allergies
                               </span>
                               <div className="mt-1">
@@ -1861,12 +1861,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           <div className="mt-5 pt-4 border-t border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-white/90">
                             <div className="space-y-0.5">
                               <p className="flex items-center gap-1.5">
-                                <span className="font-bold text-emerald-200">Insurance:</span>
+                                <span className="font-bold text-sky-200">Insurance:</span>
                                 <span>{editInsuranceProvider || selectedPatient.insuranceProvider || "Self-Pay"}</span>
                                 <span className="text-white/60">({editInsurancePolicy || selectedPatient.insurancePolicyNumber || "Active"})</span>
                               </p>
                               <p className="flex items-center gap-1.5">
-                                <span className="font-bold text-emerald-200">Emergency:</span>
+                                <span className="font-bold text-sky-200">Emergency:</span>
                                 <span>{editEmergencyName || selectedPatient.emergencyContactName || "Front Desk Contact"}</span>
                                 <span className="text-white/60">({editEmergencyPhone || selectedPatient.emergencyContactPhone || "+1 Clinic"})</span>
                               </p>
@@ -1874,27 +1874,27 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                             <div className="flex items-center gap-2.5 self-end sm:self-center">
                               <div className="grid h-11 w-11 place-items-center rounded-xl bg-white p-1 shadow-md">
-                                <QrCode className="h-9 w-9 text-[#11382b]" />
+                                <QrCode className="h-9 w-9 text-[#0f2744]" />
                               </div>
                             </div>
                           </div>
                         </div>
 
                         {/* Front-Desk Profile & Card Editor Form */}
-                        <div className="rounded-2xl border border-[#d6e4db] bg-white p-6 sm:p-7 shadow-xs space-y-6">
-                          <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
+                        <div className="rounded-2xl border border-[#cbd5e1] bg-white p-6 sm:p-7 shadow-xs space-y-6">
+                          <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
                             <div>
-                              <h4 className="font-display text-lg font-bold text-[#11382b] flex items-center gap-2">
-                                <ShieldCheck className="h-5 w-5 text-[#0e615c]" />
+                              <h4 className="font-display text-lg font-bold text-[#0f2744] flex items-center gap-2">
+                                <ShieldCheck className="h-5 w-5 text-[#0284c7]" />
                                 <span>Reception EHR &amp; Health Card Editor</span>
                               </h4>
-                              <p className="text-xs text-[#527060] mt-0.5">
+                              <p className="text-xs text-[#475569] mt-0.5">
                                 Update patient information. Changes immediately sync to the patient&apos;s digital health card and clinic EHR.
                               </p>
                             </div>
                             {editSuccessMsg && (
-                              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-3.5 py-1.5 rounded-full shadow-2xs">
-                                <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Card &amp; EHR Updated!
+                              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-800 bg-sky-100 border border-sky-300 px-3.5 py-1.5 rounded-full shadow-2xs">
+                                <CheckCircle2 className="h-4 w-4 text-blue-600" /> Card &amp; EHR Updated!
                               </span>
                             )}
                           </div>
@@ -1902,7 +1902,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           <form onSubmit={handleUpdatePatient} className="space-y-5">
                             {/* Patient Full Name */}
                             <div>
-                              <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                              <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                 Patient Full Name
                               </label>
                               <input
@@ -1911,13 +1911,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 value={editName}
                                 onChange={(e) => setEditName(e.target.value)}
                                 placeholder="e.g. Maya Chen"
-                                className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                               />
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Phone Number
                                 </label>
                                 <input
@@ -1925,24 +1925,24 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editPhone}
                                   onChange={(e) => setEditPhone(e.target.value)}
                                   placeholder="+1 (555) 000-0000"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
 
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Date of Birth
                                 </label>
                                 <input
                                   type="date"
                                   value={editDob}
                                   onChange={(e) => setEditDob(e.target.value)}
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
 
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Blood Group
                                 </label>
                                 <input
@@ -1950,14 +1950,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editBloodGroup}
                                   onChange={(e) => setEditBloodGroup(e.target.value)}
                                   placeholder="e.g. O+, A+, B-"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Known Drug &amp; Food Allergies
                                 </label>
                                 <input
@@ -1965,12 +1965,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editAllergies}
                                   onChange={(e) => setEditAllergies(e.target.value)}
                                   placeholder="e.g. Penicillin, Peanuts, None reported"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
 
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Residential Address
                                 </label>
                                 <input
@@ -1978,14 +1978,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editAddress}
                                   onChange={(e) => setEditAddress(e.target.value)}
                                   placeholder="Street, City, State"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Emergency Contact Name
                                 </label>
                                 <input
@@ -1993,12 +1993,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editEmergencyName}
                                   onChange={(e) => setEditEmergencyName(e.target.value)}
                                   placeholder="Contact Full Name"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
 
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Emergency Contact Phone
                                 </label>
                                 <input
@@ -2006,14 +2006,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editEmergencyPhone}
                                   onChange={(e) => setEditEmergencyPhone(e.target.value)}
                                   placeholder="+1 (555) 000-0000"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Insurance Provider
                                 </label>
                                 <input
@@ -2021,12 +2021,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editInsuranceProvider}
                                   onChange={(e) => setEditInsuranceProvider(e.target.value)}
                                   placeholder="e.g. Blue Cross Blue Shield"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
 
                               <div>
-                                <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                                <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                   Insurance Policy Number
                                 </label>
                                 <input
@@ -2034,13 +2034,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                   value={editInsurancePolicy}
                                   onChange={(e) => setEditInsurancePolicy(e.target.value)}
                                   placeholder="e.g. POL-99210-BC"
-                                  className="h-11 w-full rounded-xl border border-[#c8d8c6] bg-white px-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                  className="h-11 w-full rounded-xl border border-[#cbd5e1] bg-white px-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                                 />
                               </div>
                             </div>
 
                             <div>
-                              <label className="block text-xs font-bold text-[#11382b] uppercase tracking-wider mb-1.5">
+                              <label className="block text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-1.5">
                                 Past Medical History &amp; Chronic Conditions
                               </label>
                               <textarea
@@ -2048,15 +2048,15 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 value={editMedicalHistory}
                                 onChange={(e) => setEditMedicalHistory(e.target.value)}
                                 placeholder="e.g. Mild seasonal allergies, routine annual vaccinations up to date"
-                                className="w-full rounded-xl border border-[#c8d8c6] bg-white p-3.5 text-sm text-[#11382b] focus:outline-none focus:border-[#11382b] focus:ring-1 focus:ring-[#11382b] transition-all"
+                                className="w-full rounded-xl border border-[#cbd5e1] bg-white p-3.5 text-sm text-[#0f2744] focus:outline-none focus:border-[#0f2744] focus:ring-1 focus:ring-[#0f2744] transition-all"
                               />
                             </div>
 
-                            <div className="pt-3 border-t border-[#e7ede5] flex items-center justify-end">
+                            <div className="pt-3 border-t border-[#e2e8f0] flex items-center justify-end">
                               <button
                                 type="submit"
                                 disabled={editSaving}
-                                className="inline-flex items-center gap-2 rounded-xl bg-[#0e615c] px-6 py-3 text-sm font-bold text-white hover:bg-[#0a4c48] disabled:opacity-50 shadow-md transition-all cursor-pointer"
+                                className="inline-flex items-center gap-2 rounded-xl bg-[#0284c7] px-6 py-3 text-sm font-bold text-white hover:bg-[#0369a1] disabled:opacity-50 shadow-md transition-all cursor-pointer"
                               >
                                 {editSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-[#d49b35]" />}
                                 <span>Save &amp; Update Patient Card</span>
@@ -2066,7 +2066,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         </div>
                       </>
                     ) : (
-                      <div className="rounded-2xl border border-dashed border-[#c8d8c6] bg-white p-12 text-center text-sm text-[#527060]">
+                      <div className="rounded-2xl border border-dashed border-[#cbd5e1] bg-white p-12 text-center text-sm text-[#475569]">
                         Select a patient from the left column to view and edit their profile and card.
                       </div>
                     )}
@@ -2081,10 +2081,10 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
             <div className="space-y-6 max-w-6xl">
 
               {pendingRequests.length === 0 ? (
-                <div className="rounded-2xl border border-[#dce6db] bg-white p-12 text-center shadow-2xs">
-                  <CheckCircle2 className="mx-auto h-8 w-8 text-emerald-600 mb-2" />
-                  <p className="text-sm font-semibold text-[#11382b]">No pending cancellation requests</p>
-                  <p className="text-xs text-[#7f998b] mt-1">All doctor and patient requests have been processed.</p>
+                <div className="rounded-2xl border border-[#e2e8f0] bg-white p-12 text-center shadow-2xs">
+                  <CheckCircle2 className="mx-auto h-8 w-8 text-blue-600 mb-2" />
+                  <p className="text-sm font-semibold text-[#0f2744]">No pending cancellation requests</p>
+                  <p className="text-xs text-[#64748b] mt-1">All doctor and patient requests have been processed.</p>
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -2094,16 +2094,16 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         <span className="font-bold text-amber-800 text-xs uppercase">
                           Requested by: {req.cancellationRequestedBy === "doctor" ? "Doctor" : "Patient"}
                         </span>
-                        <span className="text-[10px] text-[#7f998b]">{req.cancellationRequestedAt ? fmt(req.cancellationRequestedAt) : ""}</span>
+                        <span className="text-[10px] text-[#64748b]">{req.cancellationRequestedAt ? fmt(req.cancellationRequestedAt) : ""}</span>
                       </div>
                       <div>
-                        <p className="font-bold text-[#11382b] text-sm">{req.patientName}</p>
-                        <p className="text-xs text-[#567364] mt-0.5">
+                        <p className="font-bold text-[#0f2744] text-sm">{req.patientName}</p>
+                        <p className="text-xs text-[#475569] mt-0.5">
                           Doctor: {req.providerName} · {fmt(req.startAt)}
                         </p>
                         <div className="mt-2.5 p-3 rounded-xl bg-white border border-amber-200 text-xs">
                           <p className="text-[10px] font-bold text-amber-800 uppercase">Reason Given:</p>
-                          <p className="text-[#162720] mt-1">{req.cancellationReason || "No reason specified."}</p>
+                          <p className="text-[#0f172a] mt-1">{req.cancellationReason || "No reason specified."}</p>
                         </div>
                       </div>
                       <div className="flex gap-2 justify-end pt-2">
@@ -2112,7 +2112,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                             setProcessingRequest(req);
                             setProcessNote("");
                           }}
-                          className="rounded-full bg-[#11382b] px-3.5 py-1.5 text-xs font-bold text-white hover:bg-[#184838] shadow-xs cursor-pointer"
+                          className="rounded-full bg-[#0f2744] px-3.5 py-1.5 text-xs font-bold text-white hover:bg-[#0c213b] shadow-xs cursor-pointer"
                         >
                           Process Cancellation
                         </button>
@@ -2129,48 +2129,48 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
             <div className="space-y-6 max-w-6xl">
               {/* Automation KPIs */}
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="rounded-2xl border border-[#dce6db] bg-white p-4 shadow-2xs">
-                  <p className="text-xs uppercase font-bold tracking-wider text-[#567364]">Reminders Sent</p>
+                <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
+                  <p className="text-xs uppercase font-bold tracking-wider text-[#475569]">Reminders Sent</p>
                   <p className="mt-2 text-2xl font-bold text-[#d49b35]">
                     {notificationsList.filter((n) => n.type === "reminder").length}
                   </p>
-                  <p className="text-xs text-[#7f998b] mt-1 font-medium">Delivered to patient portal</p>
+                  <p className="text-xs text-[#64748b] mt-1 font-medium">Delivered to patient portal</p>
                 </div>
-                <div className="rounded-2xl border border-[#dce6db] bg-white p-4 shadow-2xs">
-                  <p className="text-xs uppercase font-bold tracking-wider text-[#567364]">Upcoming Visits</p>
-                  <p className="mt-2 text-2xl font-bold text-emerald-700">
+                <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
+                  <p className="text-xs uppercase font-bold tracking-wider text-[#475569]">Upcoming Visits</p>
+                  <p className="mt-2 text-2xl font-bold text-blue-700">
                     {appointments.filter((a) => a.status === "confirmed").length}
                   </p>
-                  <p className="text-xs text-[#7f998b] mt-1 font-medium">Active in next 48 hours</p>
+                  <p className="text-xs text-[#64748b] mt-1 font-medium">Active in next 48 hours</p>
                 </div>
-                <div className="rounded-2xl border border-[#dce6db] bg-white p-4 shadow-2xs">
-                  <p className="text-xs uppercase font-bold tracking-wider text-[#567364]">Cancellation Requests</p>
+                <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
+                  <p className="text-xs uppercase font-bold tracking-wider text-[#475569]">Cancellation Requests</p>
                   <p className="mt-2 text-2xl font-bold text-amber-700">{pendingRequests.length}</p>
-                  <p className="text-xs text-[#7f998b] mt-1 font-medium">Awaiting receptionist review</p>
+                  <p className="text-xs text-[#64748b] mt-1 font-medium">Awaiting receptionist review</p>
                 </div>
-                <div className="rounded-2xl border border-[#dce6db] bg-white p-4 shadow-2xs">
-                  <p className="text-xs uppercase font-bold tracking-wider text-[#567364]">Schedule Integrity</p>
+                <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
+                  <p className="text-xs uppercase font-bold tracking-wider text-[#475569]">Schedule Integrity</p>
                   <p className="mt-2 text-2xl font-bold text-blue-700">100%</p>
-                  <p className="text-xs text-[#7f998b] mt-1 font-medium">Verified · Zero booking conflicts</p>
+                  <p className="text-xs text-[#64748b] mt-1 font-medium">Verified · Zero booking conflicts</p>
                 </div>
               </div>
 
               {/* Automated Reminder Trigger Card */}
-              <div className="rounded-2xl border border-[#dce6db] bg-white p-6 space-y-4 shadow-2xs">
+              <div className="rounded-2xl border border-[#e2e8f0] bg-white p-6 space-y-4 shadow-2xs">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <h3 className="text-base font-bold text-[#11382b] flex items-center gap-2">
+                    <h3 className="text-base font-bold text-[#0f2744] flex items-center gap-2">
                       <BellRing className="h-4 w-4 text-[#d49b35]" />
                       <span>24h &amp; 48h Appointment Reminder Dispatcher</span>
                     </h3>
-                    <p className="text-xs text-[#567364] mt-1 max-w-2xl leading-relaxed">
+                    <p className="text-xs text-[#475569] mt-1 max-w-2xl leading-relaxed">
                       Automatically evaluates confirmed patient visits scheduled for the next 48 hours and delivers personalized pre-visit reminders. Built-in deduplication prevents redundant messages.
                     </p>
                   </div>
                   <button
                     onClick={handleDispatchReminders}
                     disabled={dispatchBusy}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#11382b] px-4 py-2 text-xs font-bold text-white hover:bg-[#184838] disabled:opacity-50 transition-all cursor-pointer shadow-xs active:scale-95"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#0f2744] px-4 py-2 text-xs font-bold text-white hover:bg-[#0c213b] disabled:opacity-50 transition-all cursor-pointer shadow-xs active:scale-95"
                   >
                     {dispatchBusy ? <Loader2 className="h-4 w-4 animate-spin text-[#d49b35]" /> : <RefreshCw className="h-4 w-4 text-[#d49b35]" />}
                     <span>{dispatchBusy ? "Dispatching Reminders…" : "Send Due Reminders"}</span>
@@ -2178,9 +2178,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 </div>
 
                 {dispatchStatus && (
-                  <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-xs text-emerald-800 flex items-center justify-between">
+                  <div className="rounded-xl border border-sky-200 bg-sky-50 p-3.5 text-xs text-blue-800 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                      <CheckCircle2 className="h-4 w-4 text-blue-600" />
                       <span>
                         Reminder dispatch completed: <strong>{dispatchStatus.sent}</strong> delivered,{" "}
                         <strong>{dispatchStatus.skipped}</strong> up to date, <strong>{dispatchStatus.failed}</strong> failed.
@@ -2191,21 +2191,21 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               </div>
 
               {/* Live Automated Notification Stream */}
-              <div className="rounded-2xl border border-[#dce6db] bg-white p-6 space-y-3 shadow-2xs">
-                <h3 className="text-base font-bold text-[#11382b]">Recent Reminder &amp; Notification Activity</h3>
+              <div className="rounded-2xl border border-[#e2e8f0] bg-white p-6 space-y-3 shadow-2xs">
+                <h3 className="text-base font-bold text-[#0f2744]">Recent Reminder &amp; Notification Activity</h3>
                 {notificationsList.length === 0 ? (
-                  <p className="text-xs text-[#7f998b] py-3">No recent notifications recorded.</p>
+                  <p className="text-xs text-[#64748b] py-3">No recent notifications recorded.</p>
                 ) : (
                   <div className="grid gap-2.5 sm:grid-cols-2 text-xs">
                     {notificationsList.slice(0, 8).map((n) => (
-                      <div key={n.id} className="rounded-xl border border-[#dce6db] bg-[#f8faf6] p-3 space-y-1">
+                      <div key={n.id} className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-3 space-y-1">
                         <div className="flex items-center justify-between text-xs">
                           <span
                             className={`font-semibold uppercase tracking-wider rounded-md px-1.5 py-0.5 ${
                               n.type === "reminder"
                                 ? "bg-amber-100 text-amber-800"
                                 : n.type === "booking_confirmed"
-                                ? "bg-emerald-100 text-emerald-800"
+                                ? "bg-sky-100 text-blue-800"
                                 : "bg-blue-100 text-blue-800"
                             }`}
                           >
@@ -2215,10 +2215,10 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               ? "Booking Confirmed"
                               : n.type.replace("_", " ")}
                           </span>
-                          <span className="text-[#7f998b]">{fmt(n.createdAt)}</span>
+                          <span className="text-[#64748b]">{fmt(n.createdAt)}</span>
                         </div>
-                        <p className="font-bold text-[#11382b] text-xs">{n.title}</p>
-                        <p className="text-[#374e41] text-xs leading-snug">{n.message}</p>
+                        <p className="font-bold text-[#0f2744] text-xs">{n.title}</p>
+                        <p className="text-[#1e293b] text-xs leading-snug">{n.message}</p>
                       </div>
                     ))}
                   </div>
@@ -2231,25 +2231,25 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
           {tab === "book_patient" && (
             <div className="w-full max-w-4xl mx-auto py-2">
               {/* Form Container Card */}
-              <div className="rounded-2xl border border-[#d6e4db] bg-white shadow-sm overflow-hidden">
+              <div className="rounded-2xl border border-[#cbd5e1] bg-white shadow-sm overflow-hidden">
                 {/* Header Banner */}
-                <div className="bg-gradient-to-r from-[#0c241c] via-[#12382c] to-[#164333] px-6 sm:px-8 py-6 text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="bg-gradient-to-r from-[#0b192c] via-[#0f2744] to-[#0f2744] px-6 sm:px-8 py-6 text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex items-start gap-3.5">
-                    <div className="p-2.5 rounded-xl bg-white/10 text-emerald-300 shrink-0 mt-0.5 border border-white/15">
+                    <div className="p-2.5 rounded-xl bg-white/10 text-sky-300 shrink-0 mt-0.5 border border-white/15">
                       <CalendarPlus className="h-6 w-6" />
                     </div>
                     <div>
                       <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
                         Front-Desk Patient Appointment Booking
                       </h3>
-                      <p className="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-xl leading-relaxed">
+                      <p className="text-xs sm:text-sm text-sky-100/80 mt-1 max-w-xl leading-relaxed">
                         Schedule in-person or telehealth consultations on behalf of walk-ins, phone-in callers, or registered clinic patients with instant EHR sync.
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-200 border border-sky-400/30">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-sky-300" />
                       Direct EHR Intake
                     </span>
                   </div>
@@ -2257,23 +2257,23 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                 {/* Success Banner */}
                 {bookSuccess && (
-                  <div className="mx-6 sm:mx-8 mt-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-3 text-emerald-900 animate-in fade-in duration-200">
-                    <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                  <div className="mx-6 sm:mx-8 mt-6 p-4 rounded-xl bg-sky-50 border border-sky-200 flex items-start gap-3 text-blue-900 animate-in fade-in duration-200">
+                    <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-emerald-950">Appointment Successfully Confirmed</p>
-                      <p className="text-xs text-emerald-800 mt-0.5 leading-relaxed">{bookSuccess}</p>
+                      <p className="text-sm font-bold text-slate-950">Appointment Successfully Confirmed</p>
+                      <p className="text-xs text-blue-800 mt-0.5 leading-relaxed">{bookSuccess}</p>
                       <div className="mt-3 flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => setTab("schedule")}
-                          className="px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors cursor-pointer"
+                          className="px-3 py-1.5 rounded-lg bg-blue-700 text-white text-xs font-semibold hover:bg-blue-800 transition-colors cursor-pointer"
                         >
                           View Front-Desk Queue →
                         </button>
                         <button
                           type="button"
                           onClick={handleResetBookingForm}
-                          className="px-3 py-1.5 rounded-lg border border-emerald-300 bg-white text-emerald-800 text-xs font-semibold hover:bg-emerald-50 transition-colors cursor-pointer"
+                          className="px-3 py-1.5 rounded-lg border border-sky-300 bg-white text-blue-800 text-xs font-semibold hover:bg-sky-50 transition-colors cursor-pointer"
                         >
                           Book Another Patient
                         </button>
@@ -2286,18 +2286,18 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 <form onSubmit={handleBookForPatient} className="p-6 sm:p-8 space-y-8">
                   {/* SECTION 1: PATIENT IDENTIFICATION & CONTACT */}
                   <div className="space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#e5ede4] pb-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#e2e8f0] pb-3">
                       <div className="flex items-center gap-2">
-                        <div className="h-6 w-6 rounded-lg bg-[#ebf5f1] text-[#0e615c] flex items-center justify-center font-bold text-xs">
+                        <div className="h-6 w-6 rounded-lg bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center font-bold text-xs">
                           1
                         </div>
-                        <h4 className="text-sm font-bold text-[#11382b] uppercase tracking-wider">
+                        <h4 className="text-sm font-bold text-[#0f2744] uppercase tracking-wider">
                           Patient Demographics &amp; Contact Info
                         </h4>
                       </div>
 
                       {/* Patient Type Switcher */}
-                      <div className="flex items-center bg-[#f0f5f2] p-1 rounded-xl border border-[#dce8df]">
+                      <div className="flex items-center bg-[#f8fafc] p-1 rounded-xl border border-[#e2e8f0]">
                         <button
                           type="button"
                           onClick={() => {
@@ -2307,8 +2307,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           }}
                           className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                             bookPatientMode === "new"
-                              ? "bg-white text-[#11382b] shadow-2xs"
-                              : "text-[#527065] hover:text-[#11382b]"
+                              ? "bg-white text-[#0f2744] shadow-2xs"
+                              : "text-[#475569] hover:text-[#0f2744]"
                           }`}
                         >
                           + New / Walk-In Patient
@@ -2318,8 +2318,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setBookPatientMode("existing")}
                           className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                             bookPatientMode === "existing"
-                              ? "bg-white text-[#11382b] shadow-2xs"
-                              : "text-[#527065] hover:text-[#11382b]"
+                              ? "bg-white text-[#0f2744] shadow-2xs"
+                              : "text-[#475569] hover:text-[#0f2744]"
                           }`}
                         >
                           Registered Patient
@@ -2329,13 +2329,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                     {/* If Registered Patient, show Quick Lookup dropdown */}
                     {bookPatientMode === "existing" && (
-                      <div className="p-3.5 rounded-xl bg-[#f4f9f6] border border-[#dbeae0] space-y-2">
-                        <label className="block text-xs font-bold text-[#234b3b] uppercase">
+                      <div className="p-3.5 rounded-xl bg-[#f8fafc] border border-[#e2e8f0] space-y-2">
+                        <label className="block text-xs font-bold text-[#1e293b] uppercase">
                           Search &amp; Select Existing Clinic Patient
                         </label>
                         <select
                           onChange={(e) => handleSelectExistingPatient(e.target.value)}
-                          className="w-full rounded-xl border border-[#cce0d3] bg-white p-2.5 text-xs text-[#162720] focus:border-[#0e615c] focus:outline-none"
+                          className="w-full rounded-xl border border-[#e2e8f0] bg-white p-2.5 text-xs text-[#0f172a] focus:border-[#0284c7] focus:outline-none"
                         >
                           <option value="">Choose a registered patient…</option>
                           {knownPatients.map((kp) => (
@@ -2349,78 +2349,78 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Patient Full Name <span className="text-rose-500">*</span>
                         </label>
                         <div className="relative mt-1">
-                          <User className="h-4 w-4 absolute left-3 top-2.5 text-[#7f9e8e]" />
+                          <User className="h-4 w-4 absolute left-3 top-2.5 text-[#475569]" />
                           <input
                             type="text"
                             required
                             placeholder="e.g. Maya Davis or Robert Chen"
                             value={bookPatientName}
                             onChange={(e) => setBookPatientName(e.target.value)}
-                            className="w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] pl-9 pr-3 py-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] pl-9 pr-3 py-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Patient Email Address <span className="text-rose-500">*</span>
                         </label>
                         <div className="relative mt-1">
-                          <Mail className="h-4 w-4 absolute left-3 top-2.5 text-[#7f9e8e]" />
+                          <Mail className="h-4 w-4 absolute left-3 top-2.5 text-[#475569]" />
                           <input
                             type="email"
                             required
                             placeholder="e.g. maya@example.com"
                             value={bookPatientEmail}
                             onChange={(e) => setBookPatientEmail(e.target.value)}
-                            className="w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] pl-9 pr-3 py-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] pl-9 pr-3 py-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
-                        <p className="text-[11px] text-[#748f80] mt-1">
+                        <p className="text-[11px] text-[#475569] mt-1">
                           Digital confirmation and patient portal link sent here.
                         </p>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Phone Number (SMS Reminders)
                         </label>
                         <div className="relative mt-1">
-                          <Phone className="h-4 w-4 absolute left-3 top-2.5 text-[#7f9e8e]" />
+                          <Phone className="h-4 w-4 absolute left-3 top-2.5 text-[#475569]" />
                           <input
                             type="tel"
                             placeholder="e.g. (555) 234-5678"
                             value={bookPatientPhone}
                             onChange={(e) => setBookPatientPhone(e.target.value)}
-                            className="w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] pl-9 pr-3 py-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-colors"
+                            className="w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] pl-9 pr-3 py-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none transition-colors"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                          <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                             Date of Birth
                           </label>
                           <input
                             type="date"
                             value={bookPatientDob}
                             onChange={(e) => setBookPatientDob(e.target.value)}
-                            className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                            className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                          <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                             Gender
                           </label>
                           <select
                             value={bookPatientGender}
                             onChange={(e) => setBookPatientGender(e.target.value)}
-                            className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                            className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                           >
                             <option value="Unspecified">Unspecified</option>
                             <option value="Female">Female</option>
@@ -2435,11 +2435,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                   {/* SECTION 2: CLINICAL SPECIALTY & APPOINTMENT SLOT */}
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 border-b border-[#e5ede4] pb-3">
-                      <div className="h-6 w-6 rounded-lg bg-[#ebf5f1] text-[#0e615c] flex items-center justify-center font-bold text-xs">
+                    <div className="flex items-center gap-2 border-b border-[#e2e8f0] pb-3">
+                      <div className="h-6 w-6 rounded-lg bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center font-bold text-xs">
                         2
                       </div>
-                      <h4 className="text-sm font-bold text-[#11382b] uppercase tracking-wider">
+                      <h4 className="text-sm font-bold text-[#0f2744] uppercase tracking-wider">
                         Doctor Roster &amp; Time Slot Selection
                       </h4>
                     </div>
@@ -2447,13 +2447,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {/* Department Filter */}
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Department Filter
                         </label>
                         <select
                           value={bookDepartmentFilter}
                           onChange={(e) => setBookDepartmentFilter(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         >
                           <option value="all">All Departments ({availableSlots.length} open slots)</option>
                           {clinicDepartments.map((dept) => (
@@ -2466,14 +2466,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                       {/* Doctor & Slot Selector */}
                       <div className="sm:col-span-2">
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Select Physician &amp; Available Slot <span className="text-rose-500">*</span>
                         </label>
                         <select
                           required
                           value={bookSlotId}
                           onChange={(e) => setBookSlotId(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         >
                           <option value="">Select Doctor &amp; Scheduled Slot…</option>
                           {filteredSlots.length > 0 ? (
@@ -2506,12 +2506,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setBookAppointmentType(mode.id)}
                           className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                             bookAppointmentType === mode.id
-                              ? "border-[#0e615c] bg-[#ebf5f1] text-[#11382b] ring-1 ring-[#0e615c]"
-                              : "border-[#d8e4dc] bg-[#fcfdfb] text-[#527065] hover:bg-[#f6faf8]"
+                              ? "border-[#0284c7] bg-[#f0f7ff] text-[#0f2744] ring-1 ring-[#0284c7]"
+                              : "border-[#e2e8f0] bg-white text-[#475569] hover:bg-[#f8fafc]"
                           }`}
                         >
-                          <p className="text-xs font-bold text-[#11382b]">{mode.label}</p>
-                          <p className="text-[11px] text-[#527065] mt-0.5">{mode.desc}</p>
+                          <p className="text-xs font-bold text-[#0f2744]">{mode.label}</p>
+                          <p className="text-[11px] text-[#475569] mt-0.5">{mode.desc}</p>
                         </button>
                       ))}
                     </div>
@@ -2519,11 +2519,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                   {/* SECTION 3: CLINICAL REASON, TRIAGE & SYMPTOMS */}
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 border-b border-[#e5ede4] pb-3">
-                      <div className="h-6 w-6 rounded-lg bg-[#ebf5f1] text-[#0e615c] flex items-center justify-center font-bold text-xs">
+                    <div className="flex items-center gap-2 border-b border-[#e2e8f0] pb-3">
+                      <div className="h-6 w-6 rounded-lg bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center font-bold text-xs">
                         3
                       </div>
-                      <h4 className="text-sm font-bold text-[#11382b] uppercase tracking-wider">
+                      <h4 className="text-sm font-bold text-[#0f2744] uppercase tracking-wider">
                         Clinical Intake, Symptoms &amp; Triage Priority
                       </h4>
                     </div>
@@ -2531,13 +2531,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {/* Urgency Level */}
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Triage Urgency
                         </label>
                         <select
                           value={bookUrgency}
                           onChange={(e) => setBookUrgency(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         >
                           <option value="Routine">🟢 Routine (Standard Intake)</option>
                           <option value="Moderate / Same-Day">🟡 Moderate (Same-Day Priority)</option>
@@ -2547,13 +2547,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                       {/* Symptom Duration */}
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Symptom Duration
                         </label>
                         <select
                           value={bookSymptomDuration}
                           onChange={(e) => setBookSymptomDuration(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         >
                           <option value="Today (< 24 hrs)">Today (&lt; 24 hrs)</option>
                           <option value="2 - 3 Days">2 - 3 Days</option>
@@ -2565,7 +2565,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
 
                       {/* Known Allergies */}
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Allergies / Medical Alerts
                         </label>
                         <input
@@ -2573,14 +2573,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           placeholder="e.g. Penicillin, Latex, None reported"
                           value={bookAllergies}
                           onChange={(e) => setBookAllergies(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         />
                       </div>
                     </div>
 
                     {/* Chief Complaint / Symptoms */}
                     <div>
-                      <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                      <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                         Chief Complaint &amp; Clinical Reason <span className="text-rose-500">*</span>
                       </label>
                       <textarea
@@ -2589,31 +2589,31 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         value={bookReason}
                         onChange={(e) => setBookReason(e.target.value)}
                         placeholder="e.g. Patient reporting persistent migraine and mild fever for 2 days. Requesting consultation."
-                        className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2.5 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none leading-relaxed"
+                        className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2.5 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none leading-relaxed"
                       />
                     </div>
                   </div>
 
                   {/* SECTION 4: BILLING, INSURANCE & SPECIAL ACCOMMODATIONS */}
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 border-b border-[#e5ede4] pb-3">
-                      <div className="h-6 w-6 rounded-lg bg-[#ebf5f1] text-[#0e615c] flex items-center justify-center font-bold text-xs">
+                    <div className="flex items-center gap-2 border-b border-[#e2e8f0] pb-3">
+                      <div className="h-6 w-6 rounded-lg bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center font-bold text-xs">
                         4
                       </div>
-                      <h4 className="text-sm font-bold text-[#11382b] uppercase tracking-wider">
+                      <h4 className="text-sm font-bold text-[#0f2744] uppercase tracking-wider">
                         Billing, Insurance &amp; Special Accommodations
                       </h4>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Payment Method / Insurance Provider
                         </label>
                         <select
                           value={bookInsuranceProvider}
                           onChange={(e) => setBookInsuranceProvider(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         >
                           <option value="Self-Pay / Cash">Self-Pay / Cash at Desk</option>
                           <option value="Blue Cross Blue Shield">Blue Cross Blue Shield</option>
@@ -2626,7 +2626,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                        <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                           Policy / Member ID (Optional)
                         </label>
                         <input
@@ -2634,13 +2634,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           placeholder="e.g. POL-8934271"
                           value={bookInsurancePolicy}
                           onChange={(e) => setBookInsurancePolicy(e.target.value)}
-                          className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                          className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-[#3d5c4c] uppercase">
+                      <label className="block text-xs font-bold text-[#1e3a5f] uppercase">
                         Front-Desk Special Accommodations &amp; Notes
                       </label>
                       <input
@@ -2648,21 +2648,21 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         placeholder="e.g. Wheelchair assistance required, translator requested, elderly patient accompanied by relative"
                         value={bookSpecialNotes}
                         onChange={(e) => setBookSpecialNotes(e.target.value)}
-                        className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#fcfdfa] p-2.5 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none"
+                        className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#ffffff] p-2.5 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none"
                       />
                     </div>
                   </div>
 
                   {/* LIVE SUMMARY CAPSULE */}
-                  <div className="rounded-xl border border-[#d6e4db] bg-[#f8fbf9] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <div className="rounded-xl border border-[#cbd5e1] bg-[#f8fafc] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                     <div className="space-y-1">
-                      <p className="font-bold text-[#11382b]">
+                      <p className="font-bold text-[#0f2744]">
                         Booking Summary:{" "}
-                        <span className="font-medium text-[#2d5040]">
+                        <span className="font-medium text-[#1e293b]">
                           {bookPatientName ? bookPatientName : "Patient name pending"} ({bookPatientEmail || "No email"})
                         </span>
                       </p>
-                      <p className="text-[#557565]">
+                      <p className="text-[#475569]">
                         Physician:{" "}
                         <strong>{selectedSlot?.providerName || "No doctor selected yet"}</strong>
                         {selectedSlot && ` · ${fmt(selectedSlot.startAt)} (${selectedSlot.departmentName})`}
@@ -2671,25 +2671,25 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     </div>
 
                     <div className="shrink-0 sm:text-right">
-                      <span className="inline-block px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs">
+                      <span className="inline-block px-2.5 py-1 rounded-lg bg-sky-100 text-blue-800 font-bold text-xs">
                         {bookAppointmentType} · {bookUrgency}
                       </span>
                     </div>
                   </div>
 
                   {/* FORM ACTIONS */}
-                  <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-[#e5ede4]">
+                  <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-[#e2e8f0]">
                     <button
                       type="button"
                       onClick={handleResetBookingForm}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-[#d2e0d1] text-xs font-semibold text-[#527065] hover:bg-[#f6faf7] hover:text-[#11382b] transition-colors cursor-pointer"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-[#e2e8f0] text-xs font-semibold text-[#475569] hover:bg-[#f8fafc] hover:text-[#0f2744] transition-colors cursor-pointer"
                     >
                       Reset Form
                     </button>
                     <button
                       type="submit"
                       disabled={bookBusy || !bookPatientEmail || !bookPatientName}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0e615c] hover:bg-[#0a4c48] px-7 py-2.5 text-xs font-bold text-white transition-all duration-150 disabled:opacity-50 shadow-xs cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0284c7] hover:bg-[#0369a1] px-7 py-2.5 text-xs font-bold text-white transition-all duration-150 disabled:opacity-50 shadow-xs cursor-pointer"
                     >
                       {bookBusy ? (
                         <>
@@ -2714,21 +2714,21 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
             <div className="space-y-6 max-w-6xl">
               <div className="grid gap-4 sm:grid-cols-2">
                 {providers.map((p) => (
-                  <div key={p.id} className="rounded-2xl border border-[#dce6db] bg-white p-5 space-y-3 shadow-2xs">
-                    <div className="flex items-center justify-between pb-2 border-b border-[#edf3ec]">
+                  <div key={p.id} className="rounded-2xl border border-[#e2e8f0] bg-white p-5 space-y-3 shadow-2xs">
+                    <div className="flex items-center justify-between pb-2 border-b border-[#f0f7ff]">
                       <div>
-                        <p className="font-bold text-[#11382b] text-sm">{p.name}</p>
+                        <p className="font-bold text-[#0f2744] text-sm">{p.name}</p>
                         <p className="text-xs text-[#d49b35] font-semibold">{p.specialty}</p>
                       </div>
-                      <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 text-xs font-bold">
+                      <span className="rounded-full bg-sky-100 text-blue-800 border border-sky-200 px-2.5 py-0.5 text-xs font-bold">
                         On Duty
                       </span>
                     </div>
-                    <div className="text-xs space-y-1 text-[#243a2f]">
-                      <p><strong className="text-[#567364]">Room:</strong> {p.roomNumber}</p>
-                      <p><strong className="text-[#567364]">Hours:</strong> {p.workingHours || "Mon–Fri 09:00–16:00"}</p>
-                      <p><strong className="text-[#567364]">Consultation Fee:</strong> ${p.consultationFee}</p>
-                      <p><strong className="text-[#567364]">Phone Ext:</strong> {p.contactPhone || "Ext 11"}</p>
+                    <div className="text-xs space-y-1 text-[#1e293b]">
+                      <p><strong className="text-[#475569]">Room:</strong> {p.roomNumber}</p>
+                      <p><strong className="text-[#475569]">Hours:</strong> {p.workingHours || "Mon–Fri 09:00–16:00"}</p>
+                      <p><strong className="text-[#475569]">Consultation Fee:</strong> ${p.consultationFee}</p>
+                      <p><strong className="text-[#475569]">Phone Ext:</strong> {p.contactPhone || "Ext 11"}</p>
                     </div>
                   </div>
                 ))}
@@ -2765,51 +2765,51 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                   <div className="space-y-5">
                     {/* Summary Row */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                      <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-[#527065]">Total Collected</span>
-                          <span className="h-7 w-7 rounded-xl bg-emerald-50 text-emerald-700 grid place-items-center">
+                          <span className="text-xs font-medium text-[#475569]">Total Collected</span>
+                          <span className="h-7 w-7 rounded-xl bg-sky-50 text-blue-700 grid place-items-center">
                             <DollarSign className="h-4 w-4" />
                           </span>
                         </div>
-                        <p className="mt-2 text-2xl font-bold text-[#0e615c]">${totalCollected.toLocaleString()}.00</p>
-                        <p className="text-[11px] text-[#7f998b] mt-0.5">{paidInvoices.length} settled receipts</p>
+                        <p className="mt-2 text-2xl font-bold text-[#0284c7]">${totalCollected.toLocaleString()}.00</p>
+                        <p className="text-[11px] text-[#64748b] mt-0.5">{paidInvoices.length} settled receipts</p>
                       </div>
 
-                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                      <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-[#527065]">Pending Checkout</span>
+                          <span className="text-xs font-medium text-[#475569]">Pending Checkout</span>
                           <span className="h-7 w-7 rounded-xl bg-amber-50 text-amber-700 grid place-items-center">
                             <Clock className="h-4 w-4" />
                           </span>
                         </div>
                         <p className="mt-2 text-2xl font-bold text-amber-700">${totalPending.toLocaleString()}.00</p>
-                        <p className="text-[11px] text-[#7f998b] mt-0.5">{pendingInvoices.length} patients awaiting copay</p>
+                        <p className="text-[11px] text-[#64748b] mt-0.5">{pendingInvoices.length} patients awaiting copay</p>
                       </div>
 
-                      <div className="rounded-2xl border border-[#d9e6e0] bg-white p-4 shadow-2xs">
+                      <div className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-[#527065]">Total Invoices</span>
-                          <span className="h-7 w-7 rounded-xl bg-emerald-50 text-[#0e615c] grid place-items-center">
+                          <span className="text-xs font-medium text-[#475569]">Total Invoices</span>
+                          <span className="h-7 w-7 rounded-xl bg-sky-50 text-[#0284c7] grid place-items-center">
                             <CreditCard className="h-4 w-4" />
                           </span>
                         </div>
-                        <p className="mt-2 text-2xl font-bold text-[#11382b]">{totalInvoices}</p>
-                        <p className="text-[11px] text-[#7f998b] mt-0.5">Clinic billing ledger active</p>
+                        <p className="mt-2 text-2xl font-bold text-[#0f2744]">{totalInvoices}</p>
+                        <p className="text-[11px] text-[#64748b] mt-0.5">Clinic billing ledger active</p>
                       </div>
                     </div>
 
                     {/* Filter & Search Bar - Full Mobile Wrapping */}
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#dce6db] shadow-2xs">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#e2e8f0] shadow-2xs">
                       {/* Search Input */}
                       <div className="relative flex-1 min-w-[200px]">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#475569]" />
                         <input
                           type="text"
                           value={billingSearch}
                           onChange={(e) => setBillingSearch(e.target.value)}
                           placeholder="Search patient name, invoice #, or email…"
-                          className="w-full h-9 rounded-xl border border-[#d2e0d1] bg-[#f8faf6] pl-9 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-all shadow-2xs"
+                          className="w-full h-9 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-9 pr-3 text-xs text-[#0f172a] placeholder:text-[#64748b] focus:border-[#0284c7] focus:bg-white focus:outline-none transition-all shadow-2xs"
                         />
                       </div>
 
@@ -2820,8 +2820,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setBillingFilter("all")}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                             billingFilter === "all"
-                              ? "bg-[#0e615c] text-white shadow-2xs"
-                              : "bg-[#f2f7f4] text-[#527065] hover:bg-[#e4ede8]"
+                              ? "bg-[#0284c7] text-white shadow-2xs"
+                              : "bg-[#f8fafc] text-[#475569] hover:bg-[#e2e8f0]"
                           }`}
                         >
                           All ({totalInvoices})
@@ -2842,8 +2842,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                           onClick={() => setBillingFilter("paid")}
                           className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                             billingFilter === "paid"
-                              ? "bg-emerald-600 text-white shadow-2xs"
-                              : "bg-emerald-50 text-emerald-800 border border-emerald-200/60 hover:bg-emerald-100"
+                              ? "bg-blue-600 text-white shadow-2xs"
+                              : "bg-sky-50 text-blue-800 border border-sky-200/60 hover:bg-sky-100"
                           }`}
                         >
                           Paid ({paidInvoices.length})
@@ -2852,10 +2852,10 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     </div>
 
                     {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
-                    <div className="hidden md:block overflow-hidden rounded-2xl border border-[#dce6db] bg-white shadow-2xs">
+                    <div className="hidden md:block overflow-hidden rounded-2xl border border-[#e2e8f0] bg-white shadow-2xs">
                       <div className="overflow-x-auto thin-scroll">
                         <table className="w-full text-left text-xs">
-                          <thead className="bg-[#f4f7f3] text-[11px] tracking-wider text-[#436252] uppercase font-bold border-b border-[#e5ede3]">
+                          <thead className="bg-[#f8fafc] text-[11px] tracking-wider text-[#1e3a5f] uppercase font-bold border-b border-[#e2e8f0]">
                             <tr>
                               <th className="px-5 py-3">Invoice #</th>
                               <th className="px-5 py-3">Patient</th>
@@ -2864,31 +2864,31 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               <th className="px-5 py-3 text-right">Cashier Actions</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-[#edf3ec]">
+                          <tbody className="divide-y divide-[#f0f7ff]">
                             {filteredInvoices.length === 0 ? (
                               <tr>
-                                <td colSpan={5} className="px-5 py-8 text-center text-[#7f998b]">
+                                <td colSpan={5} className="px-5 py-8 text-center text-[#64748b]">
                                   No invoices match the selected filter.
                                 </td>
                               </tr>
                             ) : (
                               filteredInvoices.map((inv) => (
-                                <tr key={inv.id} className="hover:bg-[#f8fbf7] transition-colors">
+                                <tr key={inv.id} className="hover:bg-[#f8fafc] transition-colors">
                                   <td className="px-5 py-3.5 font-mono font-semibold text-[#d49b35]">
                                     {inv.invoiceNumber}
                                   </td>
                                   <td className="px-5 py-3.5">
-                                    <div className="font-semibold text-[#11382b]">{inv.patientName}</div>
+                                    <div className="font-semibold text-[#0f2744]">{inv.patientName}</div>
                                     {inv.patientEmail && (
-                                      <div className="text-[11px] text-[#7f998b] font-mono">{inv.patientEmail}</div>
+                                      <div className="text-[11px] text-[#64748b] font-mono">{inv.patientEmail}</div>
                                     )}
                                   </td>
-                                  <td className="px-5 py-3.5 font-bold text-[#11382b]">${inv.totalAmount}.00</td>
+                                  <td className="px-5 py-3.5 font-bold text-[#0f2744]">${inv.totalAmount}.00</td>
                                   <td className="px-5 py-3.5">
                                     <span
                                       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border ${
                                         inv.status === "paid"
-                                          ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                          ? "bg-sky-100 text-blue-800 border-sky-200"
                                           : "bg-amber-100 text-amber-800 border-amber-200"
                                       }`}
                                     >
@@ -2901,13 +2901,13 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                       <button
                                         type="button"
                                         onClick={() => setPayingInvoice(inv)}
-                                        className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 shadow-2xs transition-colors cursor-pointer"
+                                        className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-blue-700 shadow-2xs transition-colors cursor-pointer"
                                       >
                                         <DollarSign className="h-3.5 w-3.5" />
                                         <span>Collect Copay</span>
                                       </button>
                                     ) : (
-                                      <span className="text-[11px] text-emerald-700 font-medium">Receipt Filed</span>
+                                      <span className="text-[11px] text-blue-700 font-medium">Receipt Filed</span>
                                     )}
                                   </td>
                                 </tr>
@@ -2921,29 +2921,29 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                     {/* MOBILE CARD VIEW (visible on mobile only: block md:hidden) */}
                     <div className="block md:hidden space-y-3">
                       {filteredInvoices.length === 0 ? (
-                        <div className="rounded-2xl border border-dashed border-[#dce6db] bg-white p-8 text-center text-xs text-[#7f998b]">
+                        <div className="rounded-2xl border border-dashed border-[#e2e8f0] bg-white p-8 text-center text-xs text-[#64748b]">
                           No invoices match the selected filter.
                         </div>
                       ) : (
                         filteredInvoices.map((inv) => (
                           <div
                             key={inv.id}
-                            className="rounded-2xl border border-[#dce6db] bg-white p-4 shadow-2xs space-y-3"
+                            className="rounded-2xl border border-[#e2e8f0] bg-white p-4 shadow-2xs space-y-3"
                           >
                             <div className="flex items-start justify-between gap-2">
                               <div>
                                 <span className="font-mono text-xs font-bold text-[#d49b35]">
                                   {inv.invoiceNumber}
                                 </span>
-                                <h4 className="text-sm font-bold text-[#11382b] mt-0.5">{inv.patientName}</h4>
+                                <h4 className="text-sm font-bold text-[#0f2744] mt-0.5">{inv.patientName}</h4>
                                 {inv.patientEmail && (
-                                  <p className="text-[11px] text-[#7f998b] font-mono">{inv.patientEmail}</p>
+                                  <p className="text-[11px] text-[#64748b] font-mono">{inv.patientEmail}</p>
                                 )}
                               </div>
                               <span
                                 className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase border shrink-0 ${
                                   inv.status === "paid"
-                                    ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                                    ? "bg-sky-100 text-blue-800 border-sky-200"
                                     : "bg-amber-100 text-amber-800 border-amber-200"
                                 }`}
                               >
@@ -2952,22 +2952,22 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               </span>
                             </div>
 
-                            <div className="flex items-center justify-between border-t border-[#edf3ec] pt-2.5 text-xs">
-                              <span className="text-[#567364]">Total Balance Due:</span>
-                              <span className="text-base font-bold text-[#11382b]">${inv.totalAmount}.00</span>
+                            <div className="flex items-center justify-between border-t border-[#f0f7ff] pt-2.5 text-xs">
+                              <span className="text-[#475569]">Total Balance Due:</span>
+                              <span className="text-base font-bold text-[#0f2744]">${inv.totalAmount}.00</span>
                             </div>
 
                             {inv.status !== "paid" ? (
                               <button
                                 type="button"
                                 onClick={() => setPayingInvoice(inv)}
-                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 px-4 text-xs font-bold text-white hover:bg-emerald-700 shadow-xs transition-colors cursor-pointer"
+                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 px-4 text-xs font-bold text-white hover:bg-blue-700 shadow-xs transition-colors cursor-pointer"
                               >
                                 <DollarSign className="h-4 w-4" />
                                 <span>Collect Copay (${inv.totalAmount}.00)</span>
                               </button>
                             ) : (
-                              <div className="w-full text-center py-2 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
+                              <div className="w-full text-center py-2 rounded-xl bg-sky-50 text-blue-800 text-xs font-semibold border border-sky-200">
                                 ✓ Paid in Full · Electronic Receipt Archived
                               </div>
                             )}
@@ -2984,9 +2984,9 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
           {/* TAB: NOTIFICATIONS & INQUIRIES */}
           {tab === "notifications" && (
             <div className="space-y-6 max-w-6xl">
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e7ede5]">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e2e8f0]">
                 <div className="flex items-center gap-2.5">
-                  <span className="rounded-full bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd] px-3.5 py-1 text-xs font-bold">
+                  <span className="rounded-full bg-[#f0f7ff] text-[#0284c7] border border-[#e2e8f0] px-3.5 py-1 text-xs font-bold">
                     {notificationsList.length} Total Alerts
                   </span>
                   {unreadNotifications > 0 ? (
@@ -2995,8 +2995,8 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                       {unreadNotifications} Unread
                     </span>
                   ) : (
-                    <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1 text-xs font-medium flex items-center gap-1">
-                      <Check className="h-3 w-3 text-emerald-600" /> All caught up
+                    <span className="rounded-full bg-sky-100 text-blue-800 border border-sky-300 px-3 py-1 text-xs font-medium flex items-center gap-1">
+                      <Check className="h-3 w-3 text-blue-600" /> All caught up
                     </span>
                   )}
                 </div>
@@ -3005,18 +3005,18 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                   <button
                     type="button"
                     onClick={markAllNotificationsRead}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-[#cbd5e1] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#0f2744] hover:bg-[#f8fafc] transition-colors cursor-pointer shadow-2xs"
                   >
-                    <CheckCheck className="h-3.5 w-3.5 text-[#0e615c]" />
+                    <CheckCheck className="h-3.5 w-3.5 text-[#0284c7]" />
                     <span>Mark all as read</span>
                   </button>
                 )}
               </div>
 
               {notificationsList.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#dce6db] bg-white p-12 text-center shadow-2xs">
-                  <BellRing className="mx-auto h-8 w-8 text-[#7f998b]" />
-                  <p className="mt-3 text-xs text-[#7f998b]">No notifications at this time.</p>
+                <div className="rounded-2xl border border-dashed border-[#e2e8f0] bg-white p-12 text-center shadow-2xs">
+                  <BellRing className="mx-auto h-8 w-8 text-[#64748b]" />
+                  <p className="mt-3 text-xs text-[#64748b]">No notifications at this time.</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -3027,14 +3027,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         key={n.id}
                         className={`rounded-2xl border p-4 transition-all flex items-start gap-3.5 shadow-2xs ${
                           isUnread
-                            ? "border-emerald-300 bg-gradient-to-r from-emerald-50/60 to-white"
-                            : "border-[#dce6db] bg-white hover:bg-[#f8fbf7]"
+                            ? "border-sky-300 bg-gradient-to-r from-sky-50/60 to-white"
+                            : "border-[#e2e8f0] bg-white hover:bg-[#f8fafc]"
                         }`}
                       >
                         <div
                           className={`mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl ${
                             isUnread
-                              ? "bg-emerald-600 text-white shadow-xs"
+                              ? "bg-blue-600 text-white shadow-xs"
                               : "bg-[#d49b35]/15 text-[#d49b35]"
                           }`}
                         >
@@ -3043,7 +3043,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
-                              <h4 className={`text-xs font-bold ${isUnread ? "text-[#0e615c]" : "text-[#11382b]"}`}>
+                              <h4 className={`text-xs font-bold ${isUnread ? "text-[#0284c7]" : "text-[#0f2744]"}`}>
                                 {n.title}
                               </h4>
                               {isUnread && (
@@ -3052,11 +3052,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                                 </span>
                               )}
                             </div>
-                            <span className="text-[10px] text-[#7f998b] font-mono">
+                            <span className="text-[10px] text-[#64748b] font-mono">
                               {fmtDate(n.createdAt)}
                             </span>
                           </div>
-                          <p className="mt-1 text-xs text-[#374e41] leading-relaxed">{n.message}</p>
+                          <p className="mt-1 text-xs text-[#1e293b] leading-relaxed">{n.message}</p>
                         </div>
 
                         {/* Action: Mark as read button */}
@@ -3066,14 +3066,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                               type="button"
                               onClick={() => markNotificationAsRead(n.id)}
                               title="Mark this notification as read"
-                              className="inline-flex items-center gap-1 rounded-lg border border-[#c8d8c6] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#11382b] hover:bg-[#ebf5f1] hover:text-[#0e615c] transition-colors shadow-2xs cursor-pointer"
+                              className="inline-flex items-center gap-1 rounded-lg border border-[#cbd5e1] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#0f2744] hover:bg-[#f0f7ff] hover:text-[#0284c7] transition-colors shadow-2xs cursor-pointer"
                             >
-                              <Check className="h-3 w-3 text-emerald-600" />
+                              <Check className="h-3 w-3 text-blue-600" />
                               <span className="hidden sm:inline">Mark read</span>
                             </button>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-[#8ba395] font-medium px-2 py-1">
-                              <Check className="h-3 w-3 text-[#8ba395]" />
+                            <span className="inline-flex items-center gap-1 text-[11px] text-[#64748b] font-medium px-2 py-1">
+                              <Check className="h-3 w-3 text-[#64748b]" />
                               <span className="hidden sm:inline">Read</span>
                             </span>
                           )}
@@ -3091,16 +3091,16 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
       {/* MODAL: DIRECT CANCELLATION (PHONE/WALK-IN) */}
       {directCancelAppt && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-md rounded-3xl border border-[#dce6db] bg-white p-6 shadow-2xl text-[#162720] space-y-4">
+          <div className="w-full max-w-md rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-2xl text-[#0f172a] space-y-4">
             <div className="flex items-center gap-2.5 text-rose-600">
               <AlertTriangle className="h-5 w-5" />
-              <h3 className="font-display text-base font-bold text-[#11382b]">Cancel Patient Appointment</h3>
+              <h3 className="font-display text-base font-bold text-[#0f2744]">Cancel Patient Appointment</h3>
             </div>
-            <p className="text-xs text-[#567364]">
+            <p className="text-xs text-[#475569]">
               Cancel appointment for <strong>{directCancelAppt.patientName}</strong> with <strong>{directCancelAppt.providerName}</strong> on <strong>{fmt(directCancelAppt.startAt)}</strong>.
             </p>
             <div>
-              <label className="text-[11px] font-bold text-[#436252] uppercase">
+              <label className="text-[11px] font-bold text-[#1e3a5f] uppercase">
                 Mandatory Cancellation Reason *
               </label>
               <textarea
@@ -3109,14 +3109,14 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 placeholder="State the cancellation reason (e.g. Patient called to cancel, schedule conflict, transportation issue)…"
                 value={directCancelReason}
                 onChange={(e) => setDirectCancelReason(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2 text-xs text-[#162720] focus:border-[#11382b] focus:bg-white focus:outline-none"
+                className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-2 text-xs text-[#0f172a] focus:border-[#0f2744] focus:bg-white focus:outline-none"
               />
             </div>
-            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 border-t border-[#edf3ec]">
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 border-t border-[#f0f7ff]">
               <button
                 type="button"
                 onClick={() => setDirectCancelAppt(null)}
-                className="w-full sm:w-auto rounded-xl border border-[#dce6db] px-4 py-2.5 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1] transition-colors cursor-pointer"
+                className="w-full sm:w-auto rounded-xl border border-[#e2e8f0] px-4 py-2.5 text-xs font-semibold text-[#475569] hover:bg-[#f8fafc] transition-colors cursor-pointer"
               >
                 Go Back
               </button>
@@ -3136,12 +3136,12 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
       {/* MODAL: PROCESS CANCELLATION REQUEST */}
       {processingRequest && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-md rounded-3xl border border-[#dce6db] bg-white p-6 shadow-2xl text-[#162720] space-y-4">
+          <div className="w-full max-w-md rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-2xl text-[#0f172a] space-y-4">
             <div className="flex items-center gap-2.5 text-amber-700">
               <CalendarCheck className="h-5 w-5" />
-              <h3 className="font-display text-base font-bold text-[#11382b]">Process Cancellation Request</h3>
+              <h3 className="font-display text-base font-bold text-[#0f2744]">Process Cancellation Request</h3>
             </div>
-            <div className="p-3 rounded-xl bg-[#f8faf6] border border-[#dce6db] text-xs space-y-1">
+            <div className="p-3 rounded-xl bg-[#f8fafc] border border-[#e2e8f0] text-xs space-y-1">
               <p><strong>Patient:</strong> {processingRequest.patientName}</p>
               <p><strong>Doctor:</strong> {processingRequest.providerName}</p>
               <p><strong>Time:</strong> {fmt(processingRequest.startAt)}</p>
@@ -3149,20 +3149,20 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               <p className="text-amber-800 font-medium mt-2"><strong>Reason Given:</strong> {processingRequest.cancellationReason}</p>
             </div>
             <div>
-              <label className="text-[11px] font-bold text-[#436252] uppercase">Front-Desk Resolution Note</label>
+              <label className="text-[11px] font-bold text-[#1e3a5f] uppercase">Front-Desk Resolution Note</label>
               <textarea
                 rows={2}
                 placeholder="Optional processing notes sent in notification to patient and doctor…"
                 value={processNote}
                 onChange={(e) => setProcessNote(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2 text-xs text-[#162720] focus:border-[#11382b] focus:bg-white focus:outline-none"
+                className="mt-1 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-2 text-xs text-[#0f172a] focus:border-[#0f2744] focus:bg-white focus:outline-none"
               />
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setProcessingRequest(null)}
-                className="rounded-full border border-[#dce6db] px-3.5 py-1.5 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1]"
+                className="rounded-full border border-[#e2e8f0] px-3.5 py-1.5 text-xs font-semibold text-[#475569] hover:bg-[#f8fafc]"
               >
                 Close
               </button>
@@ -3178,7 +3178,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 type="button"
                 disabled={processBusy}
                 onClick={() => handleProcessRequest(true)}
-                className="rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 shadow-xs"
+                className="rounded-full bg-blue-600 px-4 py-1.5 text-xs font-bold text-white hover:bg-blue-700 shadow-xs"
               >
                 Approve &amp; Free Slot
               </button>
@@ -3190,15 +3190,15 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
       {/* MODAL: CASHIER PAY */}
       {payingInvoice && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
-          <div className="w-full max-w-md rounded-3xl border border-[#dce6db] bg-white p-5 sm:p-6 shadow-2xl text-[#162720] space-y-4 my-auto">
-            <div className="flex items-center justify-between border-b border-[#edf3ec] pb-3">
+          <div className="w-full max-w-md rounded-3xl border border-[#e2e8f0] bg-white p-5 sm:p-6 shadow-2xl text-[#0f172a] space-y-4 my-auto">
+            <div className="flex items-center justify-between border-b border-[#f0f7ff] pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="h-9 w-9 rounded-xl bg-emerald-50 text-[#0e615c] grid place-items-center">
+                <div className="h-9 w-9 rounded-xl bg-sky-50 text-[#0284c7] grid place-items-center">
                   <CreditCard className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-display text-base font-bold text-[#11382b]">Collect Patient Copay</h3>
-                  <p className="text-[11px] text-[#527065]">Cashier &amp; Checkout Station</p>
+                  <h3 className="font-display text-base font-bold text-[#0f2744]">Collect Patient Copay</h3>
+                  <p className="text-[11px] text-[#475569]">Cashier &amp; Checkout Station</p>
                 </div>
               </div>
               <button
@@ -3210,29 +3210,29 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               </button>
             </div>
 
-            <div className="rounded-2xl bg-[#f8faf6] p-3.5 border border-[#e5eee7] space-y-2 text-xs">
+            <div className="rounded-2xl bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-2 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-[#567364]">Patient Name:</span>
-                <span className="font-bold text-[#11382b]">{payingInvoice.patientName}</span>
+                <span className="text-[#475569]">Patient Name:</span>
+                <span className="font-bold text-[#0f2744]">{payingInvoice.patientName}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-[#567364]">Invoice Number:</span>
+                <span className="text-[#475569]">Invoice Number:</span>
                 <span className="font-mono font-semibold text-[#d49b35]">{payingInvoice.invoiceNumber}</span>
               </div>
-              <div className="flex items-center justify-between border-t border-[#e2ece5] pt-2 text-sm font-bold">
-                <span className="text-[#11382b]">Total Copay Due:</span>
-                <span className="text-emerald-700">${payingInvoice.totalAmount}.00</span>
+              <div className="flex items-center justify-between border-t border-[#e2e8f0] pt-2 text-sm font-bold">
+                <span className="text-[#0f2744]">Total Copay Due:</span>
+                <span className="text-blue-700">${payingInvoice.totalAmount}.00</span>
               </div>
             </div>
 
             <div>
-              <label className="text-[11px] font-bold text-[#436252] uppercase tracking-wide">
+              <label className="text-[11px] font-bold text-[#1e3a5f] uppercase tracking-wide">
                 Payment Method &amp; Channel
               </label>
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
-                className="mt-1.5 w-full rounded-xl border border-[#d2e0d1] bg-[#f8faf6] p-2.5 text-xs text-[#162720] focus:border-[#0e615c] focus:bg-white focus:outline-none shadow-2xs"
+                className="mt-1.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-2.5 text-xs text-[#0f172a] focus:border-[#0284c7] focus:bg-white focus:outline-none shadow-2xs"
               >
                 <option value="Cash">Cash (Physical Currency)</option>
                 <option value="Credit Card (Visa)">Credit Card (Visa / Mastercard)</option>
@@ -3242,11 +3242,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               </select>
             </div>
 
-            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 border-t border-[#edf3ec]">
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 border-t border-[#f0f7ff]">
               <button
                 type="button"
                 onClick={() => setPayingInvoice(null)}
-                className="w-full sm:w-auto rounded-xl border border-[#dce6db] px-4 py-2.5 text-xs font-semibold text-[#567364] hover:bg-[#f2f6f1] transition-colors cursor-pointer"
+                className="w-full sm:w-auto rounded-xl border border-[#e2e8f0] px-4 py-2.5 text-xs font-semibold text-[#475569] hover:bg-[#f8fafc] transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -3254,7 +3254,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 type="button"
                 disabled={payBusy}
                 onClick={handlePayInvoice}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-emerald-700 shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-blue-700 shadow-xs transition-colors cursor-pointer disabled:opacity-50"
               >
                 {payBusy ? (
                   <>
@@ -3290,34 +3290,34 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
               <X className="h-4 w-4" />
             </button>
             <div className="flex flex-col items-center text-center">
-              <div className="h-16 w-16 rounded-2xl bg-[#0c241c] text-blue-400 font-display font-bold text-2xl flex items-center justify-center shadow-md border border-[#16382b]">
+              <div className="h-16 w-16 rounded-2xl bg-[#0b192c] text-blue-400 font-display font-bold text-2xl flex items-center justify-center shadow-md border border-[#0f2744]">
                 RD
               </div>
-              <h3 className="mt-3.5 text-base font-bold text-[#11382b]">{user.name}</h3>
+              <h3 className="mt-3.5 text-base font-bold text-[#0f2744]">{user.name}</h3>
               <span className="mt-1 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-800 border border-blue-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-500 animate-pulse" />
                 Staff · Front Desk Receptionist
               </span>
-              <p className="mt-1 text-xs text-[#567364]">receptionist@demo.clinic</p>
+              <p className="mt-1 text-xs text-[#475569]">receptionist@demo.clinic</p>
             </div>
 
-            <div className="mt-5 space-y-2 border-t border-[#edf3ec] pt-4 text-xs">
+            <div className="mt-5 space-y-2 border-t border-[#f0f7ff] pt-4 text-xs">
               <div className="flex justify-between py-1 text-stone-600">
                 <span className="text-stone-400">Staff ID</span>
-                <span className="font-semibold text-[#11382b]">REC-1042-DESK</span>
+                <span className="font-semibold text-[#0f2744]">REC-1042-DESK</span>
               </div>
               <div className="flex justify-between py-1 text-stone-600">
                 <span className="text-stone-400">Department</span>
-                <span className="font-semibold text-[#11382b]">Patient Relations &amp; Admissions</span>
+                <span className="font-semibold text-[#0f2744]">Patient Relations &amp; Admissions</span>
               </div>
               <div className="flex justify-between py-1 text-stone-600">
                 <span className="text-stone-400">Clinic Center</span>
-                <span className="font-semibold text-[#11382b]">Afiya Health Hub</span>
+                <span className="font-semibold text-[#0f2744]">Afiya Health Hub</span>
               </div>
               <div className="flex justify-between py-1 text-stone-600">
                 <span className="text-stone-400">Session Status</span>
-                <span className="inline-flex items-center gap-1 font-semibold text-emerald-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="inline-flex items-center gap-1 font-semibold text-blue-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
                   Authenticated Active
                 </span>
               </div>

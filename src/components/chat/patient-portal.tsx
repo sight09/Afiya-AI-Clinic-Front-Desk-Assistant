@@ -382,10 +382,10 @@ function TypingWelcomeNote() {
   }, []);
 
   return (
-    <p className="mt-3.5 text-[15px] sm:text-[17px] md:text-[18.5px] lg:text-[19.5px] text-[#527065] w-full text-center font-normal leading-relaxed min-h-[30px] sm:whitespace-nowrap">
+    <p className="mt-3.5 text-[15px] sm:text-[17px] md:text-[18.5px] lg:text-[19.5px] text-[#475569] w-full text-center font-normal leading-relaxed min-h-[30px] sm:whitespace-nowrap">
       {displayedText}
       {!isDone && (
-        <span className="inline-block w-[2px] h-[1.15em] ml-1 bg-[#3fb484] animate-pulse align-middle" />
+        <span className="inline-block w-[2px] h-[1.15em] ml-1 bg-[#0ea5e9] animate-pulse align-middle" />
       )}
     </p>
   );
@@ -882,14 +882,14 @@ export function PatientPortal({
   );
 
   return (
-    <div className="h-screen h-[100dvh] w-screen overflow-hidden flex bg-[#fbfdfa] text-[#162720]">
+    <div className="h-screen h-[100dvh] w-screen overflow-hidden flex bg-[#f8fafc] text-[#0b192c]">
       {/* --------------------------------------------------------------------- */}
       {/* 1. CHATGPT-MOOD FULL-HEIGHT LEFT SIDEBAR                              */}
       {/* --------------------------------------------------------------------- */}
       <aside
         className={`${
           sidebarOpen ? "w-64 xl:w-72" : "w-16 lg:w-[70px]"
-        } fixed inset-y-0 left-0 z-40 lg:static h-full bg-[#0c241c] text-[#e3ece6] border-r border-[#16382b] flex flex-col justify-between transition-all duration-300 ease-in-out shrink-0 overflow-hidden ${
+        } fixed inset-y-0 left-0 z-40 lg:static h-full bg-[#0b192c] text-[#e2e8f0] border-r border-[#0f2744] flex flex-col justify-between transition-all duration-300 ease-in-out shrink-0 overflow-hidden ${
           !sidebarOpen ? "-translate-x-full lg:translate-x-0" : "translate-x-0"
         }`}
       >
@@ -903,7 +903,7 @@ export function PatientPortal({
                   <span className="font-display text-[18px] font-medium text-white tracking-tight block leading-tight">
                     Afiya
                   </span>
-                  <span className="font-sans text-[12px] font-normal tracking-normal text-[#a2c2b0] block">
+                  <span className="font-sans text-[12px] font-normal tracking-normal text-[#64748b] block">
                     Better Care Starts Here
                   </span>
                 </div>
@@ -930,7 +930,7 @@ export function PatientPortal({
                   alt="Afiya"
                   className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
                 />
-                <PanelLeft className="h-5 w-5 text-emerald-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
+                <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
             </div>
           )}
@@ -969,12 +969,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("chat")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "chat"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>AI Front-Desk</span>
                 </div>
               </button>
@@ -983,12 +983,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("chat")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
                   activeTab === "chat"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title="AI Front-Desk"
               >
-                <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#0ea5e9]" : "text-white/60"}`} />
               </button>
             )}
 
@@ -998,16 +998,16 @@ export function PatientPortal({
                 onClick={() => setActiveTab("appointments")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "appointments"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Appointments</span>
                 </div>
                 {confirmedAppointments.length > 0 && (
-                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#3fb484] text-[#07241a]">
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#0ea5e9] text-[#0b192c]">
                     {confirmedAppointments.length}
                   </span>
                 )}
@@ -1017,14 +1017,14 @@ export function PatientPortal({
                 onClick={() => setActiveTab("appointments")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
                   activeTab === "appointments"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title={`Appointments (${confirmedAppointments.length})`}
               >
-                <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#0ea5e9]" : "text-white/60"}`} />
                 {confirmedAppointments.length > 0 && (
-                  <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#3fb484]" />
+                  <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                 )}
               </button>
             )}
@@ -1035,12 +1035,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("records")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "records"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Visit Records</span>
                 </div>
                 {records.length > 0 && (
@@ -1054,12 +1054,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("records")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
                   activeTab === "records"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title={`Visit Records (${records.length})`}
               >
-                <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#0ea5e9]" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1069,16 +1069,16 @@ export function PatientPortal({
                 onClick={() => setActiveTab("billing")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "billing"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Billing &amp; Receipts</span>
                 </div>
                 {pendingTotal > 0 && (
-                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#3fb484] text-[#07241a]">
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#0ea5e9] text-[#0b192c]">
                     ${pendingTotal} Due
                   </span>
                 )}
@@ -1088,14 +1088,14 @@ export function PatientPortal({
                 onClick={() => setActiveTab("billing")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
                   activeTab === "billing"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title={`Billing & Receipts ${pendingTotal > 0 ? `($${pendingTotal} Due)` : ""}`}
               >
-                <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#0ea5e9]" : "text-white/60"}`} />
                 {pendingTotal > 0 && (
-                  <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#3fb484]" />
+                  <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                 )}
               </button>
             )}
@@ -1106,12 +1106,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("profile")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "profile"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Digital Health ID</span>
                 </div>
                 <span className="text-[11px] text-white/50 font-medium">Card</span>
@@ -1121,12 +1121,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("profile")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                   activeTab === "profile"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title="Digital Health ID Card"
               >
-                <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#0ea5e9]" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1136,12 +1136,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("clinic")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "clinic"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Doctors Directory</span>
                 </div>
                 <span className="text-[11px] text-white/50 font-medium">{providersList.length || 3}</span>
@@ -1151,12 +1151,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("clinic")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                   activeTab === "clinic"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title="Doctors Directory"
               >
-                <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#0ea5e9]" : "text-white/60"}`} />
               </button>
             )}
 
@@ -1166,12 +1166,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("notifications")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "notifications"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Notifications</span>
                 </div>
                 {unreadNotifications > 0 && (
@@ -1185,12 +1185,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("notifications")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
                   activeTab === "notifications"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title={`Notifications (${unreadNotifications} unread)`}
               >
-                <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#0ea5e9]" : "text-white/60"}`} />
                 {unreadNotifications > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-rose-500" />
                 )}
@@ -1203,15 +1203,15 @@ export function PatientPortal({
                 onClick={() => setActiveTab("safety")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "safety"
-                    ? "font-medium text-white bg-[#0e615c] shadow-xs border border-[#3fb484]/30"
+                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
                     : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#3fb484]" : "text-white/50"}`} />
+                  <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#0ea5e9]" : "text-white/50"}`} />
                   <span>Safety &amp; Rules</span>
                 </div>
-                <span className="text-[11px] px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300">
+                <span className="text-[11px] px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300">
                   100%
                 </span>
               </button>
@@ -1220,12 +1220,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("safety")}
                 className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                   activeTab === "safety"
-                    ? "bg-[#0e615c] text-white shadow-xs border border-[#3fb484]/30"
+                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
                 title="Clinical Safety & Rules (100% Deterministic)"
               >
-                <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#3fb484]" : "text-white/60"}`} />
+                <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#0ea5e9]" : "text-white/60"}`} />
               </button>
             )}
           </nav>
@@ -1268,15 +1268,15 @@ export function PatientPortal({
                   title="View User Profile & Information"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#11382b] font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
+                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#0f2744] font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
                       {currentUser?.name ? currentUser.name[0] : "P"}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-xs font-semibold text-white group-hover:text-emerald-300 transition-colors">
+                      <p className="truncate text-xs font-semibold text-white group-hover:text-sky-300 transition-colors">
                         {currentUser?.name || "Patient"}
                       </p>
-                      <p className="text-[11px] text-emerald-300 font-medium capitalize truncate flex items-center gap-1.5 mt-0.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      <p className="text-[11px] text-sky-300 font-medium capitalize truncate flex items-center gap-1.5 mt-0.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
                         <span>{currentUser?.role === "patient" ? "Patient Active" : `Staff (${currentUser?.role})`}</span>
                       </p>
                     </div>
@@ -1286,7 +1286,7 @@ export function PatientPortal({
                 <button
                   type="button"
                   onClick={() => setShowUserProfileModal(true)}
-                  className="h-10 w-10 mx-auto rounded-xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#11382b] font-bold text-sm shadow-xs flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#d49b35]/60 transition-all"
+                  className="h-10 w-10 mx-auto rounded-xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#0f2744] font-bold text-sm shadow-xs flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#d49b35]/60 transition-all"
                   title={`${currentUser?.name || "User Profile"} (${currentUser?.role || "Active"})`}
                 >
                   {currentUser?.name ? currentUser.name[0] : "P"}
@@ -1296,7 +1296,7 @@ export function PatientPortal({
               sidebarOpen ? (
                 <a
                   href="/login"
-                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#11382b] px-3.5 py-2.5 text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#0f2744] px-3.5 py-2.5 text-xs font-bold transition-all shadow-xs cursor-pointer"
                   title="Sign In to Patient or Staff Account"
                 >
                   <LogIn className="h-4 w-4" />
@@ -1305,7 +1305,7 @@ export function PatientPortal({
               ) : (
                 <a
                   href="/login"
-                  className="h-10 w-10 mx-auto rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#11382b] flex items-center justify-center transition-all shadow-xs cursor-pointer"
+                  className="h-10 w-10 mx-auto rounded-xl bg-[#d49b35] hover:bg-[#c28c2e] text-[#0f2744] flex items-center justify-center transition-all shadow-xs cursor-pointer"
                   title="Sign In"
                 >
                   <LogIn className="h-5 w-5" />
@@ -1330,30 +1330,30 @@ export function PatientPortal({
       <main className="flex-1 flex flex-col h-full min-w-0 bg-[#ffffff] relative overflow-hidden">
         {/* TOP COMMAND BAR (Hidden in chat view for clean, full-height chat canvas) */}
         {activeTab !== "chat" && (
-          <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2ece5] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+          <header className="min-h-[76px] py-3.5 px-4 sm:px-8 border-b border-[#e2e8f0] bg-white/95 backdrop-blur-md sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
             <div className="flex items-center gap-3.5 min-w-0">
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 rounded-xl border border-[#d6e2d4] bg-white text-[#11382b] hover:bg-[#edf5ec] shadow-2xs cursor-pointer"
+                className="lg:hidden p-2 rounded-xl border border-[#e2e8f0] bg-white text-[#0f2744] hover:bg-[#f1f5f9] shadow-2xs cursor-pointer"
               >
                 <Menu className="h-5 w-5" />
               </button>
               <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#ebf5f1] text-[#0e615c] border border-[#d2e8dd]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#e0f2fe] text-[#0284c7] border border-[#e2e8f0]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0ea5e9] animate-pulse" />
                     Patient Health Portal
                   </span>
-                  <span className="text-[12px] text-[#8ba395]">/</span>
-                  <span className="text-[12px] font-medium text-[#527065] truncate">
+                  <span className="text-[12px] text-[#64748b]">/</span>
+                  <span className="text-[12px] font-medium text-[#475569] truncate">
                     {PATIENT_TAB_INFO[activeTab]?.title || activeTab}
                   </span>
                 </div>
-                <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#11382b] tracking-tight leading-tight">
+                <h1 className="font-display text-[22px] sm:text-[24px] font-bold text-[#0f2744] tracking-tight leading-tight">
                   {PATIENT_TAB_INFO[activeTab]?.title || activeTab}
                 </h1>
-                <p className="text-[13px] text-[#527065] mt-0.5 font-normal line-clamp-1">
+                <p className="text-[13px] text-[#475569] mt-0.5 font-normal line-clamp-1">
                   {PATIENT_TAB_INFO[activeTab]?.subtitle || "Afiya Patient Health Portal"}
                 </p>
               </div>
@@ -1364,13 +1364,13 @@ export function PatientPortal({
               {/* Search input in non-chat views */}
               {activeTab !== "safety" && activeTab !== "profile" && (
                 <div className="relative w-36 sm:w-56">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#6c8a7b]" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#475569]" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={`Filter ${activeTab}…`}
-                    className="w-full h-9 rounded-xl border border-[#d2e0d1] bg-[#f8faf6] pl-9 pr-3 text-xs text-[#162720] placeholder:text-[#7f998b] focus:border-[#0e615c] focus:bg-white focus:outline-none transition-all shadow-2xs"
+                    className="w-full h-9 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-9 pr-3 text-xs text-[#0b192c] placeholder:text-[#475569] focus:border-[#0284c7] focus:bg-white focus:outline-none transition-all shadow-2xs"
                   />
                 </div>
               )}
@@ -1379,9 +1379,9 @@ export function PatientPortal({
               {!signedIn && (
                 <a
                   href="/login"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#0e615c] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0a4c48] shadow-2xs transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#0284c7] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0369a1] shadow-2xs transition-colors cursor-pointer"
                 >
-                  <LogIn className="h-3.5 w-3.5 text-[#3fb484]" />
+                  <LogIn className="h-3.5 w-3.5 text-[#0ea5e9]" />
                   <span>Sign In</span>
                 </a>
               )}
@@ -1398,7 +1398,7 @@ export function PatientPortal({
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden absolute top-3.5 left-3.5 z-20 p-2 rounded-xl bg-white/90 border border-[#d9e6e0] text-[#0e615c] hover:bg-[#f6faf8] shadow-2xs transition-all cursor-pointer"
+              className="lg:hidden absolute top-3.5 left-3.5 z-20 p-2 rounded-xl bg-white/90 border border-[#e2e8f0] text-[#0284c7] hover:bg-[#f8fafc] shadow-2xs transition-all cursor-pointer"
               title="Open navigation"
             >
               <PanelLeft className="h-4 w-4" />
@@ -1420,14 +1420,14 @@ export function PatientPortal({
                   </div>
 
                   {/* Dynamic Time-of-Day Greeting (Gemini / Claude mood) */}
-                  <h1 className="font-display text-[38px] sm:text-[48px] lg:text-[56px] font-medium tracking-tight text-[#0e615c] leading-tight">
+                  <h1 className="font-display text-[38px] sm:text-[48px] lg:text-[56px] font-medium tracking-tight text-[#0284c7] leading-tight">
                     {new Date().getHours() < 12
                       ? "Good morning"
                       : new Date().getHours() < 17
                       ? "Good afternoon"
                       : "Good evening"}
                     ,{" "}
-                    <span className="text-[#3fb484]">
+                    <span className="text-[#0ea5e9]">
                       {signedIn && currentUser?.name ? currentUser.name.split(" ")[0] : "friend"}
                     </span>
                     .
@@ -1441,17 +1441,17 @@ export function PatientPortal({
                     <button
                       onClick={() => send("I have had a mild headache and fever for two days.")}
                       disabled={busy}
-                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#d9e6e0] bg-white hover:border-[#0e615c] hover:bg-[#f6faf8] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
+                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#e2e8f0] bg-white hover:border-[#0284c7] hover:bg-[#f8fafc] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
                     >
-                      <div className="p-2.5 rounded-lg bg-[#ebf5f1] text-[#0e615c] group-hover:bg-[#0e615c] group-hover:text-white transition-colors shrink-0">
+                      <div className="p-2.5 rounded-lg bg-[#e0f2fe] text-[#0284c7] group-hover:bg-[#0284c7] group-hover:text-white transition-colors shrink-0">
                         <Activity className="h-4 w-4" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between">
-                          <p className="text-[14px] font-semibold text-[#122621]">Check Symptoms</p>
-                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0e615c]" />
+                          <p className="text-[14px] font-semibold text-[#0b192c]">Check Symptoms</p>
+                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0284c7]" />
                         </div>
-                        <p className="text-[12.5px] text-[#527065] mt-0.5 leading-snug">
+                        <p className="text-[12.5px] text-[#475569] mt-0.5 leading-snug">
                           Report fever, pain, or duration for clinical triage intake
                         </p>
                       </div>
@@ -1460,17 +1460,17 @@ export function PatientPortal({
                     <button
                       onClick={() => send("I would like to book an appointment with a doctor.")}
                       disabled={busy}
-                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#d9e6e0] bg-white hover:border-[#0e615c] hover:bg-[#f6faf8] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
+                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#e2e8f0] bg-white hover:border-[#0284c7] hover:bg-[#f8fafc] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
                     >
-                      <div className="p-2.5 rounded-lg bg-[#ebf5f1] text-[#0e615c] group-hover:bg-[#0e615c] group-hover:text-white transition-colors shrink-0">
+                      <div className="p-2.5 rounded-lg bg-[#e0f2fe] text-[#0284c7] group-hover:bg-[#0284c7] group-hover:text-white transition-colors shrink-0">
                         <CalendarPlus className="h-4 w-4" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between">
-                          <p className="text-[14px] font-semibold text-[#122621]">Book a Consultation</p>
-                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0e615c]" />
+                          <p className="text-[14px] font-semibold text-[#0b192c]">Book a Consultation</p>
+                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0284c7]" />
                         </div>
-                        <p className="text-[12.5px] text-[#527065] mt-0.5 leading-snug">
+                        <p className="text-[12.5px] text-[#475569] mt-0.5 leading-snug">
                           Check real-time calendar slots with certified clinic physicians
                         </p>
                       </div>
@@ -1479,17 +1479,17 @@ export function PatientPortal({
                     <button
                       onClick={() => send("Do you accept health insurance and how does billing work?")}
                       disabled={busy}
-                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#d9e6e0] bg-white hover:border-[#0e615c] hover:bg-[#f6faf8] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
+                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#e2e8f0] bg-white hover:border-[#0284c7] hover:bg-[#f8fafc] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
                     >
-                      <div className="p-2.5 rounded-lg bg-[#ebf5f1] text-[#0e615c] group-hover:bg-[#0e615c] group-hover:text-white transition-colors shrink-0">
+                      <div className="p-2.5 rounded-lg bg-[#e0f2fe] text-[#0284c7] group-hover:bg-[#0284c7] group-hover:text-white transition-colors shrink-0">
                         <CreditCard className="h-4 w-4" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between">
-                          <p className="text-[14px] font-semibold text-[#122621]">Billing &amp; Copay</p>
-                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0e615c]" />
+                          <p className="text-[14px] font-semibold text-[#0b192c]">Billing &amp; Copay</p>
+                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0284c7]" />
                         </div>
-                        <p className="text-[12.5px] text-[#527065] mt-0.5 leading-snug">
+                        <p className="text-[12.5px] text-[#475569] mt-0.5 leading-snug">
                           Inquire about insurance plans, co-pays, and visit pricing
                         </p>
                       </div>
@@ -1498,17 +1498,17 @@ export function PatientPortal({
                     <button
                       onClick={() => send("What are your opening hours and walk-in consultation policies?")}
                       disabled={busy}
-                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#d9e6e0] bg-white hover:border-[#0e615c] hover:bg-[#f6faf8] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
+                      className="flex-1 min-w-[260px] sm:basis-[calc(50%-0.5rem)] group p-4 rounded-xl border border-[#e2e8f0] bg-white hover:border-[#0284c7] hover:bg-[#f8fafc] hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 text-left cursor-pointer"
                     >
-                      <div className="p-2.5 rounded-lg bg-[#ebf5f1] text-[#0e615c] group-hover:bg-[#0e615c] group-hover:text-white transition-colors shrink-0">
+                      <div className="p-2.5 rounded-lg bg-[#e0f2fe] text-[#0284c7] group-hover:bg-[#0284c7] group-hover:text-white transition-colors shrink-0">
                         <Clock className="h-4 w-4" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between">
-                          <p className="text-[14px] font-semibold text-[#122621]">Hours &amp; Location</p>
-                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0e615c]" />
+                          <p className="text-[14px] font-semibold text-[#0b192c]">Hours &amp; Location</p>
+                          <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0284c7]" />
                         </div>
-                        <p className="text-[12.5px] text-[#527065] mt-0.5 leading-snug">
+                        <p className="text-[12.5px] text-[#475569] mt-0.5 leading-snug">
                           Office operating hours, emergency triage, and clinic address
                         </p>
                       </div>
@@ -1531,10 +1531,10 @@ export function PatientPortal({
                   {busy && (
                     <div className="msg-in flex items-start gap-3 pl-1">
                       <RobotChatIcon className="h-7 w-7" />
-                      <div className="flex items-center gap-1.5 rounded-2xl border border-[#dce8db] bg-[#f8faf6] px-4 py-2.5 text-xs text-[#2b4c3c]">
-                        <span className="dot h-1.5 w-1.5 rounded-full bg-[#11382b]" />
-                        <span className="dot h-1.5 w-1.5 rounded-full bg-[#11382b]" />
-                        <span className="dot h-1.5 w-1.5 rounded-full bg-[#11382b]" />
+                      <div className="flex items-center gap-1.5 rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2.5 text-xs text-[#1e293b]">
+                        <span className="dot h-1.5 w-1.5 rounded-full bg-[#0f2744]" />
+                        <span className="dot h-1.5 w-1.5 rounded-full bg-[#0f2744]" />
+                        <span className="dot h-1.5 w-1.5 rounded-full bg-[#0f2744]" />
                         <span className="ml-2 font-medium">Checking medical knowledge base &amp; appointment slots…</span>
                       </div>
                     </div>
@@ -1554,7 +1554,7 @@ export function PatientPortal({
                         key={qp.label}
                         onClick={() => send(qp.query)}
                         disabled={busy}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-[#d5e2d3] bg-[#f8faf6] px-3 py-1 text-[11px] font-medium text-[#254536] hover:border-[#11382b] hover:bg-white hover:text-[#11382b] transition-all disabled:opacity-50 active:scale-95 shadow-2xs cursor-pointer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-1 text-[11px] font-medium text-[#1e293b] hover:border-[#0f2744] hover:bg-white hover:text-[#0f2744] transition-all disabled:opacity-50 active:scale-95 shadow-2xs cursor-pointer"
                       >
                         <Sparkles className="h-3 w-3 text-[#d49b35]" />
                         <span>{qp.label}</span>
@@ -1569,7 +1569,7 @@ export function PatientPortal({
                     e.preventDefault();
                     void send(input);
                   }}
-                  className="relative flex items-center rounded-3xl border border-[#d9e6e0] bg-[#fcfdfb] p-1.5 shadow-[0_4px_20px_rgba(14,97,92,0.06)] focus-within:border-[#0e615c] focus-within:ring-2 focus-within:ring-[#0e615c]/20 focus-within:bg-white transition-all outline-none"
+                  className="relative flex items-center rounded-3xl border border-[#e2e8f0] bg-[#f8fafc] p-1.5 shadow-[0_4px_20px_rgba(14,97,92,0.06)] focus-within:border-[#0284c7] focus-within:ring-2 focus-within:ring-[#0284c7]/20 focus-within:bg-white transition-all outline-none"
                 >
                   <input
                     ref={inputRef}
@@ -1579,7 +1579,7 @@ export function PatientPortal({
                     placeholder="Ask a clinic question, describe symptoms, or book an appointment…"
                     disabled={busy}
                     style={{ outline: "none", boxShadow: "none", border: "none" }}
-                    className="flex-1 bg-transparent px-4 py-2.5 text-[15px] text-[#122621] placeholder:text-[#527065]/60 focus:outline-none focus:ring-0 focus:border-none focus:shadow-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none border-none outline-none shadow-none ring-0"
+                    className="flex-1 bg-transparent px-4 py-2.5 text-[15px] text-[#0b192c] placeholder:text-[#475569]/60 focus:outline-none focus:ring-0 focus:border-none focus:shadow-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none border-none outline-none shadow-none ring-0"
                   />
 
                   {input && (
@@ -1595,27 +1595,27 @@ export function PatientPortal({
                   <button
                     type="submit"
                     disabled={busy || !input.trim()}
-                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#0e615c] text-white hover:bg-[#0a4c48] disabled:opacity-30 transition-transform active:scale-95 shadow-xs cursor-pointer"
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#0284c7] text-white hover:bg-[#0369a1] disabled:opacity-30 transition-transform active:scale-95 shadow-xs cursor-pointer"
                     title="Send message"
                   >
-                    <Send className="h-4 w-4 text-[#3fb484]" />
+                    <Send className="h-4 w-4 text-[#0ea5e9]" />
                   </button>
                 </form>
 
                 {/* DYNAMIC SAFETY DISCLAIMER (ChatGPT Mood) */}
-                <div className="flex flex-wrap items-center justify-center gap-2 text-[12.5px] font-normal text-[#527065] text-center pt-0.5">
+                <div className="flex flex-wrap items-center justify-center gap-2 text-[12.5px] font-normal text-[#475569] text-center pt-0.5">
                   <span>Afiya AI is an administrative assistant · Non-diagnostic · Better Care Starts Here</span>
                   <span>·</span>
                   <button
                     onClick={() => setActiveTab("safety")}
-                    className="underline decoration-[#3fb484] underline-offset-2 hover:text-[#0e615c] font-normal cursor-pointer"
+                    className="underline decoration-[#0ea5e9] underline-offset-2 hover:text-[#0284c7] font-normal cursor-pointer"
                   >
                     View Safety Protocol
                   </button>
                   <span>·</span>
                   <button
                     onClick={() => setShowInfoModal(true)}
-                    className="underline decoration-[#3fb484] underline-offset-2 hover:text-[#0e615c] font-normal cursor-pointer"
+                    className="underline decoration-[#0ea5e9] underline-offset-2 hover:text-[#0284c7] font-normal cursor-pointer"
                   >
                     Clinic Hours &amp; FAQ
                   </button>
@@ -1631,7 +1631,7 @@ export function PatientPortal({
         {activeTab === "appointments" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-5xl mx-auto w-full space-y-6 thin-scroll">
             {/* Filter Pills Header */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#e7ede5]">
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#e2e8f0]">
               <div className="flex flex-wrap items-center gap-2">
                 {[
                   { id: "all", label: "All Appointments" },
@@ -1647,8 +1647,8 @@ export function PatientPortal({
                     onClick={() => setApptStatusFilter(st.id)}
                     className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                       apptStatusFilter === st.id
-                        ? "bg-[#11382b] text-white shadow-2xs"
-                        : "bg-[#f2f7f0] text-[#345142] hover:bg-[#e4ede2]"
+                        ? "bg-[#0f2744] text-white shadow-2xs"
+                        : "bg-[#f8fafc] text-[#1e293b] hover:bg-[#e2e8f0]"
                     }`}
                   >
                     {st.label}
@@ -1661,7 +1661,7 @@ export function PatientPortal({
                   setActiveTab("chat");
                   send("I would like to book a new appointment.");
                 }}
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#11382b] px-4 py-2 text-xs font-semibold text-white hover:bg-[#1a4a3a] transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#0f2744] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] transition-all shadow-xs"
               >
                 <CalendarPlus className="h-3.5 w-3.5 text-[#d49b35]" />
                 <span>+ Book New Slot</span>
@@ -1688,7 +1688,7 @@ export function PatientPortal({
                       className="rounded-2xl border border-amber-200 bg-white p-4 flex flex-col justify-between"
                     >
                       <div>
-                        <p className="text-xs font-bold text-[#11382b]">
+                        <p className="text-xs font-bold text-[#0f2744]">
                           {o.departmentName} Department
                         </p>
                         <p className="text-[11px] text-amber-900 mt-1">
@@ -1705,7 +1705,7 @@ export function PatientPortal({
                         </button>
                         <button
                           onClick={() => respondToOffer(o, true)}
-                          className="rounded-full bg-emerald-600 px-4 py-1 text-xs font-semibold text-white hover:bg-emerald-700 shadow-xs"
+                          className="rounded-full bg-sky-600 px-4 py-1 text-xs font-semibold text-white hover:bg-sky-700 shadow-xs"
                         >
                           Accept Early Slot
                         </button>
@@ -1718,14 +1718,14 @@ export function PatientPortal({
 
             {/* Appointments List */}
             {filteredAppointments.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-[#cfe0cf] p-12 text-center bg-[#fbfdfa]">
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-[#11382b] mx-auto">
-                  <CalendarDays className="h-7 w-7 text-[#11382b]" />
+              <div className="rounded-3xl border border-dashed border-[#e2e8f0] p-12 text-center bg-[#f8fafc]">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-sky-50 text-[#0f2744] mx-auto">
+                  <CalendarDays className="h-7 w-7 text-[#0f2744]" />
                 </div>
-                <h3 className="mt-3 font-display text-lg font-bold text-[#11382b]">
+                <h3 className="mt-3 font-display text-lg font-bold text-[#0f2744]">
                   No appointments found
                 </h3>
-                <p className="mt-1 text-xs text-[#527060] max-w-sm mx-auto">
+                <p className="mt-1 text-xs text-[#475569] max-w-sm mx-auto">
                   {searchQuery || apptStatusFilter !== "all"
                     ? "Try adjusting your search query or status filter."
                     : "You do not have any appointments yet. Use the AI front desk assistant to schedule a visit in seconds."}
@@ -1735,7 +1735,7 @@ export function PatientPortal({
                     setActiveTab("chat");
                     send("I would like to book an appointment.");
                   }}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#11382b] px-5 py-2.5 text-xs font-semibold text-white hover:bg-[#1a4a3a] shadow-xs cursor-pointer transition-colors"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0f2744] px-5 py-2.5 text-xs font-semibold text-white hover:bg-[#0f2744] shadow-xs cursor-pointer transition-colors"
                 >
                   <MessageSquare className="h-4 w-4 text-[#d49b35]" />
                   <span>Book with Assistant</span>
@@ -1752,20 +1752,20 @@ export function PatientPortal({
                   return (
                     <div
                       key={a.id}
-                      className="rounded-3xl border border-[#dce8db] bg-white p-5 flex flex-col justify-between shadow-2xs hover:border-[#11382b]/30 hover:shadow-md transition-all lift"
+                      className="rounded-3xl border border-[#e2e8f0] bg-white p-5 flex flex-col justify-between shadow-2xs hover:border-[#0f2744]/30 hover:shadow-md transition-all lift"
                     >
                       <div className="space-y-3.5">
                         {/* Header: Doctor info & Status Pill */}
-                        <div className="flex items-start justify-between gap-3 pb-3 border-b border-[#edf4ec]">
+                        <div className="flex items-start justify-between gap-3 pb-3 border-b border-[#f1f5f9]">
                           <div className="flex items-center gap-3">
-                            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#11382b] to-[#1d5240] text-[#d49b35] font-bold text-sm shadow-xs">
+                            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#0f2744] to-[#0f2744] text-[#d49b35] font-bold text-sm shadow-xs">
                               <Stethoscope className="h-5 w-5 text-[#d49b35]" />
                             </div>
                             <div>
-                              <p className="text-sm font-bold text-[#11382b] leading-tight">
+                              <p className="text-sm font-bold text-[#0f2744] leading-tight">
                                 {a.providerName}
                               </p>
-                              <p className="text-xs text-[#527060] font-medium mt-0.5">
+                              <p className="text-xs text-[#475569] font-medium mt-0.5">
                                 {a.departmentName}
                               </p>
                             </div>
@@ -1774,7 +1774,7 @@ export function PatientPortal({
                           <span
                             className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider ${
                               a.status === "confirmed"
-                                ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                                ? "bg-sky-100 text-sky-800 border border-sky-300"
                                 : a.status === "checked_in"
                                 ? "bg-blue-100 text-blue-800 border border-blue-300"
                                 : a.status === "in_consultation"
@@ -1797,31 +1797,31 @@ export function PatientPortal({
                         </div>
 
                         {/* Date & Time Accent Box */}
-                        <div className="rounded-2xl bg-[#f5f8f4] border border-[#e2ece0] p-3 flex items-center justify-between">
+                        <div className="rounded-2xl bg-[#f8fafc] border border-[#e2e8f0] p-3 flex items-center justify-between">
                           <div className="flex items-center gap-2.5">
-                            <div className="grid h-8 w-8 place-items-center rounded-xl bg-white text-[#11382b] border border-[#d6e3d5] shadow-2xs">
-                              <CalendarDays className="h-4 w-4 text-[#11382b]" />
+                            <div className="grid h-8 w-8 place-items-center rounded-xl bg-white text-[#0f2744] border border-[#e2e8f0] shadow-2xs">
+                              <CalendarDays className="h-4 w-4 text-[#0f2744]" />
                             </div>
                             <div>
-                              <span className="block text-xs font-bold text-[#11382b]">
+                              <span className="block text-xs font-bold text-[#0f2744]">
                                 {fmtTime(a.startAt)}
                               </span>
-                              <span className="text-[11px] text-[#557564]">
+                              <span className="text-[11px] text-[#475569]">
                                 {a.durationMin || 30} Minutes Consultation
                               </span>
                             </div>
                           </div>
-                          <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-lg">
+                          <span className="text-[11px] font-bold text-sky-800 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-lg">
                             Confirmed
                           </span>
                         </div>
 
                         {/* Reason Note */}
-                        <div className="text-xs text-[#355243] bg-white p-3 rounded-2xl border border-[#e7ede5] space-y-1">
-                          <span className="block text-[11px] font-bold text-[#11382b] uppercase tracking-wider">
+                        <div className="text-xs text-[#1e293b] bg-white p-3 rounded-2xl border border-[#e2e8f0] space-y-1">
+                          <span className="block text-[11px] font-bold text-[#0f2744] uppercase tracking-wider">
                             Chief Reason for Visit
                           </span>
-                          <p className="text-[#3c594b] font-medium leading-relaxed">
+                          <p className="text-[#1e293b] font-medium leading-relaxed">
                             {a.reason || "General Medical Consultation"}
                           </p>
                         </div>
@@ -1840,15 +1840,15 @@ export function PatientPortal({
                         {/* Progress Stepper for Active Visits */}
                         {isUpcoming && (
                           <div className="pt-2">
-                            <p className="text-[11px] font-bold text-[#628473] uppercase tracking-wider mb-2">
+                            <p className="text-[11px] font-bold text-[#475569] uppercase tracking-wider mb-2">
                               Visit Lifecycle Status
                             </p>
-                            <div className="flex items-center justify-between text-xs text-[#557564] bg-[#f8faf7] p-2.5 rounded-xl border border-[#e4ede2]">
+                            <div className="flex items-center justify-between text-xs text-[#475569] bg-[#f8fafc] p-2.5 rounded-xl border border-[#e2e8f0]">
                               <span
                                 className={`flex items-center gap-1 font-semibold ${
                                   a.status === "confirmed"
-                                    ? "text-emerald-700"
-                                    : "text-[#718f80]"
+                                    ? "text-sky-700"
+                                    : "text-[#475569]"
                                 }`}
                               >
                                 <CheckCircle2 className="h-3.5 w-3.5" /> 1. Booked
@@ -1858,7 +1858,7 @@ export function PatientPortal({
                                 className={`flex items-center gap-1 font-semibold ${
                                   a.status === "checked_in"
                                     ? "text-blue-700"
-                                    : "text-[#718f80]"
+                                    : "text-[#475569]"
                                 }`}
                               >
                                 <CheckCircle2 className="h-3.5 w-3.5" /> 2. Checked In
@@ -1868,7 +1868,7 @@ export function PatientPortal({
                                 className={`flex items-center gap-1 font-semibold ${
                                   a.status === "in_consultation"
                                     ? "text-purple-700"
-                                    : "text-[#718f80]"
+                                    : "text-[#475569]"
                                 }`}
                               >
                                 <CheckCircle2 className="h-3.5 w-3.5" /> 3. In Consult
@@ -1879,10 +1879,10 @@ export function PatientPortal({
                       </div>
 
                       {/* Card Action Footer */}
-                      <div className="mt-4 pt-3 border-t border-[#edf4ec] flex items-center justify-between text-xs">
+                      <div className="mt-4 pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs">
                         <button
                           onClick={() => downloadIcs(a)}
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#11382b] hover:text-[#1a4a3a] hover:underline cursor-pointer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0f2744] hover:text-[#0f2744] hover:underline cursor-pointer"
                         >
                           <CalendarPlus className="h-4 w-4 text-[#d49b35]" />
                           <span>Add to Calendar (.ics)</span>
@@ -1911,7 +1911,7 @@ export function PatientPortal({
         {activeTab === "records" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-5xl mx-auto w-full space-y-6 thin-scroll">
             {/* Patient Clinical Profile Snapshot */}
-            <div className="rounded-3xl border border-[#d6e3d5] bg-gradient-to-br from-[#0c241c] via-[#11382b] to-[#184838] p-6 text-white shadow-md relative overflow-hidden">
+            <div className="rounded-3xl border border-[#e2e8f0] bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] p-6 text-white shadow-md relative overflow-hidden">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#d49b35]">
@@ -1932,7 +1932,7 @@ export function PatientPortal({
                   <span className="rounded-full bg-amber-500/20 text-amber-200 px-3.5 py-1.5 font-semibold border border-amber-400/30">
                     ⚠️ Allergies: {profile?.allergies || "None reported"}
                   </span>
-                  <span className="rounded-full bg-emerald-500/20 text-emerald-200 px-3.5 py-1.5 font-semibold border border-emerald-400/30">
+                  <span className="rounded-full bg-sky-500/20 text-sky-200 px-3.5 py-1.5 font-semibold border border-sky-400/30">
                     📋 {records.length} Verified Visits
                   </span>
                 </div>
@@ -1941,14 +1941,14 @@ export function PatientPortal({
 
             {/* Records List */}
             {filteredRecords.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-[#cfe0cf] p-12 text-center bg-[#fbfdfa]">
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-[#11382b] mx-auto">
-                  <FileText className="h-7 w-7 text-[#11382b]" />
+              <div className="rounded-3xl border border-dashed border-[#e2e8f0] p-12 text-center bg-[#f8fafc]">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-sky-50 text-[#0f2744] mx-auto">
+                  <FileText className="h-7 w-7 text-[#0f2744]" />
                 </div>
-                <h3 className="mt-3 font-display text-lg font-bold text-[#11382b]">
+                <h3 className="mt-3 font-display text-lg font-bold text-[#0f2744]">
                   No clinical visit records found
                 </h3>
-                <p className="mt-1 text-xs text-[#527060] max-w-sm mx-auto">
+                <p className="mt-1 text-xs text-[#475569] max-w-sm mx-auto">
                   Official medical documentation appears here after a healthcare clinician completes your visit.
                 </p>
               </div>
@@ -1957,26 +1957,26 @@ export function PatientPortal({
                 {filteredRecords.map((r) => (
                   <article
                     key={r.id}
-                    className="rounded-3xl border border-[#dbe6da] bg-white p-6 shadow-2xs space-y-4.5 lift hover:border-[#11382b]/30 transition-all"
+                    className="rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-2xs space-y-4.5 lift hover:border-[#0f2744]/30 transition-all"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e9efe8]">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e2e8f0]">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
+                          <span className="rounded-full bg-sky-100 text-sky-800 border border-sky-300 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
                             Verified Consultation
                           </span>
-                          <span className="text-xs font-semibold text-[#557564]">
+                          <span className="text-xs font-semibold text-[#475569]">
                             {fmtDate(r.visitDate)}
                           </span>
                         </div>
-                        <h4 className="mt-1.5 font-display text-lg font-bold text-[#11382b]">
+                        <h4 className="mt-1.5 font-display text-lg font-bold text-[#0f2744]">
                           {r.providerName} · {r.specialty} ({r.roomNumber || "Suite 10"})
                         </h4>
                       </div>
 
                       <button
                         onClick={() => setViewingRecord(r)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-[#cedece] bg-[#f8faf6] px-4 py-2 text-xs font-semibold text-[#11382b] hover:bg-[#edf4ea] transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-xs font-semibold text-[#0f2744] hover:bg-[#f1f5f9] transition-colors cursor-pointer"
                       >
                         <Printer className="h-3.5 w-3.5 text-[#d49b35]" />
                         <span>Print Consultation Summary</span>
@@ -1985,78 +1985,78 @@ export function PatientPortal({
 
                     {/* Vitals Grid with Visual Icons */}
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 text-xs">
-                      <div className="rounded-2xl bg-[#f5f8f4] p-3.5 border border-[#e4ede3] space-y-1">
-                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#527060] flex items-center gap-1.5">
-                          <Activity className="h-3.5 w-3.5 text-emerald-600" /> Blood Pressure
+                      <div className="rounded-2xl bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#475569] flex items-center gap-1.5">
+                          <Activity className="h-3.5 w-3.5 text-sky-600" /> Blood Pressure
                         </span>
-                        <span className="font-bold text-[#11382b] text-base block">
+                        <span className="font-bold text-[#0f2744] text-base block">
                           {r.vitals.bloodPressure || "120/80 mmHg"}
                         </span>
-                        <span className="text-[10px] text-[#718f80]">Normal range</span>
+                        <span className="text-[10px] text-[#475569]">Normal range</span>
                       </div>
-                      <div className="rounded-2xl bg-[#f5f8f4] p-3.5 border border-[#e4ede3] space-y-1">
-                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#527060] flex items-center gap-1.5">
+                      <div className="rounded-2xl bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#475569] flex items-center gap-1.5">
                           <Heart className="h-3.5 w-3.5 text-rose-500" /> Heart Rate
                         </span>
-                        <span className="font-bold text-[#11382b] text-base block">
+                        <span className="font-bold text-[#0f2744] text-base block">
                           {r.vitals.heartRate || "72 bpm"}
                         </span>
-                        <span className="text-[10px] text-[#718f80]">Resting pulse</span>
+                        <span className="text-[10px] text-[#475569]">Resting pulse</span>
                       </div>
-                      <div className="rounded-2xl bg-[#f5f8f4] p-3.5 border border-[#e4ede3] space-y-1">
-                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#527060] flex items-center gap-1.5">
+                      <div className="rounded-2xl bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#475569] flex items-center gap-1.5">
                           <Clock className="h-3.5 w-3.5 text-amber-500" /> Temperature
                         </span>
-                        <span className="font-bold text-[#11382b] text-base block">
+                        <span className="font-bold text-[#0f2744] text-base block">
                           {r.vitals.temperature || "98.6 °F"}
                         </span>
-                        <span className="text-[10px] text-[#718f80]">Oral reading</span>
+                        <span className="text-[10px] text-[#475569]">Oral reading</span>
                       </div>
-                      <div className="rounded-2xl bg-[#f5f8f4] p-3.5 border border-[#e4ede3] space-y-1">
-                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#527060] flex items-center gap-1.5">
+                      <div className="rounded-2xl bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                        <span className="block text-[11px] font-bold uppercase tracking-wider text-[#475569] flex items-center gap-1.5">
                           <ShieldCheck className="h-3.5 w-3.5 text-sky-500" /> Oxygen Saturation
                         </span>
-                        <span className="font-bold text-[#11382b] text-base block">
+                        <span className="font-bold text-[#0f2744] text-base block">
                           {r.vitals.oxygenLevel || "99% SpO2"}
                         </span>
-                        <span className="text-[10px] text-[#718f80]">Pulse oximetry</span>
+                        <span className="text-[10px] text-[#475569]">Pulse oximetry</span>
                       </div>
                     </div>
 
                     {/* Doctor's Assessment & Diagnosis */}
-                    <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4.5 text-xs space-y-2">
-                      <p className="font-bold text-emerald-950 flex items-center gap-2 text-sm">
-                        <Stethoscope className="h-4.5 w-4.5 text-emerald-700" />
+                    <div className="rounded-2xl border border-sky-200 bg-sky-50/70 p-4.5 text-xs space-y-2">
+                      <p className="font-bold text-sky-950 flex items-center gap-2 text-sm">
+                        <Stethoscope className="h-4.5 w-4.5 text-sky-700" />
                         <span>Doctor&apos;s Verified Diagnosis: {r.diagnosis}</span>
                       </p>
-                      <p className="text-emerald-900/95 leading-relaxed">
-                        <strong className="text-emerald-950 font-semibold">Clinical Notes:</strong> {r.clinicalNotes}
+                      <p className="text-sky-900/95 leading-relaxed">
+                        <strong className="text-sky-950 font-semibold">Clinical Notes:</strong> {r.clinicalNotes}
                       </p>
-                      <p className="text-emerald-900/95 leading-relaxed">
-                        <strong className="text-emerald-950 font-semibold">Treatment Plan:</strong> {r.treatmentPlan}
+                      <p className="text-sky-900/95 leading-relaxed">
+                        <strong className="text-sky-950 font-semibold">Treatment Plan:</strong> {r.treatmentPlan}
                       </p>
                     </div>
 
                     {/* Prescriptions */}
                     {r.prescriptions && r.prescriptions.length > 0 && (
                       <div className="space-y-2.5 pt-1">
-                        <p className="text-xs font-bold text-[#11382b] uppercase tracking-wider flex items-center gap-1.5">
+                        <p className="text-xs font-bold text-[#0f2744] uppercase tracking-wider flex items-center gap-1.5">
                           <Pill className="h-4 w-4 text-[#d49b35]" /> Prescribed Medications &amp; Pharmacy Orders
                         </p>
                         <div className="grid gap-2 sm:grid-cols-2">
                           {r.prescriptions.map((px, idx) => (
                             <div
                               key={idx}
-                              className="rounded-2xl border border-[#d6e3d5] bg-[#f8faf6] p-3 text-xs text-[#2b4c3c] shadow-2xs space-y-0.5"
+                              className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3 text-xs text-[#1e293b] shadow-2xs space-y-0.5"
                             >
                               <div className="flex items-center justify-between">
-                                <span className="font-bold text-[#11382b] text-sm">{px.medication}</span>
-                                <span className="rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-bold">
+                                <span className="font-bold text-[#0f2744] text-sm">{px.medication}</span>
+                                <span className="rounded-full bg-sky-100 text-sky-800 px-2 py-0.5 text-[10px] font-bold">
                                   {px.dosage}
                                 </span>
                               </div>
                               {px.instructions && (
-                                <p className="text-[11px] text-[#557564] pt-0.5">
+                                <p className="text-[11px] text-[#475569] pt-0.5">
                                   Instructions: {px.instructions}
                                 </p>
                               )}
@@ -2080,18 +2080,18 @@ export function PatientPortal({
             {/* Visual Analytics & Expense Distribution Graph */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {/* Main Visual Settlement Bar Graph */}
-              <div className="lg:col-span-2 rounded-3xl border border-[#d6e3d5] bg-white p-6 shadow-sm space-y-5">
-                <div className="flex items-center justify-between pb-2 border-b border-[#edf4ec]">
+              <div className="lg:col-span-2 rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-sm space-y-5">
+                <div className="flex items-center justify-between pb-2 border-b border-[#f1f5f9]">
                   <div>
-                    <h3 className="font-display text-base font-bold text-[#11382b] flex items-center gap-2">
-                      <TrendingUp className="h-4 w-4 text-emerald-600" />
+                    <h3 className="font-display text-base font-bold text-[#0f2744] flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-sky-600" />
                       Financial Health &amp; Settlement Overview
                     </h3>
-                    <p className="text-xs text-[#527060] mt-0.5">
+                    <p className="text-xs text-[#475569] mt-0.5">
                       Account ledger distribution and balance clearance ratio
                     </p>
                   </div>
-                  <span className="rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 text-xs font-bold">
+                  <span className="rounded-full bg-sky-50 text-sky-800 border border-sky-200 px-3 py-1 text-xs font-bold">
                     {invoicesList.length} Total Statements
                   </span>
                 </div>
@@ -2099,18 +2099,18 @@ export function PatientPortal({
                 {/* Progress Distribution Bar */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-[#11382b]">
+                    <span className="font-bold text-[#0f2744]">
                       Total Billed: ${(paidTotal + pendingTotal)}.00
                     </span>
-                    <span className="font-semibold text-emerald-700">
+                    <span className="font-semibold text-sky-700">
                       {paidTotal + pendingTotal > 0 ? Math.round((paidTotal / (paidTotal + pendingTotal)) * 100) : 100}% Cleared
                     </span>
                   </div>
                   {/* Visual Stacked Progress Bar */}
-                  <div className="h-4 w-full rounded-full bg-[#f0f4ee] overflow-hidden flex p-0.5 border border-[#d8e4d6]">
+                  <div className="h-4 w-full rounded-full bg-[#f8fafc] overflow-hidden flex p-0.5 border border-[#e2e8f0]">
                     <div
                       style={{ width: `${paidTotal + pendingTotal > 0 ? Math.max(5, Math.round((paidTotal / (paidTotal + pendingTotal)) * 100)) : 100}%` }}
-                      className="h-full rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 transition-all duration-500"
+                      className="h-full rounded-full bg-gradient-to-r from-sky-600 to-sky-500 transition-all duration-500"
                       title={`Paid: $${paidTotal}.00`}
                     />
                     {pendingTotal > 0 && (
@@ -2122,8 +2122,8 @@ export function PatientPortal({
                     )}
                   </div>
                   <div className="flex items-center gap-4 text-xs pt-1">
-                    <span className="flex items-center gap-1.5 text-emerald-800 font-medium">
-                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" />
+                    <span className="flex items-center gap-1.5 text-sky-800 font-medium">
+                      <span className="h-2.5 w-2.5 rounded-full bg-sky-600" />
                       Paid &amp; Settled: ${paidTotal}.00
                     </span>
                     <span className="flex items-center gap-1.5 text-amber-800 font-medium">
@@ -2134,35 +2134,35 @@ export function PatientPortal({
                 </div>
 
                 {/* Service Category Breakdown Horizontal Bars */}
-                <div className="pt-2 border-t border-[#edf4ec] space-y-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#405e50] block">
+                <div className="pt-2 border-t border-[#f1f5f9] space-y-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#1e293b] block">
                     Expense Allocation by Clinical Service
                   </span>
                   <div className="space-y-2">
                     <div>
-                      <div className="flex justify-between text-xs text-[#2b4c3c] font-semibold mb-1">
+                      <div className="flex justify-between text-xs text-[#1e293b] font-semibold mb-1">
                         <span>Physician Consultations &amp; Exams</span>
                         <span>60% · ${(paidTotal + pendingTotal > 0 ? Math.round((paidTotal + pendingTotal) * 0.6) : 180)}.00</span>
                       </div>
-                      <div className="h-2 rounded-full bg-[#edf3ea] overflow-hidden">
-                        <div className="h-full bg-[#11382b] rounded-full w-[60%]" />
+                      <div className="h-2 rounded-full bg-[#f1f5f9] overflow-hidden">
+                        <div className="h-full bg-[#0f2744] rounded-full w-[60%]" />
                       </div>
                     </div>
                     <div>
-                      <div className="flex justify-between text-xs text-[#2b4c3c] font-semibold mb-1">
+                      <div className="flex justify-between text-xs text-[#1e293b] font-semibold mb-1">
                         <span>Diagnostic Laboratory &amp; Triage</span>
                         <span>25% · ${(paidTotal + pendingTotal > 0 ? Math.round((paidTotal + pendingTotal) * 0.25) : 75)}.00</span>
                       </div>
-                      <div className="h-2 rounded-full bg-[#edf3ea] overflow-hidden">
-                        <div className="h-full bg-teal-600 rounded-full w-[25%]" />
+                      <div className="h-2 rounded-full bg-[#f1f5f9] overflow-hidden">
+                        <div className="h-full bg-sky-600 rounded-full w-[25%]" />
                       </div>
                     </div>
                     <div>
-                      <div className="flex justify-between text-xs text-[#2b4c3c] font-semibold mb-1">
+                      <div className="flex justify-between text-xs text-[#1e293b] font-semibold mb-1">
                         <span>Pharmacy &amp; Prescriptions</span>
                         <span>15% · ${(paidTotal + pendingTotal > 0 ? Math.round((paidTotal + pendingTotal) * 0.15) : 45)}.00</span>
                       </div>
-                      <div className="h-2 rounded-full bg-[#edf3ea] overflow-hidden">
+                      <div className="h-2 rounded-full bg-[#f1f5f9] overflow-hidden">
                         <div className="h-full bg-[#d49b35] rounded-full w-[15%]" />
                       </div>
                     </div>
@@ -2191,27 +2191,27 @@ export function PatientPortal({
                         const firstPending = invoicesList.find((i) => i.status === "pending");
                         if (firstPending) setPayingInvoice(firstPending);
                       }}
-                      className="mt-4 w-full rounded-2xl bg-[#11382b] py-2.5 text-xs font-bold text-white hover:bg-[#1a4a3a] shadow-xs transition-colors cursor-pointer text-center"
+                      className="mt-4 w-full rounded-2xl bg-[#0f2744] py-2.5 text-xs font-bold text-white hover:bg-[#0f2744] shadow-xs transition-colors cursor-pointer text-center"
                     >
                       Settle Pending Invoices
                     </button>
                   )}
                 </div>
 
-                <div className="rounded-3xl border border-[#d6e3d5] bg-gradient-to-br from-[#ffffff] to-[#f5f8f4] p-5 shadow-sm flex-1 flex flex-col justify-between">
+                <div className="rounded-3xl border border-[#e2e8f0] bg-gradient-to-br from-[#ffffff] to-[#f8fafc] p-5 shadow-sm flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#4a6b5a] flex items-center gap-1.5">
-                      <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#1e293b] flex items-center gap-1.5">
+                      <ShieldCheck className="h-4 w-4 text-sky-600" />
                       Insurance Coverage
                     </span>
-                    <p className="mt-2 text-lg font-bold text-[#11382b]">
+                    <p className="mt-2 text-lg font-bold text-[#0f2744]">
                       {profile?.insuranceProvider || "Blue Cross Shield"}
                     </p>
-                    <p className="text-xs text-[#527060] mt-0.5">
+                    <p className="text-xs text-[#475569] mt-0.5">
                       Policy #{profile?.insurancePolicyNumber || "BSP-8819"} · Copay Verified
                     </p>
                   </div>
-                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full w-fit">
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-full w-fit">
                     <CheckCircle2 className="h-3.5 w-3.5" /> 100% In-Network Clinic
                   </span>
                 </div>
@@ -2219,7 +2219,7 @@ export function PatientPortal({
             </div>
 
             {/* Filter pills */}
-            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#e7ede5]">
+            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#e2e8f0]">
               {[
                 { id: "all", label: "All Invoices" },
                 { id: "pending", label: "Due / Pending" },
@@ -2231,8 +2231,8 @@ export function PatientPortal({
                   onClick={() => setBillingStatusFilter(st.id)}
                   className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
                     billingStatusFilter === st.id
-                      ? "bg-[#11382b] text-white shadow-2xs"
-                      : "bg-[#f2f7f0] text-[#345142] hover:bg-[#e4ede2]"
+                      ? "bg-[#0f2744] text-white shadow-2xs"
+                      : "bg-[#f8fafc] text-[#1e293b] hover:bg-[#e2e8f0]"
                   }`}
                 >
                   {st.label}
@@ -2242,14 +2242,14 @@ export function PatientPortal({
 
             {/* Invoices List */}
             {filteredInvoices.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-[#cfe0cf] p-12 text-center bg-[#fbfdfa]">
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-[#11382b] mx-auto">
-                  <CreditCard className="h-7 w-7 text-[#11382b]" />
+              <div className="rounded-3xl border border-dashed border-[#e2e8f0] p-12 text-center bg-[#f8fafc]">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-sky-50 text-[#0f2744] mx-auto">
+                  <CreditCard className="h-7 w-7 text-[#0f2744]" />
                 </div>
-                <h3 className="mt-3 font-display text-lg font-bold text-[#11382b]">
+                <h3 className="mt-3 font-display text-lg font-bold text-[#0f2744]">
                   No invoices found
                 </h3>
-                <p className="mt-1 text-xs text-[#527060] max-w-sm mx-auto">
+                <p className="mt-1 text-xs text-[#475569] max-w-sm mx-auto">
                   No bills matching your current filter. Completed doctor visits and pharmacy items generate itemized statements automatically.
                 </p>
               </div>
@@ -2258,25 +2258,25 @@ export function PatientPortal({
                 {filteredInvoices.map((inv) => (
                   <div
                     key={inv.id}
-                    className="rounded-3xl border border-[#dbe6da] bg-white p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 lift hover:border-[#11382b]/30 transition-all"
+                    className="rounded-3xl border border-[#e2e8f0] bg-white p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 lift hover:border-[#0f2744]/30 transition-all"
                   >
                     <div className="space-y-2.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="grid h-8 w-8 place-items-center rounded-xl bg-[#f5f8f4] text-[#11382b] border border-[#d6e3d5]">
-                          <CreditCard className="h-4 w-4 text-[#11382b]" />
+                        <div className="grid h-8 w-8 place-items-center rounded-xl bg-[#f8fafc] text-[#0f2744] border border-[#e2e8f0]">
+                          <CreditCard className="h-4 w-4 text-[#0f2744]" />
                         </div>
                         <div>
-                          <span className="font-bold text-[#11382b] text-sm block">
+                          <span className="font-bold text-[#0f2744] text-sm block">
                             {inv.invoiceNumber}
                           </span>
-                          <span className="text-[11px] text-[#718f80]">
+                          <span className="text-[11px] text-[#475569]">
                             Issued {fmtDate(inv.createdAt)} {inv.paidAt && `· Paid ${fmtDate(inv.paidAt)}`}
                           </span>
                         </div>
                         <span
                           className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider ml-2 ${
                             inv.status === "paid"
-                              ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                              ? "bg-sky-100 text-sky-800 border border-sky-300"
                               : inv.status === "pending"
                               ? "bg-amber-100 text-amber-800 border border-amber-300"
                               : "bg-blue-100 text-blue-800 border border-blue-300"
@@ -2288,22 +2288,22 @@ export function PatientPortal({
 
                       <div className="space-y-1.5 pl-1">
                         {inv.items.map((item, idx) => (
-                          <p key={idx} className="text-xs text-[#405e50] flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 shrink-0" />
+                          <p key={idx} className="text-xs text-[#1e293b] flex items-center gap-2">
+                            <span className="h-1.5 w-1.5 rounded-full bg-sky-600 shrink-0" />
                             <span>{item.description}</span>
-                            <span className="text-[#a2b5aa]">—</span>
-                            <span className="font-semibold text-[#11382b]">${item.amount}.00</span>
+                            <span className="text-[#64748b]">—</span>
+                            <span className="font-semibold text-[#0f2744]">${item.amount}.00</span>
                           </p>
                         ))}
                       </div>
                     </div>
 
-                    <div className="text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-[#edf4ec]">
+                    <div className="text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-[#f1f5f9]">
                       <div>
-                        <span className="text-[11px] text-[#718f80] uppercase tracking-wider block">
+                        <span className="text-[11px] text-[#475569] uppercase tracking-wider block">
                           Total Statement
                         </span>
-                        <span className="text-2xl font-bold text-[#11382b] font-display">
+                        <span className="text-2xl font-bold text-[#0f2744] font-display">
                           ${inv.totalAmount}.00
                         </span>
                       </div>
@@ -2311,13 +2311,13 @@ export function PatientPortal({
                       {inv.status === "pending" ? (
                         <button
                           onClick={() => setPayingInvoice(inv)}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-[#11382b] px-5 py-2 text-xs font-semibold text-white hover:bg-[#1a4a3a] shadow-xs active:scale-95 transition-transform cursor-pointer"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-[#0f2744] px-5 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] shadow-xs active:scale-95 transition-transform cursor-pointer"
                         >
                           <CreditCard className="h-3.5 w-3.5 text-[#d49b35]" />
                           <span>Pay Now</span>
                         </button>
                       ) : (
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-full">
                           <CheckCircle2 className="h-4 w-4" /> Paid &amp; Settled
                         </span>
                       )}
@@ -2335,7 +2335,7 @@ export function PatientPortal({
         {activeTab === "profile" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full space-y-8 thin-scroll">
             {/* INTERACTIVE DIGITAL HEALTH PASS (High Visibility Apple Wallet / Clinic Pass) */}
-            <div id="patient-digital-health-pass" className="w-full max-w-2xl mx-auto rounded-[28px] p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#07241a] via-[#0e3a2b] to-[#174e3b] border-2 border-[#d49b35]/40">
+            <div id="patient-digital-health-pass" className="w-full max-w-2xl mx-auto rounded-[28px] p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#0b192c] via-[#0f2744] to-[#0f2744] border-2 border-[#d49b35]/40">
               {/* Botanical Accent Watermark */}
               <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
                 <BotanicalCorner className="h-36 w-36" />
@@ -2365,11 +2365,11 @@ export function PatientPortal({
                 </div>
 
                 {/* Redesigned Premium Verified Patient Badge */}
-                <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500/25 via-emerald-400/20 to-teal-500/25 border border-emerald-400/60 px-3.5 py-1.5 text-xs font-bold text-white shadow-[0_2px_12px_rgba(16,185,129,0.3)] backdrop-blur-md shrink-0 whitespace-nowrap">
-                  <div className="grid h-4 w-4 place-items-center rounded-full bg-emerald-400/30 text-emerald-200">
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
+                <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500/25 via-sky-400/20 to-sky-500/25 border border-sky-400/60 px-3.5 py-1.5 text-xs font-bold text-white shadow-[0_2px_12px_rgba(16,185,129,0.3)] backdrop-blur-md shrink-0 whitespace-nowrap">
+                  <div className="grid h-4 w-4 place-items-center rounded-full bg-sky-400/30 text-sky-200">
+                    <ShieldCheck className="h-3.5 w-3.5 text-sky-300" />
                   </div>
-                  <span className="tracking-wide font-bold text-emerald-100">
+                  <span className="tracking-wide font-bold text-sky-100">
                     Verified Patient
                   </span>
                 </div>
@@ -2378,7 +2378,7 @@ export function PatientPortal({
               {/* Card Body */}
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-emerald-200/90 block font-bold">
+                  <span className="text-xs uppercase tracking-wider text-sky-200/90 block font-bold">
                     Patient Full Name
                   </span>
                   <p className="text-2xl font-bold tracking-tight text-white mt-1">
@@ -2387,7 +2387,7 @@ export function PatientPortal({
                 </div>
 
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-emerald-200/90 block font-bold">
+                  <span className="text-xs uppercase tracking-wider text-sky-200/90 block font-bold">
                     Clinic Member ID
                   </span>
                   <div className="flex items-center gap-2 mt-1">
@@ -2399,13 +2399,13 @@ export function PatientPortal({
                       className="p-1.5 rounded-lg hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-pointer"
                       title="Copy Member ID"
                     >
-                      {copiedId ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                      {copiedId ? <Check className="h-4 w-4 text-sky-400" /> : <Copy className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-emerald-200/90 block font-bold">
+                  <span className="text-xs uppercase tracking-wider text-sky-200/90 block font-bold">
                     Blood Group
                   </span>
                   <div className="mt-1.5">
@@ -2416,7 +2416,7 @@ export function PatientPortal({
                 </div>
 
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-emerald-200/90 block font-bold">
+                  <span className="text-xs uppercase tracking-wider text-sky-200/90 block font-bold">
                     Documented Allergies
                   </span>
                   <div className="mt-1.5">
@@ -2431,12 +2431,12 @@ export function PatientPortal({
               <div className="mt-7 pt-5 border-t border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="text-sm text-white/90 space-y-1">
                   <p className="flex items-center gap-1.5">
-                    <span className="font-bold text-emerald-200">Insurance:</span>
+                    <span className="font-bold text-sky-200">Insurance:</span>
                     <span>{profile?.insuranceProvider || "Blue Shield Platinum"}</span>
                     <span className="text-white/60">({profile?.insurancePolicyNumber || "BSP-8819"})</span>
                   </p>
                   <p className="flex items-center gap-1.5">
-                    <span className="font-bold text-emerald-200">Emergency:</span>
+                    <span className="font-bold text-sky-200">Emergency:</span>
                     <span>{profile?.emergencyContactName || "Jordan Chen"}</span>
                     <span className="text-white/60">({profile?.emergencyContactPhone || "+1 555-0199"})</span>
                   </p>
@@ -2444,11 +2444,11 @@ export function PatientPortal({
 
                 <div className="flex items-center gap-3">
                   <div className="text-right hidden sm:block">
-                    <span className="text-[11px] uppercase tracking-wider text-emerald-300 block font-bold">Scan at Desk</span>
+                    <span className="text-[11px] uppercase tracking-wider text-sky-300 block font-bold">Scan at Desk</span>
                     <span className="text-xs text-white/70">Fast Check-In</span>
                   </div>
                   <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white p-1.5 shadow-md">
-                    <QrCode className="h-11 w-11 text-[#11382b]" />
+                    <QrCode className="h-11 w-11 text-[#0f2744]" />
                   </div>
                 </div>
               </div>
@@ -2457,51 +2457,51 @@ export function PatientPortal({
             {/* Action Bar for Card */}
             <div className="w-full max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-3 px-1">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-800 border border-sky-200">
+                  <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
                   Official Health Card · Active
                 </span>
-                <span className="text-xs text-[#527060] hidden sm:inline">
-                  Member ID: <span className="font-mono font-bold text-[#11382b]">{profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC"}</span>
+                <span className="text-xs text-[#475569] hidden sm:inline">
+                  Member ID: <span className="font-mono font-bold text-[#0f2744]">{profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC"}</span>
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => copyMemberId(profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC")}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#e2e8f0] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#0f2744] hover:bg-[#f8fafc] transition-colors cursor-pointer shadow-2xs"
                 >
-                  {copiedId ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-[#527060]" />}
+                  {copiedId ? <Check className="h-3.5 w-3.5 text-sky-600" /> : <Copy className="h-3.5 w-3.5 text-[#475569]" />}
                   <span>{copiedId ? "ID Copied" : "Copy Member ID"}</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => printCard("patient-digital-health-pass")}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#c8d8c6] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#f6faf6] transition-colors cursor-pointer shadow-2xs"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#e2e8f0] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#0f2744] hover:bg-[#f8fafc] transition-colors cursor-pointer shadow-2xs"
                 >
-                  <Printer className="h-3.5 w-3.5 text-[#527060]" />
+                  <Printer className="h-3.5 w-3.5 text-[#475569]" />
                   <span>Print Card</span>
                 </button>
               </div>
             </div>
 
             {/* Read-Only Patient Medical Profile Record */}
-            <div className="w-full max-w-2xl mx-auto rounded-3xl border border-[#d6e3d5] bg-white p-6 sm:p-7 shadow-xs space-y-6">
+            <div className="w-full max-w-2xl mx-auto rounded-3xl border border-[#e2e8f0] bg-white p-6 sm:p-7 shadow-xs space-y-6">
               {/* Header Banner explaining reception-managed profile */}
-              <div className="rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50/80 to-[#f3f8f2] p-4 flex items-start gap-3.5">
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <div className="rounded-2xl border border-sky-200 bg-gradient-to-r from-sky-50/80 to-[#f8fafc] p-4 flex items-start gap-3.5">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-sky-100 text-sky-800 border border-sky-300">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-bold text-[#11382b]">
+                    <h4 className="text-sm font-bold text-[#0f2744]">
                       Verified Patient Health Record · Read-Only Mode
                     </h4>
-                    <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-emerald-800 border border-emerald-200">
+                    <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-sky-800 border border-sky-200">
                       View Only
                     </span>
                   </div>
-                  <p className="text-xs text-[#3b5949] mt-1 leading-relaxed">
+                  <p className="text-xs text-[#1e293b] mt-1 leading-relaxed">
                     For patient safety and medical record compliance, your Digital Health Card and clinical EHR details are verified and managed exclusively by clinic reception. Patients cannot edit their card. To request changes to your phone number, address, blood group, allergies, or insurance, please speak with the clinic reception desk.
                   </p>
                 </div>
@@ -2511,52 +2511,52 @@ export function PatientPortal({
               <div className="space-y-6">
                 {/* 1. Demographics & Identification */}
                 <div>
-                  <h4 className="text-xs font-bold text-[#11382b] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <User className="h-4 w-4 text-[#0e615c]" />
+                  <h4 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <User className="h-4 w-4 text-[#0284c7]" />
                     <span>Personal Identity &amp; Contact</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Full Legal Name
                       </span>
-                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                      <p className="text-sm font-semibold text-[#0f2744] mt-0.5">
                         {profile?.name || currentUser?.name || "Maya Chen"}
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Clinic Member ID
                       </span>
-                      <p className="font-mono text-sm font-bold text-[#0e615c] mt-0.5">
+                      <p className="font-mono text-sm font-bold text-[#0284c7] mt-0.5">
                         {profile?.id ? `AF-${profile.id.slice(0, 8).toUpperCase()}` : "AF-99281-MC"}
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Date of Birth &amp; Gender
                       </span>
-                      <p className="text-sm font-semibold text-[#11382b] mt-0.5 capitalize">
+                      <p className="text-sm font-semibold text-[#0f2744] mt-0.5 capitalize">
                         {profile?.dateOfBirth || "Nov 14, 1993"} • {profile?.gender || "Female"}
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Registered Phone
                       </span>
-                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                      <p className="text-sm font-semibold text-[#0f2744] mt-0.5">
                         {profile?.phone || "+1 (555) 234-8901"}
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5 sm:col-span-2">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 sm:col-span-2">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Residential Address
                       </span>
-                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                      <p className="text-sm font-semibold text-[#0f2744] mt-0.5">
                         {profile?.address || "452 Medical Center Blvd, Suite 300"}
                       </p>
                     </div>
@@ -2565,13 +2565,13 @@ export function PatientPortal({
 
                 {/* 2. Clinical Indicators & Safety */}
                 <div>
-                  <h4 className="text-xs font-bold text-[#11382b] uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <h4 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-3 flex items-center gap-2">
                     <Heart className="h-4 w-4 text-[#d49b35]" />
                     <span>Clinical Profile &amp; Emergency Alerts</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block mb-1">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block mb-1">
                         Blood Group
                       </span>
                       <span className="inline-flex items-center gap-1.5 rounded-xl bg-rose-50 border border-rose-200 px-3 py-1 text-xs font-bold text-rose-800">
@@ -2579,8 +2579,8 @@ export function PatientPortal({
                       </span>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block mb-1">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block mb-1">
                         Documented Allergies
                       </span>
                       <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-bold text-amber-800">
@@ -2588,13 +2588,13 @@ export function PatientPortal({
                       </span>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5 sm:col-span-2">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 sm:col-span-2">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Emergency Contact
                       </span>
-                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                      <p className="text-sm font-semibold text-[#0f2744] mt-0.5">
                         {profile?.emergencyContactName || "Jordan Chen"}{" "}
-                        <span className="text-[#527060] font-normal">
+                        <span className="text-[#475569] font-normal">
                           ({profile?.emergencyContactPhone || "+1 (555) 0199"})
                         </span>
                       </p>
@@ -2604,34 +2604,34 @@ export function PatientPortal({
 
                 {/* 3. Insurance & Medical History */}
                 <div>
-                  <h4 className="text-xs font-bold text-[#11382b] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-[#0e615c]" />
+                  <h4 className="text-xs font-bold text-[#0f2744] uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#0284c7]" />
                     <span>Insurance &amp; Medical History</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Insurance Provider
                       </span>
-                      <p className="text-sm font-semibold text-[#11382b] mt-0.5">
+                      <p className="text-sm font-semibold text-[#0f2744] mt-0.5">
                         {profile?.insuranceProvider || "Blue Shield Platinum"}
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Policy / Member Number
                       </span>
-                      <p className="font-mono text-sm font-semibold text-[#11382b] mt-0.5">
+                      <p className="font-mono text-sm font-semibold text-[#0f2744] mt-0.5">
                         {profile?.insurancePolicyNumber || "BSP-8819"}
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-[#e4ede3] bg-[#f9faf7] p-3.5 sm:col-span-2">
-                      <span className="text-[11px] uppercase tracking-wider text-[#527060] font-bold block">
+                    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 sm:col-span-2">
+                      <span className="text-[11px] uppercase tracking-wider text-[#475569] font-bold block">
                         Past Medical History &amp; Chronic Conditions
                       </span>
-                      <p className="text-sm text-[#11382b] mt-1 leading-relaxed">
+                      <p className="text-sm text-[#0f2744] mt-1 leading-relaxed">
                         {profile?.medicalHistory || "Mild seasonal allergies, routine annual vaccinations up to date."}
                       </p>
                     </div>
@@ -2639,9 +2639,9 @@ export function PatientPortal({
                 </div>
 
                 {/* Footer notes */}
-                <div className="pt-2 border-t border-[#e7ede5] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#527060]">
+                <div className="pt-2 border-t border-[#e2e8f0] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#475569]">
                   <span className="flex items-center gap-1.5">
-                    <Lock className="h-3.5 w-3.5 text-emerald-700" />
+                    <Lock className="h-3.5 w-3.5 text-sky-700" />
                     <span>Managed by Reception Desk · Verified EHR</span>
                   </span>
                   <span>
@@ -2659,13 +2659,13 @@ export function PatientPortal({
         {activeTab === "clinic" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-5xl mx-auto w-full space-y-6 thin-scroll">
             {/* Specialty filter pills */}
-            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#e7ede5]">
+            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#e2e8f0]">
               <button
                 onClick={() => setDoctorSpecialtyFilter("all")}
                 className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                   doctorSpecialtyFilter === "all"
-                    ? "bg-[#11382b] text-white shadow-2xs"
-                    : "bg-[#f2f7f0] text-[#345142] hover:bg-[#e4ede2]"
+                    ? "bg-[#0f2744] text-white shadow-2xs"
+                    : "bg-[#f8fafc] text-[#1e293b] hover:bg-[#e2e8f0]"
                 }`}
               >
                 All Doctors ({providersList.length})
@@ -2676,8 +2676,8 @@ export function PatientPortal({
                   onClick={() => setDoctorSpecialtyFilter(spec)}
                   className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                     doctorSpecialtyFilter === spec
-                      ? "bg-[#11382b] text-white shadow-2xs"
-                      : "bg-[#f2f7f0] text-[#345142] hover:bg-[#e4ede2]"
+                      ? "bg-[#0f2744] text-white shadow-2xs"
+                      : "bg-[#f8fafc] text-[#1e293b] hover:bg-[#e2e8f0]"
                   }`}
                 >
                   {spec}
@@ -2690,53 +2690,53 @@ export function PatientPortal({
               {filteredDoctors.map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-3xl border border-[#dbe6da] bg-[#ffffff] p-6 shadow-2xs flex flex-col justify-between lift"
+                  className="rounded-3xl border border-[#e2e8f0] bg-[#ffffff] p-6 shadow-2xs flex flex-col justify-between lift"
                 >
                   <div>
                     {/* Doctor Header */}
                     <div className="flex items-start gap-4">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#11382b] to-[#255f4c] text-white font-bold text-sm shadow-xs">
+                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#0f2744] to-[#1e293b] text-white font-bold text-sm shadow-xs">
                         {p.name.split(" ").map((n) => n[0]).join("")}
                       </div>
 
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between">
-                          <h4 className="font-display text-base font-bold text-[#11382b] truncate">
+                          <h4 className="font-display text-base font-bold text-[#0f2744] truncate">
                             {p.name}
                           </h4>
-                          <span className="rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-[11px] font-bold">
+                          <span className="rounded-full bg-sky-100 text-sky-800 px-2.5 py-0.5 text-[11px] font-bold">
                             {p.roomNumber || "Suite 10"}
                           </span>
                         </div>
-                        <p className="text-xs font-semibold text-[#527060]">
+                        <p className="text-xs font-semibold text-[#475569]">
                           {p.title || "Attending Physician"} · {p.specialty}
                         </p>
                       </div>
                     </div>
 
                     {/* Bio */}
-                    <p className="mt-4 text-xs text-[#3a5647] leading-relaxed line-clamp-3">
+                    <p className="mt-4 text-xs text-[#1e293b] leading-relaxed line-clamp-3">
                       {p.bio || "Specialized in evidence-based clinical diagnostics, preventative medicine, and comprehensive primary care."}
                     </p>
 
                     {/* Meta stats */}
                     <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                      <div className="rounded-xl bg-[#f8faf6] p-2.5 border border-[#e5efe3]">
-                        <span className="block text-[11px] font-bold uppercase text-[#557564]">Fee</span>
-                        <span className="font-bold text-[#11382b] text-sm">${p.consultationFee || 120}.00</span>
+                      <div className="rounded-xl bg-[#f8fafc] p-2.5 border border-[#e2e8f0]">
+                        <span className="block text-[11px] font-bold uppercase text-[#475569]">Fee</span>
+                        <span className="font-bold text-[#0f2744] text-sm">${p.consultationFee || 120}.00</span>
                       </div>
-                      <div className="rounded-xl bg-[#f8faf6] p-2.5 border border-[#e5efe3]">
-                        <span className="block text-[11px] font-bold uppercase text-[#557564]">Hours</span>
-                        <span className="font-bold text-[#11382b] truncate block text-xs">{p.workingHours || "Mon-Fri 8am-4pm"}</span>
+                      <div className="rounded-xl bg-[#f8fafc] p-2.5 border border-[#e2e8f0]">
+                        <span className="block text-[11px] font-bold uppercase text-[#475569]">Hours</span>
+                        <span className="font-bold text-[#0f2744] truncate block text-xs">{p.workingHours || "Mon-Fri 8am-4pm"}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Booking CTA */}
-                  <div className="mt-5 pt-3 border-t border-[#edf4ec]">
+                  <div className="mt-5 pt-3 border-t border-[#f1f5f9]">
                     <button
                       onClick={() => startBookingWithDoctor(p)}
-                      className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#11382b] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#1a4a3a] transition-transform active:scale-95 shadow-xs cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#0f2744] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#0f2744] transition-transform active:scale-95 shadow-xs cursor-pointer"
                     >
                       <CalendarPlus className="h-3.5 w-3.5 text-[#d49b35]" />
                       <span>Book Consultation with {p.name.split(" ")[1] || p.name}</span>
@@ -2753,9 +2753,9 @@ export function PatientPortal({
         {/* ------------------------------------------------------------------- */}
         {activeTab === "notifications" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full space-y-6 thin-scroll">
-            <div className="flex items-center justify-between pb-3 border-b border-[#e7ede5]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#e2e8f0]">
               <div className="flex items-center gap-2.5">
-                <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1 text-xs font-bold">
+                <span className="rounded-full bg-sky-100 text-sky-800 border border-sky-300 px-3 py-1 text-xs font-bold">
                   {notificationsList.length} Total Alerts
                 </span>
                 {unreadNotifications > 0 && (
@@ -2771,20 +2771,20 @@ export function PatientPortal({
                   disabled={unreadNotifications === 0}
                   className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
                     unreadNotifications === 0
-                      ? "border-[#e0ebe0] bg-[#f8faf6] text-[#8ea496] cursor-not-allowed opacity-70"
-                      : "border-[#cedece] bg-[#f8faf6] text-[#11382b] hover:bg-[#edf4ea]"
+                      ? "border-[#e2e8f0] bg-[#f8fafc] text-[#64748b] cursor-not-allowed opacity-70"
+                      : "border-[#e2e8f0] bg-[#f8fafc] text-[#0f2744] hover:bg-[#f1f5f9]"
                   }`}
                 >
-                  <CheckCheck className="h-3.5 w-3.5 text-emerald-600" />
+                  <CheckCheck className="h-3.5 w-3.5 text-sky-600" />
                   Mark all as read
                 </button>
               )}
             </div>
 
             {notificationsList.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-[#cfe0cf] p-12 text-center text-xs text-[#527060]">
-                <Bell className="mx-auto h-10 w-10 text-[#8ba898]" />
-                <p className="mt-3 font-semibold text-[#11382b]">No notifications right now</p>
+              <div className="rounded-3xl border border-dashed border-[#e2e8f0] p-12 text-center text-xs text-[#475569]">
+                <Bell className="mx-auto h-10 w-10 text-[#64748b]" />
+                <p className="mt-3 font-semibold text-[#0f2744]">No notifications right now</p>
                 <p className="mt-1">You will receive automated updates when appointments are booked or updated.</p>
               </div>
             ) : (
@@ -2793,25 +2793,25 @@ export function PatientPortal({
                   <div
                     key={n.id}
                     className={`rounded-2xl border p-4 text-xs transition-colors flex items-start gap-3.5 ${
-                      n.read ? "border-[#e5eee3] bg-[#ffffff]" : "border-[#b8ccb6] bg-[#f4f8f2] shadow-2xs"
+                      n.read ? "border-[#e2e8f0] bg-[#ffffff]" : "border-[#e2e8f0] bg-[#f8fafc] shadow-2xs"
                     }`}
                   >
-                    <div className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white text-[#11382b] border border-[#d6e3d5] mt-0.5">
+                    <div className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white text-[#0f2744] border border-[#e2e8f0] mt-0.5">
                       <Bell className="h-4 w-4 text-[#d49b35]" />
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-[#11382b] flex items-center gap-1.5 text-sm">
+                        <span className="font-bold text-[#0f2744] flex items-center gap-1.5 text-sm">
                           {!n.read && <span className="h-2 w-2 rounded-full bg-rose-500" />}
                           {n.title}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-[11px] text-[#718d7e] font-medium">{fmtTime(n.createdAt)}</span>
+                          <span className="text-[11px] text-[#475569] font-medium">{fmtTime(n.createdAt)}</span>
                           {!n.read ? (
                             <button
                               onClick={() => markNotificationAsRead(n.id)}
-                              className="inline-flex items-center gap-1 rounded-full border border-emerald-300 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 hover:bg-emerald-100 transition-colors cursor-pointer"
+                              className="inline-flex items-center gap-1 rounded-full border border-sky-300 bg-sky-50 px-2.5 py-0.5 text-[10px] font-bold text-sky-800 hover:bg-sky-100 transition-colors cursor-pointer"
                               title="Mark this notification as read"
                             >
                               <CheckCheck className="h-3 w-3" />
@@ -2819,13 +2819,13 @@ export function PatientPortal({
                             </button>
                           ) : (
                             <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-500">
-                              <CheckCheck className="h-3 w-3 text-emerald-600" />
+                              <CheckCheck className="h-3 w-3 text-sky-600" />
                               Read
                             </span>
                           )}
                         </div>
                       </div>
-                      <p className="mt-1 text-[#385547] leading-relaxed text-xs">{n.message}</p>
+                      <p className="mt-1 text-[#1e293b] leading-relaxed text-xs">{n.message}</p>
                     </div>
                   </div>
                 ))}
@@ -2840,16 +2840,16 @@ export function PatientPortal({
         {activeTab === "safety" && (
           <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full space-y-8 thin-scroll">
             {/* Safety Mandate Banner */}
-            <div className="rounded-3xl border border-emerald-300 bg-gradient-to-r from-emerald-50 to-[#edf4ec] p-6 shadow-xs">
+            <div className="rounded-3xl border border-sky-300 bg-gradient-to-r from-sky-50 to-[#f1f5f9] p-6 shadow-xs">
               <div className="flex items-start gap-4">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#11382b] text-white">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#0f2744] text-white">
                   <ShieldCheck className="h-6 w-6 text-[#d49b35]" />
                 </span>
                 <div>
-                  <h3 className="font-display text-lg font-bold text-[#11382b]">
+                  <h3 className="font-display text-lg font-bold text-[#0f2744]">
                     Clinical AI Safety Standard · Zero Diagnostic Liability
                   </h3>
-                  <p className="mt-1 text-xs text-[#355243] leading-relaxed max-w-3xl">
+                  <p className="mt-1 text-xs text-[#1e293b] leading-relaxed max-w-3xl">
                     Afiya’s administrative AI is governed by strict deterministic rules. It never invents medical advice, never suggests medication dosages, and halts instantly when clinical emergency red flags are detected.
                   </p>
                 </div>
@@ -2858,44 +2858,44 @@ export function PatientPortal({
 
             {/* 5 Core Safety Pillars */}
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-2xl border border-[#dce8db] bg-[#ffffff] p-4 space-y-2 shadow-2xs">
+              <div className="rounded-2xl border border-[#e2e8f0] bg-[#ffffff] p-4 space-y-2 shadow-2xs">
                 <span className="rounded-full bg-rose-100 text-rose-800 px-2.5 py-0.5 text-[11px] font-bold uppercase">
                   1. Pre-LLM Red Flags
                 </span>
-                <p className="text-xs font-bold text-[#11382b]">Deterministic Interception</p>
-                <p className="text-xs text-[#557564] leading-relaxed">
+                <p className="text-xs font-bold text-[#0f2744]">Deterministic Interception</p>
+                <p className="text-xs text-[#475569] leading-relaxed">
                   Phrases like &quot;chest pain&quot;, &quot;suicide&quot;, or &quot;anaphylaxis&quot; trigger immediate 911 / emergency disclaimers before LLM generation.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#dce8db] bg-[#ffffff] p-4 space-y-2 shadow-2xs">
+              <div className="rounded-2xl border border-[#e2e8f0] bg-[#ffffff] p-4 space-y-2 shadow-2xs">
                 <span className="rounded-full bg-amber-100 text-amber-800 px-2.5 py-0.5 text-[11px] font-bold uppercase">
                   2. Strict Non-Diagnosis
                 </span>
-                <p className="text-xs font-bold text-[#11382b]">No Diagnostic Speculation</p>
-                <p className="text-xs text-[#557564] leading-relaxed">
+                <p className="text-xs font-bold text-[#0f2744]">No Diagnostic Speculation</p>
+                <p className="text-xs text-[#475569] leading-relaxed">
                   The AI politely refuses to diagnose diseases or interpret lab test results, routing patients to book a licensed physician.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#dce8db] bg-[#ffffff] p-4 space-y-2 shadow-2xs">
-                <span className="rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-[11px] font-bold uppercase">
+              <div className="rounded-2xl border border-[#e2e8f0] bg-[#ffffff] p-4 space-y-2 shadow-2xs">
+                <span className="rounded-full bg-sky-100 text-sky-800 px-2.5 py-0.5 text-[11px] font-bold uppercase">
                   3. Clinician Supervision
                 </span>
-                <p className="text-xs font-bold text-[#11382b]">Human-in-the-Loop</p>
-                <p className="text-xs text-[#557564] leading-relaxed">
+                <p className="text-xs font-bold text-[#0f2744]">Human-in-the-Loop</p>
+                <p className="text-xs text-[#475569] leading-relaxed">
                   Every intake draft captured by the assistant must be reviewed and signed off by clinic staff before entering medical charts.
                 </p>
               </div>
             </div>
 
             {/* Interactive Red Flag Simulator */}
-            <div className="rounded-3xl border border-[#d6e3d5] bg-[#ffffff] p-6 shadow-2xs space-y-4">
-              <h4 className="font-display text-base font-bold text-[#11382b] flex items-center gap-2">
+            <div className="rounded-3xl border border-[#e2e8f0] bg-[#ffffff] p-6 shadow-2xs space-y-4">
+              <h4 className="font-display text-base font-bold text-[#0f2744] flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-[#d49b35]" />
                 <span>Test Safety Screening Live</span>
               </h4>
-              <p className="text-xs text-[#527060]">
+              <p className="text-xs text-[#475569]">
                 Click any of these simulated patient messages to test how the assistant handles red flags and refusal rules:
               </p>
 
@@ -2941,15 +2941,15 @@ export function PatientPortal({
                     setActiveTab("chat");
                     send("What are your clinic hours and do you accept insurance?");
                   }}
-                  className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-3.5 text-left hover:bg-emerald-100/70 transition-colors"
+                  className="rounded-2xl border border-sky-200 bg-sky-50/70 p-3.5 text-left hover:bg-sky-100/70 transition-colors"
                 >
-                  <span className="text-xs font-bold text-emerald-800 uppercase block mb-1">
+                  <span className="text-xs font-bold text-sky-800 uppercase block mb-1">
                     Approved Clinic FAQ
                   </span>
-                  <p className="text-xs font-medium text-emerald-950">
+                  <p className="text-xs font-medium text-sky-950">
                     &quot;What are your clinic hours and insurance plans?&quot;
                   </p>
-                  <span className="mt-2 text-xs text-emerald-800 font-semibold block">
+                  <span className="mt-2 text-xs text-sky-800 font-semibold block">
                     Expects: Grounded Knowledge Base Reply →
                   </span>
                 </button>
@@ -2966,19 +2966,19 @@ export function PatientPortal({
       {/* A. DYNAMIC CLINIC INFO, HOURS & FAQ MODAL */}
       {showInfoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-2xl max-h-[88vh] flex flex-col rounded-xl border border-[#d9e6e0] bg-white text-[#122621] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+          <div className="w-full max-w-2xl max-h-[88vh] flex flex-col rounded-xl border border-[#e2e8f0] bg-white text-[#0b192c] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[#e8eee6] px-6 py-4 bg-[#fcfdfa] shrink-0">
+            <div className="flex items-center justify-between border-b border-[#e2e8f0] px-6 py-4 bg-[#f8fafc] shrink-0">
               <div className="flex items-center gap-3">
-                <ClinicLogoIcon className="h-8 w-8 bg-[#0e615c]" pulseColor="#3fb484" />
+                <ClinicLogoIcon className="h-8 w-8 bg-[#0284c7]" pulseColor="#0ea5e9" />
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-[#0e615c]">Afiya Health Center</h3>
-                  <p className="text-[12px] text-[#527065]">Better Care Starts Here · Hours, Location &amp; FAQ</p>
+                  <h3 className="font-display text-lg font-semibold text-[#0284c7]">Afiya Health Center</h3>
+                  <p className="text-[12px] text-[#475569]">Better Care Starts Here · Hours, Location &amp; FAQ</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowInfoModal(false)}
-                className="grid h-8 w-8 place-items-center rounded-lg hover:bg-[#ebf3ef] text-[#527065] hover:text-[#122621] transition-colors cursor-pointer"
+                className="grid h-8 w-8 place-items-center rounded-lg hover:bg-[#e0f2fe] text-[#475569] hover:text-[#0b192c] transition-colors cursor-pointer"
                 title="Close"
               >
                 <X className="h-4 w-4" />
@@ -2989,54 +2989,54 @@ export function PatientPortal({
             <div className="overflow-y-auto thin-scroll p-6 space-y-5 flex-1">
               {/* Hours & Location Cards */}
               <div className="grid gap-3 sm:grid-cols-3 text-xs">
-                <div className="rounded-lg bg-[#f6faf8] p-3.5 border border-[#d9e6e0] space-y-1">
-                  <span className="font-semibold text-[#0e615c] flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
-                    <Clock className="h-3.5 w-3.5 text-[#3fb484]" /> Opening Hours
+                <div className="rounded-lg bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                  <span className="font-semibold text-[#0284c7] flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
+                    <Clock className="h-3.5 w-3.5 text-[#0ea5e9]" /> Opening Hours
                   </span>
-                  <p className="font-medium text-[#122621] text-[13px]">Mon – Fri</p>
-                  <p className="text-[12px] text-[#527065]">8:00 AM – 6:00 PM</p>
-                  <p className="font-medium text-[#122621] text-[13px] pt-1">Saturday</p>
-                  <p className="text-[12px] text-[#527065]">9:00 AM – 1:00 PM</p>
+                  <p className="font-medium text-[#0b192c] text-[13px]">Mon – Fri</p>
+                  <p className="text-[12px] text-[#475569]">8:00 AM – 6:00 PM</p>
+                  <p className="font-medium text-[#0b192c] text-[13px] pt-1">Saturday</p>
+                  <p className="text-[12px] text-[#475569]">9:00 AM – 1:00 PM</p>
                 </div>
 
-                <div className="rounded-lg bg-[#f6faf8] p-3.5 border border-[#d9e6e0] space-y-1">
-                  <span className="font-semibold text-[#0e615c] flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
-                    <MapPin className="h-3.5 w-3.5 text-[#3fb484]" /> Location
+                <div className="rounded-lg bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                  <span className="font-semibold text-[#0284c7] flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
+                    <MapPin className="h-3.5 w-3.5 text-[#0ea5e9]" /> Location
                   </span>
-                  <p className="font-medium text-[#122621] text-[13px]">{clinicInfo["address"] ?? "480 Alder Row, Suite 12"}</p>
-                  <p className="text-[12px] text-[#527065]">Medical District · Transit Accessible</p>
-                  <p className="text-[11.5px] text-[#527065] pt-1">Free visitor parking in Lot B</p>
+                  <p className="font-medium text-[#0b192c] text-[13px]">{clinicInfo["address"] ?? "480 Alder Row, Suite 12"}</p>
+                  <p className="text-[12px] text-[#475569]">Medical District · Transit Accessible</p>
+                  <p className="text-[11.5px] text-[#475569] pt-1">Free visitor parking in Lot B</p>
                 </div>
 
-                <div className="rounded-lg bg-[#f6faf8] p-3.5 border border-[#d9e6e0] space-y-1">
-                  <span className="font-semibold text-[#0e615c] flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
-                    <Phone className="h-3.5 w-3.5 text-[#3fb484]" /> Contact &amp; 911
+                <div className="rounded-lg bg-[#f8fafc] p-3.5 border border-[#e2e8f0] space-y-1">
+                  <span className="font-semibold text-[#0284c7] flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
+                    <Phone className="h-3.5 w-3.5 text-[#0ea5e9]" /> Contact &amp; 911
                   </span>
-                  <p className="font-medium text-[#122621] text-[13px]">{clinicInfo["phone"] ?? "+1 (555) 010-4477"}</p>
-                  <p className="text-[12px] text-[#527065]">Reception &amp; Scheduling</p>
+                  <p className="font-medium text-[#0b192c] text-[13px]">{clinicInfo["phone"] ?? "+1 (555) 010-4477"}</p>
+                  <p className="text-[12px] text-[#475569]">Reception &amp; Scheduling</p>
                   <p className="text-[11.5px] text-rose-600 font-semibold pt-1">Emergency: Dial 911</p>
                 </div>
               </div>
 
               {/* Approved Knowledge Base FAQ */}
               <div className="space-y-2.5">
-                <span className="text-[14px] font-semibold text-[#0e615c] block">Frequently Asked Questions</span>
+                <span className="text-[14px] font-semibold text-[#0284c7] block">Frequently Asked Questions</span>
                 <div className="space-y-2 text-[13px]">
-                  <div className="rounded-lg border border-[#d9e6e0] bg-[#fafcfb] p-3">
-                    <p className="font-medium text-[#122621]">How does the AI assistant help me book?</p>
-                    <p className="text-[#527065] mt-0.5 text-[12.5px] leading-relaxed">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-3">
+                    <p className="font-medium text-[#0b192c]">How does the AI assistant help me book?</p>
+                    <p className="text-[#475569] mt-0.5 text-[12.5px] leading-relaxed">
                       Checks live slot availability, captures symptoms without guessing, and books certified physicians directly.
                     </p>
                   </div>
-                  <div className="rounded-lg border border-[#d9e6e0] bg-[#fafcfb] p-3">
-                    <p className="font-medium text-[#122621]">What insurance plans are accepted?</p>
-                    <p className="text-[#527065] mt-0.5 text-[12.5px] leading-relaxed">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-3">
+                    <p className="font-medium text-[#0b192c]">What insurance plans are accepted?</p>
+                    <p className="text-[#475569] mt-0.5 text-[12.5px] leading-relaxed">
                       Blue Cross Blue Shield, Aetna, UnitedHealthcare, Medicare, and major commercial health plans.
                     </p>
                   </div>
-                  <div className="rounded-lg border border-[#d9e6e0] bg-[#fafcfb] p-3">
-                    <p className="font-medium text-[#122621]">How does cancellation and waitlist reallocation work?</p>
-                    <p className="text-[#527065] mt-0.5 text-[12.5px] leading-relaxed">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-3">
+                    <p className="font-medium text-[#0b192c]">How does cancellation and waitlist reallocation work?</p>
+                    <p className="text-[#475569] mt-0.5 text-[12.5px] leading-relaxed">
                       Cancellations made via Appointments are free up to 4 hours prior and notify patients on the waitlist.
                     </p>
                   </div>
@@ -3045,10 +3045,10 @@ export function PatientPortal({
             </div>
 
             {/* Pinned Modal Footer (Always visible, no scrolling needed to reach button) */}
-            <div className="border-t border-[#e8eee6] px-6 py-3.5 flex justify-end bg-[#fcfdfa] shrink-0">
+            <div className="border-t border-[#e2e8f0] px-6 py-3.5 flex justify-end bg-[#f8fafc] shrink-0">
               <button
                 onClick={() => setShowInfoModal(false)}
-                className="rounded-lg bg-[#0e615c] px-6 py-2 text-[14px] font-medium text-white hover:bg-[#0a4c48] transition-colors cursor-pointer shadow-xs"
+                className="rounded-lg bg-[#0284c7] px-6 py-2 text-[14px] font-medium text-white hover:bg-[#0369a1] transition-colors cursor-pointer shadow-xs"
               >
                 Got It
               </button>
@@ -3067,11 +3067,11 @@ export function PatientPortal({
       {/* C. PAYMENT & RECEIPT MODAL */}
       {payingInvoice && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-md rounded-[32px] border border-[#d6e2d4] bg-white p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#e7ede5] pb-3">
+          <div className="w-full max-w-md rounded-[32px] border border-[#e2e8f0] bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-3">
               <div className="flex items-center gap-2">
-                <CreditCard className="h-5 w-5 text-[#11382b]" />
-                <h3 className="font-display text-base font-bold text-[#11382b]">
+                <CreditCard className="h-5 w-5 text-[#0f2744]" />
+                <h3 className="font-display text-base font-bold text-[#0f2744]">
                   Pay Invoice: {payingInvoice.invoiceNumber}
                 </h3>
               </div>
@@ -3085,33 +3085,33 @@ export function PatientPortal({
 
             {receiptSuccess ? (
               <div className="py-8 text-center space-y-3">
-                <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600 animate-bounce" />
-                <p className="text-sm font-bold text-emerald-950">{receiptSuccess}</p>
-                <p className="text-xs text-emerald-700">Official receipt recorded to clinic accounting database.</p>
+                <CheckCircle2 className="mx-auto h-12 w-12 text-sky-600 animate-bounce" />
+                <p className="text-sm font-bold text-sky-950">{receiptSuccess}</p>
+                <p className="text-xs text-sky-700">Official receipt recorded to clinic accounting database.</p>
               </div>
             ) : (
               <form onSubmit={handlePaySubmit} className="mt-4 space-y-4">
-                <div className="rounded-2xl bg-[#f8faf7] p-4 text-xs space-y-2 border border-[#e5efe3]">
+                <div className="rounded-2xl bg-[#f8fafc] p-4 text-xs space-y-2 border border-[#e2e8f0]">
                   {payingInvoice.items.map((it, idx) => (
-                    <div key={idx} className="flex justify-between text-[#3b5849]">
+                    <div key={idx} className="flex justify-between text-[#1e293b]">
                       <span>{it.description}</span>
                       <span className="font-semibold">${it.amount}.00</span>
                     </div>
                   ))}
-                  <div className="pt-2 border-t border-[#e2ebe0] flex justify-between font-bold text-sm text-[#11382b]">
+                  <div className="pt-2 border-t border-[#e2e8f0] flex justify-between font-bold text-sm text-[#0f2744]">
                     <span>Total Due Today</span>
                     <span>${payingInvoice.totalAmount}.00</span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-[#355243] uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-bold text-[#1e293b] uppercase tracking-wider mb-1">
                     Select Payment Method
                   </label>
                   <select
                     value={payMethod}
                     onChange={(e) => setPayMethod(e.target.value)}
-                    className="h-11 w-full rounded-2xl border border-[#d2dfd0] bg-[#fbfdf9] px-3 text-xs text-[#11382b] focus:outline-none focus:border-[#11382b]"
+                    className="h-11 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-3 text-xs text-[#0f2744] focus:outline-none focus:border-[#0f2744]"
                   >
                     <option value="Credit Card (Visa ending 4128)">Credit Card (Visa ending 4128)</option>
                     <option value="Apple Pay / Google Pay">Apple Pay / Google Pay</option>
@@ -3135,7 +3135,7 @@ export function PatientPortal({
                   <button
                     type="submit"
                     disabled={payBusy}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-[#11382b] px-6 py-2 text-xs font-semibold text-white hover:bg-[#1a4a3a] disabled:opacity-50 shadow-xs"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[#0f2744] px-6 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] disabled:opacity-50 shadow-xs"
                   >
                     {payBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4 text-[#d49b35]" />}
                     Pay ${payingInvoice.totalAmount}.00
@@ -3150,20 +3150,20 @@ export function PatientPortal({
       {/* D. PRINTABLE VISIT RECORD MODAL */}
       {viewingRecord && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div id="patient-consultation-document" className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[32px] border border-[#d6e2d4] bg-white p-7 shadow-2xl space-y-6">
-            <div className="flex items-center justify-between border-b border-[#e7ede5] pb-4">
+          <div id="patient-consultation-document" className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[32px] border border-[#e2e8f0] bg-white p-7 shadow-2xl space-y-6">
+            <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-4">
               <div className="flex items-center gap-3">
-                <ClinicLogoIcon className="h-8 w-8 bg-[#11382b]" pulseColor="#d49b35" />
+                <ClinicLogoIcon className="h-8 w-8 bg-[#0f2744]" pulseColor="#d49b35" />
                 <div>
-                  <h3 className="font-display text-base font-bold text-[#11382b]">Afiya Clinic</h3>
-                  <p className="text-[10px] text-[#557564] uppercase tracking-wider">Official Medical Consultation Summary · Better Care Starts Here</p>
+                  <h3 className="font-display text-base font-bold text-[#0f2744]">Afiya Clinic</h3>
+                  <p className="text-[10px] text-[#475569] uppercase tracking-wider">Official Medical Consultation Summary · Better Care Starts Here</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 no-print">
                 <button
                   onClick={() => printCard("patient-consultation-document")}
-                  className="inline-flex items-center gap-1 rounded-full border border-[#cedece] bg-[#f8faf6] px-3 py-1.5 text-xs font-semibold text-[#11382b] hover:bg-[#edf4ea]"
+                  className="inline-flex items-center gap-1 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-1.5 text-xs font-semibold text-[#0f2744] hover:bg-[#f1f5f9]"
                 >
                   <Printer className="h-3.5 w-3.5 text-[#d49b35]" />
                   <span>Print Document</span>
@@ -3179,51 +3179,51 @@ export function PatientPortal({
 
             {/* Document Content */}
             <div className="space-y-4 text-xs">
-              <div className="grid grid-cols-2 gap-4 bg-[#f8faf6] p-4 rounded-2xl border border-[#e5eee3]">
+              <div className="grid grid-cols-2 gap-4 bg-[#f8fafc] p-4 rounded-2xl border border-[#e2e8f0]">
                 <div>
-                  <span className="text-xs text-[#557564] uppercase block font-semibold">Patient Name</span>
-                  <span className="font-bold text-[#11382b] text-sm">{viewingRecord.patientName || currentUser?.name}</span>
+                  <span className="text-xs text-[#475569] uppercase block font-semibold">Patient Name</span>
+                  <span className="font-bold text-[#0f2744] text-sm">{viewingRecord.patientName || currentUser?.name}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[#557564] uppercase block font-semibold">Consultation Date</span>
-                  <span className="font-bold text-[#11382b] text-sm">{fmtDate(viewingRecord.visitDate)}</span>
+                  <span className="text-xs text-[#475569] uppercase block font-semibold">Consultation Date</span>
+                  <span className="font-bold text-[#0f2744] text-sm">{fmtDate(viewingRecord.visitDate)}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[#557564] uppercase block font-semibold">Attending Physician</span>
-                  <span className="font-bold text-[#11382b]">{viewingRecord.providerName} ({viewingRecord.specialty})</span>
+                  <span className="text-xs text-[#475569] uppercase block font-semibold">Attending Physician</span>
+                  <span className="font-bold text-[#0f2744]">{viewingRecord.providerName} ({viewingRecord.specialty})</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[#557564] uppercase block font-semibold">Clinic Room</span>
-                  <span className="font-bold text-[#11382b]">{viewingRecord.roomNumber || "Suite 10"}</span>
+                  <span className="text-xs text-[#475569] uppercase block font-semibold">Clinic Room</span>
+                  <span className="font-bold text-[#0f2744]">{viewingRecord.roomNumber || "Suite 10"}</span>
                 </div>
               </div>
 
               {/* Clinical Vitals */}
-              <div className="border border-[#e5eee3] rounded-2xl p-4 space-y-2">
-                <span className="font-bold text-[#11382b] uppercase tracking-wider text-xs">Vital Signs Taken</span>
+              <div className="border border-[#e2e8f0] rounded-2xl p-4 space-y-2">
+                <span className="font-bold text-[#0f2744] uppercase tracking-wider text-xs">Vital Signs Taken</span>
                 <div className="grid grid-cols-4 gap-2 text-center text-xs">
-                  <div className="bg-[#fcfdfb] p-2 rounded-xl">BP: <strong>{viewingRecord.vitals.bloodPressure || "120/80"}</strong></div>
-                  <div className="bg-[#fcfdfb] p-2 rounded-xl">HR: <strong>{viewingRecord.vitals.heartRate || "72 bpm"}</strong></div>
-                  <div className="bg-[#fcfdfb] p-2 rounded-xl">Temp: <strong>{viewingRecord.vitals.temperature || "98.6 °F"}</strong></div>
-                  <div className="bg-[#fcfdfb] p-2 rounded-xl">SpO2: <strong>{viewingRecord.vitals.oxygenLevel || "99%"}</strong></div>
+                  <div className="bg-[#f8fafc] p-2 rounded-xl">BP: <strong>{viewingRecord.vitals.bloodPressure || "120/80"}</strong></div>
+                  <div className="bg-[#f8fafc] p-2 rounded-xl">HR: <strong>{viewingRecord.vitals.heartRate || "72 bpm"}</strong></div>
+                  <div className="bg-[#f8fafc] p-2 rounded-xl">Temp: <strong>{viewingRecord.vitals.temperature || "98.6 °F"}</strong></div>
+                  <div className="bg-[#f8fafc] p-2 rounded-xl">SpO2: <strong>{viewingRecord.vitals.oxygenLevel || "99%"}</strong></div>
                 </div>
               </div>
 
               {/* Assessment & Diagnosis */}
-              <div className="space-y-1.5 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200">
-                <span className="font-bold text-emerald-950 uppercase tracking-wider text-xs">Official Clinical Diagnosis</span>
-                <p className="font-bold text-emerald-900 text-sm">{viewingRecord.diagnosis}</p>
-                <p className="text-emerald-900 leading-relaxed mt-2"><strong>Notes:</strong> {viewingRecord.clinicalNotes}</p>
-                <p className="text-emerald-900 leading-relaxed"><strong>Treatment:</strong> {viewingRecord.treatmentPlan}</p>
+              <div className="space-y-1.5 p-4 rounded-2xl bg-sky-50/70 border border-sky-200">
+                <span className="font-bold text-sky-950 uppercase tracking-wider text-xs">Official Clinical Diagnosis</span>
+                <p className="font-bold text-sky-900 text-sm">{viewingRecord.diagnosis}</p>
+                <p className="text-sky-900 leading-relaxed mt-2"><strong>Notes:</strong> {viewingRecord.clinicalNotes}</p>
+                <p className="text-sky-900 leading-relaxed"><strong>Treatment:</strong> {viewingRecord.treatmentPlan}</p>
               </div>
 
               {/* Prescriptions */}
               {viewingRecord.prescriptions && viewingRecord.prescriptions.length > 0 && (
-                <div className="p-4 rounded-2xl border border-[#e5eee3] space-y-2">
-                  <span className="font-bold text-[#11382b] uppercase tracking-wider text-xs">Rx Prescriptions</span>
+                <div className="p-4 rounded-2xl border border-[#e2e8f0] space-y-2">
+                  <span className="font-bold text-[#0f2744] uppercase tracking-wider text-xs">Rx Prescriptions</span>
                   {viewingRecord.prescriptions.map((px: { medication: string; dosage: string; instructions?: string }, i: number) => (
                     <div key={i} className="flex justify-between text-xs py-1 border-b border-gray-100 last:border-none">
-                      <span className="font-bold text-[#11382b]">{px.medication}</span>
+                      <span className="font-bold text-[#0f2744]">{px.medication}</span>
                       <span>{px.dosage} ({px.instructions || "as directed"})</span>
                     </div>
                   ))}
@@ -3234,7 +3234,7 @@ export function PatientPortal({
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setViewingRecord(null)}
-                className="rounded-full bg-[#11382b] px-6 py-2 text-xs font-semibold text-white hover:bg-[#1a4a3a]"
+                className="rounded-full bg-[#0f2744] px-6 py-2 text-xs font-semibold text-white hover:bg-[#0f2744]"
               >
                 Close Summary
               </button>
@@ -3254,12 +3254,12 @@ export function PatientPortal({
               </h3>
             </div>
 
-            <p className="text-xs text-[#355243] leading-relaxed">
+            <p className="text-xs text-[#1e293b] leading-relaxed">
               Are you sure you want to cancel your appointment with <strong>{cancellingAppt.providerName}</strong> on <strong>{fmtTime(cancellingAppt.startAt)}</strong>?
             </p>
 
             <div>
-              <label className="block text-[11px] font-bold text-[#11382b] mb-1">
+              <label className="block text-[11px] font-bold text-[#0f2744] mb-1">
                 Reason for Cancellation (optional):
               </label>
               <textarea
@@ -3271,7 +3271,7 @@ export function PatientPortal({
               />
             </div>
 
-            <p className="text-[11px] text-[#6b8b7b]">
+            <p className="text-[11px] text-[#475569]">
               Free cancellation up to 4 hours in advance. This slot will immediately be offered to patients waiting on the clinic waitlist.
             </p>
 
@@ -3299,16 +3299,16 @@ export function PatientPortal({
       {/* F. USER PROFILE & STAFF INFO MODAL */}
       {showUserProfileModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-md rounded-3xl border border-[#d6e2d4] bg-white p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95">
+          <div className="w-full max-w-md rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[#e7ede5] pb-3">
+            <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="grid h-8 w-8 place-items-center rounded-xl bg-[#11382b] text-[#d49b35]">
+                <div className="grid h-8 w-8 place-items-center rounded-xl bg-[#0f2744] text-[#d49b35]">
                   <User className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="font-display text-base font-bold text-[#11382b]">User Profile</h3>
-                  <p className="text-[11px] text-[#557564]">Afiya Clinic Account &amp; Access Details</p>
+                  <h3 className="font-display text-base font-bold text-[#0f2744]">User Profile</h3>
+                  <p className="text-[11px] text-[#475569]">Afiya Clinic Account &amp; Access Details</p>
                 </div>
               </div>
               <button
@@ -3320,15 +3320,15 @@ export function PatientPortal({
             </div>
 
             {/* Profile Hero Card */}
-            <div className="rounded-2xl border border-[#d6e3d5] bg-gradient-to-br from-[#f8faf6] to-[#edf4ec] p-4 flex items-center gap-3.5">
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#11382b] font-bold text-xl shadow-xs">
+            <div className="rounded-2xl border border-[#e2e8f0] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] p-4 flex items-center gap-3.5">
+              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#d49b35] to-[#a5741e] text-[#0f2744] font-bold text-xl shadow-xs">
                 {currentUser?.name ? currentUser.name[0] : "P"}
               </div>
               <div className="min-w-0 flex-1">
-                <h4 className="font-display text-base font-bold text-[#11382b] truncate">
+                <h4 className="font-display text-base font-bold text-[#0f2744] truncate">
                   {currentUser?.name || "Guest Patient"}
                 </h4>
-                <p className="text-xs text-[#527060] truncate">{currentUser?.email || "guest@afiya.clinic"}</p>
+                <p className="text-xs text-[#475569] truncate">{currentUser?.email || "guest@afiya.clinic"}</p>
                 <div className="mt-1 flex items-center gap-1.5">
                   <span
                     className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider ${
@@ -3338,7 +3338,7 @@ export function PatientPortal({
                         ? "bg-blue-100 text-blue-800 border border-blue-300"
                         : currentUser?.role === "admin"
                         ? "bg-amber-100 text-amber-800 border border-amber-300"
-                        : "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                        : "bg-sky-100 text-sky-800 border border-sky-300"
                     }`}
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-current" />
@@ -3358,34 +3358,34 @@ export function PatientPortal({
 
             {/* User Meta Information Grid */}
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="rounded-xl bg-[#f8faf6] p-3 border border-[#e4ede3]">
-                <span className="block text-xs font-bold uppercase tracking-wider text-[#527060]">
+              <div className="rounded-xl bg-[#f8fafc] p-3 border border-[#e2e8f0]">
+                <span className="block text-xs font-bold uppercase tracking-wider text-[#475569]">
                   System Role
                 </span>
-                <span className="font-semibold text-[#11382b] capitalize">
+                <span className="font-semibold text-[#0f2744] capitalize">
                   {currentUser?.role || "Patient"}
                 </span>
               </div>
-              <div className="rounded-xl bg-[#f8faf6] p-3 border border-[#e4ede3]">
-                <span className="block text-xs font-bold uppercase tracking-wider text-[#527060]">
+              <div className="rounded-xl bg-[#f8fafc] p-3 border border-[#e2e8f0]">
+                <span className="block text-xs font-bold uppercase tracking-wider text-[#475569]">
                   Session Status
                 </span>
-                <span className="font-semibold text-emerald-700 flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="font-semibold text-sky-700 flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
                   Authenticated
                 </span>
               </div>
-              <div className="rounded-xl bg-[#f8faf6] p-3 border border-[#e4ede3]">
-                <span className="block text-xs font-bold uppercase tracking-wider text-[#527060]">
+              <div className="rounded-xl bg-[#f8fafc] p-3 border border-[#e2e8f0]">
+                <span className="block text-xs font-bold uppercase tracking-wider text-[#475569]">
                   Clinic Center
                 </span>
-                <span className="font-semibold text-[#11382b]">Afiya Health Care</span>
+                <span className="font-semibold text-[#0f2744]">Afiya Health Care</span>
               </div>
-              <div className="rounded-xl bg-[#f8faf6] p-3 border border-[#e4ede3]">
-                <span className="block text-xs font-bold uppercase tracking-wider text-[#527060]">
+              <div className="rounded-xl bg-[#f8fafc] p-3 border border-[#e2e8f0]">
+                <span className="block text-xs font-bold uppercase tracking-wider text-[#475569]">
                   Health Portal ID
                 </span>
-                <span className="font-mono text-xs font-semibold text-[#11382b]">
+                <span className="font-mono text-xs font-semibold text-[#0f2744]">
                   {currentUser?.email ? `ID-${currentUser.email.slice(0, 5).toUpperCase()}` : "GUEST-01"}
                 </span>
               </div>
@@ -3409,7 +3409,7 @@ export function PatientPortal({
                       ? "/receptionist"
                       : "/admin"
                   }
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#11382b] text-white px-3.5 py-1.5 text-xs font-semibold hover:bg-[#1a4a3a] transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#0f2744] text-white px-3.5 py-1.5 text-xs font-semibold hover:bg-[#0f2744] transition-colors"
                 >
                   <span>Open Staff Dashboard</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -3418,7 +3418,7 @@ export function PatientPortal({
             )}
 
             {/* Actions */}
-            <div className="pt-2 flex items-center justify-between border-t border-[#edf4ec]">
+            <div className="pt-2 flex items-center justify-between border-t border-[#f1f5f9]">
               <button
                 type="button"
                 onClick={() => {
@@ -3434,7 +3434,7 @@ export function PatientPortal({
               <button
                 type="button"
                 onClick={() => setShowUserProfileModal(false)}
-                className="rounded-full bg-[#11382b] px-5 py-2 text-xs font-semibold text-white hover:bg-[#1a4a3a] transition-colors cursor-pointer"
+                className="rounded-full bg-[#0f2744] px-5 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] transition-colors cursor-pointer"
               >
                 Close
               </button>
@@ -3446,21 +3446,21 @@ export function PatientPortal({
       {/* G. SIGN OUT CONFIRMATION MODAL */}
       {showSignOutConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-sm rounded-3xl border border-[#d6e2d4] bg-white p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+          <div className="w-full max-w-sm rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
             <div className="flex items-center gap-3">
               <div className="grid h-10 w-10 place-items-center rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 shrink-0">
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-display text-base font-bold text-[#11382b]">
+                <h3 className="font-display text-base font-bold text-[#0f2744]">
                   Are you sure you want to sign out?
                 </h3>
-                <p className="text-xs text-[#557564]">End your active Afiya session</p>
+                <p className="text-xs text-[#475569]">End your active Afiya session</p>
               </div>
             </div>
 
-            <p className="text-xs text-[#355243] leading-relaxed bg-[#f8faf6] p-3 rounded-xl border border-[#e5eee3]">
-              You are currently signed in as <strong className="text-[#11382b]">{currentUser?.name || currentUser?.email || "User"}</strong>. You will need to sign back in to view your private records, appointments, and billing invoices.
+            <p className="text-xs text-[#1e293b] leading-relaxed bg-[#f8fafc] p-3 rounded-xl border border-[#e2e8f0]">
+              You are currently signed in as <strong className="text-[#0f2744]">{currentUser?.name || currentUser?.email || "User"}</strong>. You will need to sign back in to view your private records, appointments, and billing invoices.
             </p>
 
             <div className="flex gap-2 justify-end pt-2">
@@ -3541,7 +3541,7 @@ function TypewriterMessageText({
       {visible}
       {isTyping && (
         <span
-          className="inline-block w-1.5 h-3.5 ml-1 bg-emerald-600 align-middle animate-pulse rounded-2xs"
+          className="inline-block w-1.5 h-3.5 ml-1 bg-sky-600 align-middle animate-pulse rounded-2xs"
           aria-hidden="true"
         />
       )}
@@ -3571,7 +3571,7 @@ function ChatMessage({
   if (isUser) {
     return (
       <div className="msg-in flex justify-end">
-        <div className="max-w-[80%] rounded-[24px] rounded-br-xs bg-[#11382b] px-5 py-3 text-sm leading-relaxed text-white shadow-xs">
+        <div className="max-w-[80%] rounded-[24px] rounded-br-xs bg-[#0f2744] px-5 py-3 text-sm leading-relaxed text-white shadow-xs">
           {msg.text}
         </div>
       </div>
@@ -3595,15 +3595,15 @@ function ChatMessage({
             {msg.toolCalls.map((tc, idx) => (
               <div
                 key={idx}
-                className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/80 bg-emerald-50/90 px-3 py-1 text-[10.5px] font-mono font-medium text-emerald-950 shadow-2xs"
+                className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/80 bg-sky-50/90 px-3 py-1 text-[10.5px] font-mono font-medium text-sky-950 shadow-2xs"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="font-bold uppercase tracking-wider text-[9px] text-emerald-800">
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-500 animate-pulse" />
+                <span className="font-bold uppercase tracking-wider text-[9px] text-sky-800">
                   AI Tool Executed:
                 </span>
-                <span className="font-semibold text-emerald-900">{tc.tool}</span>
-                <span className="text-emerald-400">·</span>
-                <span className="text-emerald-800/90">{tc.summary}</span>
+                <span className="font-semibold text-sky-900">{tc.tool}</span>
+                <span className="text-sky-400">·</span>
+                <span className="text-sky-800/90">{tc.summary}</span>
               </div>
             ))}
           </div>
@@ -3613,7 +3613,7 @@ function ChatMessage({
           className={`relative rounded-[24px] rounded-tl-xs px-5 py-4 text-sm leading-relaxed ${
             isEscalation
               ? "border-2 border-rose-400 bg-rose-50/95 text-rose-950 shadow-xs"
-              : "border border-[#dce7db] bg-[#f8faf6] text-[#1c382e] shadow-2xs"
+              : "border border-[#e2e8f0] bg-[#f8fafc] text-[#0f2744] shadow-2xs"
           }`}
         >
           {isEscalation && (
@@ -3642,8 +3642,8 @@ function ChatMessage({
 
           {/* Grounded Badge */}
           {p?.kind === "faq" && p.grounded && (
-            <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-100/80 px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-900 uppercase">
-              <Check className="h-3 w-3 text-emerald-600" /> grounded in approved clinic faq
+            <p className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-sky-300 bg-sky-100/80 px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-sky-900 uppercase">
+              <Check className="h-3 w-3 text-sky-600" /> grounded in approved clinic faq
             </p>
           )}
 
@@ -3651,23 +3651,23 @@ function ChatMessage({
           {p?.kind === "auth" && (
             <a
               href="/login"
-              className="mt-3.5 inline-flex items-center gap-2 rounded-full bg-[#12362b] px-4 py-2 text-xs font-semibold text-white hover:bg-[#1a4a3c] shadow-xs"
+              className="mt-3.5 inline-flex items-center gap-2 rounded-full bg-[#0f2744] px-4 py-2 text-xs font-semibold text-white hover:bg-[#0f2744] shadow-xs"
             >
               <Lock className="h-3.5 w-3.5" /> Sign in to continue <ArrowRight className="h-3.5 w-3.5" />
             </a>
           )}
 
           {/* Timestamp */}
-          <div className="mt-2 text-right text-[10px] text-[#789384]">
+          <div className="mt-2 text-right text-[10px] text-[#475569]">
             {fmtClock(msg.at)}
           </div>
         </div>
 
         {/* Structured Intake Card */}
         {p?.kind === "intake" && (
-          <div className="rounded-[24px] border border-[#cfe0cf] bg-white p-4 shadow-xs space-y-2">
-            <p className="flex items-center gap-2 text-[11px] font-bold tracking-wider text-[#2e5241] uppercase">
-              <ClipboardList className="h-3.5 w-3.5 text-[#2e5241]" /> Structured Intake Captured · engine: {p.engine}
+          <div className="rounded-[24px] border border-[#e2e8f0] bg-white p-4 shadow-xs space-y-2">
+            <p className="flex items-center gap-2 text-[11px] font-bold tracking-wider text-[#1e293b] uppercase">
+              <ClipboardList className="h-3.5 w-3.5 text-[#1e293b]" /> Structured Intake Captured · engine: {p.engine}
             </p>
             <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
               <Field label="Chief Reason" value={p.extraction.reason_for_visit} />
@@ -3696,23 +3696,23 @@ function ChatMessage({
 
         {/* Live Booking Slots */}
         {p?.kind === "booking" && (
-          <div className="rounded-[24px] border border-[#cfe0cf] bg-white p-4 shadow-xs space-y-3">
-            <p className="text-xs font-bold text-[#11382b] flex items-center gap-1.5">
+          <div className="rounded-[24px] border border-[#e2e8f0] bg-white p-4 shadow-xs space-y-3">
+            <p className="text-xs font-bold text-[#0f2744] flex items-center gap-1.5">
               <CalendarDays className="h-4 w-4 text-[#d49b35]" /> Available Appointment Slots:
             </p>
             <div className="space-y-2">
               {p.slots.slice(0, 6).map((slot) => (
                 <div
                   key={slot.slotId}
-                  className="flex items-center justify-between rounded-2xl border border-[#e1ece0] bg-[#f8faf6] p-3 text-xs"
+                  className="flex items-center justify-between rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3 text-xs"
                 >
                   <div>
-                    <p className="font-bold text-[#11382b]">{fmtTime(slot.startAt)}</p>
+                    <p className="font-bold text-[#0f2744]">{fmtTime(slot.startAt)}</p>
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="rounded-full bg-[#11382b]/10 text-[#11382b] px-2 py-0.5 text-[10px] font-bold">
+                      <span className="rounded-full bg-[#0f2744]/10 text-[#0f2744] px-2 py-0.5 text-[10px] font-bold">
                         {slot.providerName}
                       </span>
-                      <span className="text-[11px] text-[#557564]">
+                      <span className="text-[11px] text-[#475569]">
                         · {slot.departmentName}
                       </span>
                     </div>
@@ -3720,7 +3720,7 @@ function ChatMessage({
                   <button
                     onClick={() => onBook(slot, p.idem)}
                     disabled={busy}
-                    className="rounded-full bg-[#11382b] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#1a4a3a] disabled:opacity-50 shadow-2xs active:scale-95 transition-transform cursor-pointer"
+                    className="rounded-full bg-[#0f2744] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#0f2744] disabled:opacity-50 shadow-2xs active:scale-95 transition-transform cursor-pointer"
                   >
                     Book with {slot.providerName.replace(/^(dr\.|nurse)\s+/i, "").split(" ")[0]}
                   </button>
@@ -3732,8 +3732,8 @@ function ChatMessage({
 
         {/* Interactive Appointments Action (View or Cancellation Routing) */}
         {p?.kind === "appointments_action" && (
-          <div className="rounded-[24px] border border-[#cfe0cf] bg-white p-4 shadow-xs space-y-3">
-            <p className="text-xs font-bold text-[#11382b] flex items-center gap-1.5">
+          <div className="rounded-[24px] border border-[#e2e8f0] bg-white p-4 shadow-xs space-y-3">
+            <p className="text-xs font-bold text-[#0f2744] flex items-center gap-1.5">
               <CalendarDays className="h-4 w-4 text-[#d49b35]" />
               <span>
                 {p.action === "cancellation"
@@ -3743,7 +3743,7 @@ function ChatMessage({
             </p>
 
             {p.appointments.length === 0 ? (
-              <p className="text-xs text-[#557564] py-2">
+              <p className="text-xs text-[#475569] py-2">
                 No active appointments found in your record.
               </p>
             ) : (
@@ -3758,16 +3758,16 @@ function ChatMessage({
                   return (
                     <div
                       key={appt.id}
-                      className="rounded-2xl border border-[#e1ece0] bg-[#f8faf6] p-3 text-xs space-y-2"
+                      className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-3 text-xs space-y-2"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-bold text-[#11382b]">{fmtTime(appt.startAt)}</p>
-                          <p className="text-[11px] text-[#557564]">
+                          <p className="font-bold text-[#0f2744]">{fmtTime(appt.startAt)}</p>
+                          <p className="text-[11px] text-[#475569]">
                             {appt.providerName} · {appt.departmentName}
                           </p>
                           {appt.reason && (
-                            <p className="text-[10px] text-[#6b8b7a] italic mt-0.5">
+                            <p className="text-[10px] text-[#475569] italic mt-0.5">
                               Reason: {appt.reason}
                             </p>
                           )}
@@ -3778,7 +3778,7 @@ function ChatMessage({
                               isRequested
                                 ? "bg-amber-100 text-amber-800 border border-amber-300"
                                 : appt.status === "confirmed"
-                                ? "bg-emerald-100 text-emerald-800"
+                                ? "bg-sky-100 text-sky-800"
                                 : "bg-gray-100 text-gray-700"
                             }`}
                           >
@@ -3802,13 +3802,13 @@ function ChatMessage({
                               </button>
                             </div>
                           ) : (
-                            <div className="mt-2 pt-2 border-t border-[#e2ece0] space-y-2">
+                            <div className="mt-2 pt-2 border-t border-[#e2e8f0] space-y-2">
                               <input
                                 type="text"
                                 placeholder="Reason for cancellation (e.g. Schedule conflict, feeling better)..."
                                 value={cancelReasonText}
                                 onChange={(e) => setCancelReasonText(e.target.value)}
-                                className="w-full text-xs rounded-xl border border-gray-300 p-2 focus:border-rose-500 focus:outline-none bg-white text-[#11382b]"
+                                className="w-full text-xs rounded-xl border border-gray-300 p-2 focus:border-rose-500 focus:outline-none bg-white text-[#0f2744]"
                               />
                               <div className="flex justify-end gap-2">
                                 <button
@@ -3859,11 +3859,11 @@ function ChatMessage({
 
         {/* Booked Confirmation */}
         {p?.kind === "booked" && (
-          <div className="rounded-[24px] border border-emerald-300 bg-emerald-50 p-4 text-xs text-emerald-950 space-y-1 shadow-2xs">
-            <p className="font-bold flex items-center gap-1.5 text-emerald-900 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Booking confirmed for {p.label}
+          <div className="rounded-[24px] border border-sky-300 bg-sky-50 p-4 text-xs text-sky-950 space-y-1 shadow-2xs">
+            <p className="font-bold flex items-center gap-1.5 text-sky-900 text-sm">
+              <CheckCircle2 className="h-4 w-4 text-sky-600" /> Booking confirmed for {p.label}
             </p>
-            <p className="text-[11px] text-emerald-800">
+            <p className="text-[11px] text-sky-800">
               Appointment written to live calendar. Automated reminders enabled in your Appointments tab.
             </p>
           </div>
@@ -3875,9 +3875,9 @@ function ChatMessage({
 
 function Field({ label, value }: { label: string; value: string | null }) {
   return (
-    <div className="rounded-xl bg-[#f8faf6] px-3 py-2 border border-[#e5eee4]">
-      <span className="block text-xs font-bold text-[#5c7a6b] uppercase tracking-wider">{label}</span>
-      <span className="font-medium text-[#11382b] text-xs">{value ?? "not stated"}</span>
+    <div className="rounded-xl bg-[#f8fafc] px-3 py-2 border border-[#e2e8f0]">
+      <span className="block text-xs font-bold text-[#475569] uppercase tracking-wider">{label}</span>
+      <span className="font-medium text-[#0f2744] text-xs">{value ?? "not stated"}</span>
     </div>
   );
 }

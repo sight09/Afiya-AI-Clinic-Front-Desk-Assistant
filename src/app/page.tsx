@@ -48,7 +48,7 @@ export default async function HomePage() {
   }
 
   return (
-    <main className="h-screen h-[100dvh] w-screen overflow-hidden bg-[#f7f8f4] text-[#162720] antialiased">
+    <main className="h-screen h-[100dvh] w-screen overflow-hidden bg-[#f8fafc] text-[#0f172a] antialiased">
       <PatientPortal
         signedIn={!!user}
         currentUser={user ? { name: user.name, role: user.role, email: user.email } : null}

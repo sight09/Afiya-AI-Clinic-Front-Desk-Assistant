@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bone: #f6faf8;
-  --color-bone-deep: #ebf3ef;
-  --color-pine: #0e615c;
-  --color-pine-soft: #0a4c48;
-  --color-moss: #527065;
-  --color-sage: #8cb5a3;
-  --color-gold: #3fb484; /* Replaced PDF gold with Afiya Logo Vibrant Leaf Mint */
-  --color-mint: #3fb484;
-  --color-pulse: #d9432f;
+  --color-bone: #f8fafc;
+  --color-bone-deep: #f1f5f9;
+  --color-pine: #0284c7; /* Clinical Sapphire / Action Blue */
+  --color-pine-soft: #0369a1;
+  --color-moss: #475569; /* Medical Slate */
+  --color-sage: #94a3b8;
+  --color-gold: #0ea5e9; /* Vibrant Clinical Cyan / Cerulean */
+  --color-mint: #0ea5e9;
+  --color-pulse: #ef4444;
   --color-cream: #ffffff;
-  --color-ink: #122621;
-  --color-ink-muted: #527065;
+  --color-ink: #0f172a; /* Deep Slate Navy */
+  --color-ink-muted: #475569;
 
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -201,7 +201,7 @@ button:focus-visible {
 }
 .lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 36px -12px rgba(17, 56, 43, 0.16);
+  box-shadow: 0 16px 36px -12px rgba(15, 39, 68, 0.16);
 }
 
 /* Glass panel */
@@ -209,11 +209,11 @@ button:focus-visible {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(17, 56, 43, 0.08);
+  border: 1px solid rgba(15, 39, 68, 0.08);
 }
 
 .glass-panel-dark {
-  background: rgba(17, 56, 43, 0.85);
+  background: rgba(15, 39, 68, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -222,21 +222,21 @@ button:focus-visible {
 /* Unified Clinic Design System Classes */
 .clinic-card {
   background-color: #ffffff;
-  border: 1px solid #dce6db;
+  border: 1px solid #e2e8f0;
   border-radius: 1.25rem;
-  box-shadow: 0 1px 3px 0 rgba(17, 56, 43, 0.04);
+  box-shadow: 0 1px 3px 0 rgba(15, 39, 68, 0.04);
 }
 
 .clinic-card-elevated {
   background-color: #ffffff;
-  border: 1px solid #d4dfd3;
+  border: 1px solid #cbd5e1;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 25px -5px rgba(17, 56, 43, 0.06), 0 8px 10px -6px rgba(17, 56, 43, 0.04);
+  box-shadow: 0 10px 25px -5px rgba(15, 39, 68, 0.06), 0 8px 10px -6px rgba(15, 39, 68, 0.04);
 }
 
 .clinic-table-th {
-  background-color: #f3f8f5;
-  color: #527065;
+  background-color: #f0f7ff;
+  color: #475569;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
@@ -250,15 +250,15 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  color: #122621;
-  border-top: 1px solid #edf3eb;
+  color: #0f172a;
+  border-top: 1px solid #e2e8f0;
 }
 
 /* ==========================================================================
    Design Specification: Typography & Sizing System
    Governing rule: Fraunces (serif) appears only in header wordmark, hero
    headlines, and publication titles. Public Sans (sans) covers everything else.
-   Colors: Derived from the Afiya Logo (#0e615c, #3fb484, #122621, #527065).
+   Colors: Clinical Medical Sapphire & Ice Palette (#0284c7, #0ea5e9, #0f172a, #475569).
    ========================================================================== */
 
 .font-fraunces {
@@ -274,34 +274,34 @@ button:focus-visible {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 500;
-  color: #0e615c;
+  color: #0284c7;
 }
 
 .spec-logo-subtitle {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-nav-link {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
   transition: color 0.15s ease;
 }
 .spec-nav-link:hover {
-  color: #0e615c;
+  color: #0284c7;
 }
 
 .spec-nav-link-active {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  color: #0e615c;
+  color: #0284c7;
   text-decoration: underline;
-  text-decoration-color: #3fb484;
+  text-decoration-color: #0ea5e9;
   text-underline-offset: 6px;
   text-decoration-thickness: 2px;
 }
@@ -311,7 +311,7 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
-  color: #3fb484;
+  color: #0284c7;
   text-decoration: underline;
   text-transform: none;
   text-underline-offset: 4px;
@@ -322,7 +322,7 @@ button:focus-visible {
   font-size: clamp(48px, 5.5vw, 64px);
   font-weight: 500;
   line-height: 1.1;
-  color: #0e615c;
+  color: #0f2744;
 }
 
 .spec-hero-subhead {
@@ -330,21 +330,21 @@ button:focus-visible {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-cta-primary {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
-  background-color: #0e615c;
+  background-color: #0284c7;
   color: #ffffff;
   padding: 0.625rem 1.25rem;
   border-radius: 0.625rem;
   transition: background-color 0.15s ease, transform 0.15s ease;
 }
 .spec-cta-primary:hover {
-  background-color: #0a4c48;
+  background-color: #0369a1;
 }
 
 .spec-cta-secondary {
@@ -352,14 +352,14 @@ button:focus-visible {
   font-size: 15px;
   font-weight: 500;
   background-color: transparent;
-  color: #0e615c;
-  border: 1.5px solid #0e615c;
+  color: #0284c7;
+  border: 1.5px solid #0284c7;
   padding: 0.625rem 1.25rem;
   border-radius: 0.625rem;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 .spec-cta-secondary:hover {
-  background-color: rgba(14, 97, 92, 0.06);
+  background-color: rgba(2, 132, 199, 0.06);
 }
 
 /* Sidebar */
@@ -368,22 +368,22 @@ button:focus-visible {
   font-size: 13px;
   font-weight: 400;
   text-transform: none;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-sidebar-nav-item {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-sidebar-nav-item-active {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
-  color: #0e615c;
-  border-left: 3px solid #3fb484;
+  color: #0284c7;
+  border-left: 3px solid #0ea5e9;
 }
 
 .spec-sidebar-icon {
@@ -396,21 +396,21 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 24px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-card-title {
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-big-stat-number {
   font-family: var(--font-body);
   font-size: 30px;
   font-weight: 700;
-  color: #0e615c;
+  color: #0284c7;
   line-height: 1;
 }
 
@@ -418,7 +418,7 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-table-header {
@@ -426,14 +426,14 @@ button:focus-visible {
   font-size: 12px;
   font-weight: 500;
   text-transform: none; /* sentence case */
-  color: #527065;
+  color: #475569;
 }
 
 .spec-table-cell {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-status-badge {
@@ -447,17 +447,17 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-input-text {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 400;
-  color: #122621;
+  color: #0f172a;
 }
 .spec-input-text::placeholder {
-  color: #527065;
+  color: #94a3b8;
   opacity: 0.75;
 }
 
@@ -465,7 +465,7 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 12.5px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-error-text {
@@ -479,7 +479,7 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
-  background-color: #0e615c;
+  background-color: #0284c7;
   color: #ffffff;
 }
 
@@ -488,14 +488,14 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 20px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-profile-handle {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-profile-bio {
@@ -503,21 +503,21 @@ button:focus-visible {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-profile-stat-number {
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-profile-stat-label {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-profile-action-btn {
@@ -530,16 +530,16 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-profile-tab-active {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
-  color: #0e615c;
+  color: #0284c7;
   text-decoration: underline;
-  text-decoration-color: #3fb484;
+  text-decoration-color: #0ea5e9;
   text-underline-offset: 6px;
   text-decoration-thickness: 2px;
 }
@@ -553,28 +553,28 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-feed-subtitle {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 400;
-  color: #527065;
+  color: #475569;
 }
 
 .spec-feed-stat-count {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-feed-caption-user {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-feed-caption-body {
@@ -582,14 +582,14 @@ button:focus-visible {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.45;
-  color: #122621;
+  color: #0f172a;
 }
 
 .spec-feed-hashtag {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
-  color: #0e615c;
+  color: #0284c7;
 }
 
 .spec-feed-timestamp {
@@ -598,7 +598,7 @@ button:focus-visible {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #527065;
+  color: #64748b;
 }
 
 .spec-feed-grid-label {
@@ -611,7 +611,7 @@ button:focus-visible {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 400;
-  color: #527065;
+  color: #64748b;
 }
 
 /* ==========================================================================

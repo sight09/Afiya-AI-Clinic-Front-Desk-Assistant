@@ -130,7 +130,7 @@ export function RoleSwitcherModal({ isOpen, onClose, currentEmail }: RoleSwitche
   function getIcon(role: DemoRoleAccount["role"]) {
     switch (role) {
       case "clinician":
-        return <Stethoscope className="h-4 w-4 text-emerald-400" />;
+        return <Stethoscope className="h-4 w-4 text-sky-400" />;
       case "receptionist":
         return <CalendarCheck className="h-4 w-4 text-amber-400" />;
       case "admin":
@@ -143,18 +143,18 @@ export function RoleSwitcherModal({ isOpen, onClose, currentEmail }: RoleSwitche
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-      <div className="w-full max-w-lg rounded-[28px] border border-[#d6e2d4] bg-white p-6 shadow-2xl space-y-4">
+      <div className="w-full max-w-lg rounded-[28px] border border-[#cbd5e1] bg-white p-6 shadow-2xl space-y-4">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#e7ede5] pb-3">
+        <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-[#11382b] text-[#d49b35]">
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-[#0f2744] text-[#d49b35]">
               <Users className="h-4 w-4" />
             </span>
             <div>
-              <h3 className="font-display text-base font-bold text-[#11382b] leading-tight">
+              <h3 className="font-display text-base font-bold text-[#0f2744] leading-tight">
                 Switch Role / Demo Account
               </h3>
-              <p className="text-[11px] text-[#527060]">
+              <p className="text-[11px] text-[#475569]">
                 Every role opens directly into its own dedicated workspace
               </p>
             </div>
@@ -187,26 +187,26 @@ export function RoleSwitcherModal({ isOpen, onClose, currentEmail }: RoleSwitche
                 onClick={() => handleSwitch(account.email)}
                 className={`w-full flex items-center justify-between rounded-2xl border p-3 text-left transition-all ${
                   isCurrent
-                    ? "border-[#11382b] bg-[#edf5ec] shadow-xs ring-1 ring-[#11382b]/20"
-                    : "border-[#e2ede0] bg-[#fbfdfa] hover:border-[#11382b]/40 hover:bg-white"
+                    ? "border-[#0f2744] bg-[#f0f7ff] shadow-xs ring-1 ring-[#0f2744]/20"
+                    : "border-[#e2e8f0] bg-[#f8fafc] hover:border-[#0284c7] hover:bg-white"
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#11382b] text-white">
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#0f2744] text-white">
                     {getIcon(account.role)}
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-xs text-[#11382b] truncate">{account.name}</p>
+                      <p className="font-bold text-xs text-[#0f2744] truncate">{account.name}</p>
                       {isCurrent && (
-                        <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-bold text-emerald-800">
+                        <span className="inline-flex items-center gap-0.5 rounded-full bg-sky-100 px-2 py-0.5 text-[9px] font-bold text-sky-800">
                           <Check className="h-2.5 w-2.5" />
                           <span>Active</span>
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-[#557564] truncate">{account.title}</p>
-                    <p className="text-[10px] text-[#719180] flex items-center gap-1 mt-0.5">
+                    <p className="text-[11px] text-[#475569] truncate">{account.title}</p>
+                    <p className="text-[10px] text-[#64748b] flex items-center gap-1 mt-0.5">
                       <ArrowRight className="h-2.5 w-2.5" />
                       <span>Default: {account.defaultDestination}</span>
                     </p>
@@ -214,10 +214,10 @@ export function RoleSwitcherModal({ isOpen, onClose, currentEmail }: RoleSwitche
                 </div>
 
                 <div className="shrink-0 flex items-center gap-2 pl-2">
-                  <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#11382b] border border-[#d6e3d5]">
+                  <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#0f2744] border border-[#cbd5e1]">
                     {account.badge}
                   </span>
-                  {isSwitching && <Loader2 className="h-4 w-4 animate-spin text-[#11382b]" />}
+                  {isSwitching && <Loader2 className="h-4 w-4 animate-spin text-[#0284c7]" />}
                 </div>
               </button>
             );
@@ -225,7 +225,7 @@ export function RoleSwitcherModal({ isOpen, onClose, currentEmail }: RoleSwitche
         </div>
 
         {/* Footer info */}
-        <div className="pt-2 border-t border-[#e7ede5] text-[11px] text-[#6b8b7a] flex items-center justify-between">
+        <div className="pt-2 border-t border-[#e2e8f0] text-[11px] text-[#64748b] flex items-center justify-between">
           <span>Password: <code className="bg-gray-100 px-1 py-0.5 rounded text-gray-800">demo1234</code></span>
           <span>Click any role to switch instantly</span>
         </div>

@@ -898,9 +898,7 @@ export function PatientPortal({
           {sidebarOpen ? (
             <div className="flex items-center justify-between pb-3.5 border-b border-white/10 px-1">
               <a href="/" className="flex items-center gap-2.5 group">
-                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 shrink-0 group-hover:border-sky-400/60 transition-colors">
-                  <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-full w-full object-contain filter drop-shadow-xs" />
-                </div>
+                <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-8 w-8 object-contain rounded-lg shrink-0" />
                 <div>
                   <span className="font-display text-[18px] font-medium text-white tracking-tight block leading-tight">
                     Afiya
@@ -927,13 +925,11 @@ export function PatientPortal({
                 className="relative group h-10 w-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer"
                 title="Click to expand sidebar"
               >
-                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 transition-all duration-200 group-hover:opacity-0 group-hover:scale-75">
-                  <img
-                    src="/afiya-icon.png?v=3"
-                    alt="Afiya"
-                    className="h-full w-full object-contain filter drop-shadow-xs"
-                  />
-                </div>
+                <img
+                  src="/afiya-icon.png?v=3"
+                  alt="Afiya"
+                  className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
+                />
                 <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
             </div>
@@ -973,26 +969,26 @@ export function PatientPortal({
                 onClick={() => setActiveTab("chat")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "chat"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-white" : "text-white/60"}`} />
+                  <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>AI Front-Desk</span>
                 </div>
               </button>
             ) : (
               <button
                 onClick={() => setActiveTab("chat")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "chat"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title="AI Front-Desk"
               >
-                <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-white" : "text-white/60"}`} />
+                <MessageSquare className={`h-[19px] w-[19px] shrink-0 ${activeTab === "chat" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
               </button>
             )}
 
@@ -1002,12 +998,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("appointments")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "appointments"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-white" : "text-white/60"}`} />
+                  <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Appointments</span>
                 </div>
                 {confirmedAppointments.length > 0 && (
@@ -1019,14 +1015,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("appointments")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "appointments"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title={`Appointments (${confirmedAppointments.length})`}
               >
-                <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-white" : "text-white/60"}`} />
+                <CalendarDays className={`h-[19px] w-[19px] shrink-0 ${activeTab === "appointments" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                 {confirmedAppointments.length > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                 )}
@@ -1039,12 +1035,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("records")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "records"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-white" : "text-white/60"}`} />
+                  <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Visit Records</span>
                 </div>
                 {records.length > 0 && (
@@ -1056,14 +1052,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("records")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "records"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title={`Visit Records (${records.length})`}
               >
-                <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-white" : "text-white/60"}`} />
+                <ClipboardList className={`h-[19px] w-[19px] shrink-0 ${activeTab === "records" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
               </button>
             )}
 
@@ -1073,12 +1069,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("billing")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "billing"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-white" : "text-white/60"}`} />
+                  <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Billing &amp; Receipts</span>
                 </div>
                 {pendingTotal > 0 && (
@@ -1090,14 +1086,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("billing")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "billing"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title={`Billing & Receipts ${pendingTotal > 0 ? `($${pendingTotal} Due)` : ""}`}
               >
-                <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-white" : "text-white/60"}`} />
+                <CreditCard className={`h-[19px] w-[19px] shrink-0 ${activeTab === "billing" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                 {pendingTotal > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#0ea5e9]" />
                 )}
@@ -1110,12 +1106,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("profile")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "profile"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-white" : "text-white/60"}`} />
+                  <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Digital Health ID</span>
                 </div>
                 <span className="text-[11px] text-white/50 font-medium">Card</span>
@@ -1123,14 +1119,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("profile")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "profile"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title="Digital Health ID Card"
               >
-                <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-white" : "text-white/60"}`} />
+                <QrCode className={`h-[19px] w-[19px] shrink-0 ${activeTab === "profile" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
               </button>
             )}
 
@@ -1140,12 +1136,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("clinic")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "clinic"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-white" : "text-white/60"}`} />
+                  <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Doctors Directory</span>
                 </div>
                 <span className="text-[11px] text-white/50 font-medium">{providersList.length || 3}</span>
@@ -1153,14 +1149,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("clinic")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "clinic"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title="Doctors Directory"
               >
-                <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-white" : "text-white/60"}`} />
+                <Stethoscope className={`h-[19px] w-[19px] shrink-0 ${activeTab === "clinic" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
               </button>
             )}
 
@@ -1170,12 +1166,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("notifications")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "notifications"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-white" : "text-white/60"}`} />
+                  <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Notifications</span>
                 </div>
                 {unreadNotifications > 0 && (
@@ -1187,14 +1183,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("notifications")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "notifications"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title={`Notifications (${unreadNotifications} unread)`}
               >
-                <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-white" : "text-white/60"}`} />
+                <Bell className={`h-[19px] w-[19px] shrink-0 ${activeTab === "notifications" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                 {unreadNotifications > 0 && (
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-rose-500" />
                 )}
@@ -1207,12 +1203,12 @@ export function PatientPortal({
                 onClick={() => setActiveTab("safety")}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-[15px] transition-all cursor-pointer ${
                   activeTab === "safety"
-                    ? "font-medium text-white bg-[#0284c7] shadow-xs border border-[#0ea5e9]/30"
-                    : "font-normal text-white/70 hover:bg-white/10 hover:text-white border border-transparent"
+                    ? "font-medium text-white bg-white/10 border-l-[3px] border-[#0ea5e9] shadow-xs"
+                    : "font-normal text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-white" : "text-white/60"}`} />
+                  <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
                   <span>Safety &amp; Rules</span>
                 </div>
                 <span className="text-[11px] px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300">
@@ -1222,14 +1218,14 @@ export function PatientPortal({
             ) : (
               <button
                 onClick={() => setActiveTab("safety")}
-                className={`h-10 w-10 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                className={`w-full relative flex items-center justify-center p-2.5 rounded-xl transition-all cursor-pointer ${
                   activeTab === "safety"
-                    ? "bg-[#0284c7] text-white shadow-xs border border-[#0ea5e9]/30"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#0f2744] text-white shadow-xs"
+                    : "text-[#64748b] hover:bg-white/5 hover:text-white"
                 }`}
                 title="Clinical Safety & Rules (100% Deterministic)"
               >
-                <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-white" : "text-white/60"}`} />
+                <ShieldCheck className={`h-[19px] w-[19px] shrink-0 ${activeTab === "safety" ? "text-[#0ea5e9]" : "text-[#475569]"}`} />
               </button>
             )}
           </nav>

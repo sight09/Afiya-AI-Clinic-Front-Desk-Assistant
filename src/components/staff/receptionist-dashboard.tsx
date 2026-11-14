@@ -673,9 +673,7 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 shrink-0">
-                  <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-full w-full object-contain filter drop-shadow-xs" />
-                </div>
+                <img src="/afiya-icon.png?v=3" alt="Afiya" className="h-8 w-8 object-contain rounded-lg shrink-0" />
                 <div>
                   <p className="font-display text-[18px] font-medium text-white tracking-tight leading-none">Afiya</p>
                   <p className="font-sans text-[12px] font-normal tracking-normal text-sky-300 mt-0.5">Reception Desk</p>
@@ -792,13 +790,11 @@ export function ReceptionistDashboard({ user }: { user: { name: string; role: st
                 title="Click to expand sidebar"
                 className="relative group h-10 w-10 rounded-xl hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer"
               >
-                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f2744] p-1 flex items-center justify-center shadow-xs border border-sky-400/30 transition-all duration-200 group-hover:opacity-0 group-hover:scale-75">
-                  <img
-                    src="/afiya-icon.png?v=3"
-                    alt="Afiya"
-                    className="h-full w-full object-contain filter drop-shadow-xs"
-                  />
-                </div>
+                <img
+                  src="/afiya-icon.png?v=3"
+                  alt="Afiya"
+                  className="h-8 w-8 object-contain rounded-lg transition-all duration-200 group-hover:opacity-0 group-hover:scale-75"
+                />
                 <PanelLeft className="h-5 w-5 text-sky-400 absolute opacity-0 scale-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100" />
               </button>
 

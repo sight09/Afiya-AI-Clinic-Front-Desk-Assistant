@@ -1,12 +1,17 @@
 {
-  "name": "nextjs-postgresql-template",
+  "name": "afiya-ai-clinic-assistant",
+  "version": "1.0.0",
+  "description": "Intelligent AI Front-Desk Assistant, Clinical Workflow Automation Engine & Healthcare Operations Platform",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "eval": "tsx scripts/run-eval.ts",
     "db:reset": "tsx -r dotenv/config src/db/seed.ts",
     "db:seed": "tsx -r dotenv/config src/db/seed.ts"
   },

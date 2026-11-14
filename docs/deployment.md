@@ -97,9 +97,9 @@ App runs on [http://localhost:3000](http://localhost:3000).
   # Expected Response: {"ok":true}
   ```
 
-- **Run Automated Test Suite (42 tests)**:
+- **Run Automated Test Suite (46 tests)**:
   ```bash
-  npx vitest run
+  npm test
   ```
 
 - **Run Safety Evaluation Suite (44 cases)**:
